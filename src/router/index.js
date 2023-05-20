@@ -25,6 +25,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/Movie.id.vue"),
     },
+    {
+      path: "/my",
+      name: "my",
+      component: () => import("../views/MyView.vue"),
+    },
+    {
+      path: "/my/setting",
+      name: "setting",
+      component: () => import("../views/SettingView.vue"),
+    },
   ],
 });
 
