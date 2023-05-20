@@ -7,16 +7,30 @@ import MovieSlider from "../components/Home/MovieSlider.vue";
 import Banner from "../components/Home/Banner.vue";
 import { Movie } from "../service/repository";
 import Slider from "../components/Global/slider.vue";
+import RankBar from "../components/Home/RankBar.vue";
 </script>
 
 <template>
   <main class="w-full h-full">
     <SearchBar></SearchBar>
+
     <ContentWrap>
+      <RankBar :movies="movies1 && movies1.slice(0, 3)"></RankBar>
       <!-- <LibraryFrame :movies1="movies1" :movies2="movies1"></LibraryFrame> -->
       <Banner></Banner>
-
-      <RecommendComment></RecommendComment>
+      <div class="text-[#efefef] mt-6 text-lg">최신 리뷰 한줄평</div>
+      <Slider :rows="movies1">
+        <template #item="{ data }">
+          <RecommendComment :comments="data" />
+        </template>
+      </Slider>
+      <div class="text-[#efefef] mt-6 text-lg">오늘은 이거 볼까요?</div>
+      <Slider :rows="movies1">
+        <template #item="{ data }">
+          <MovieSlider :movie="data" />
+        </template>
+      </Slider>
+      <div class="text-[#efefef] mt-6 text-lg">키노 회원 들이 보고 있어요!</div>
       <Slider :rows="movies1">
         <template #item="{ data }">
           <MovieSlider :movie="data" />
@@ -57,6 +71,7 @@ export default {
     MovieSlider,
     Banner,
     Slider,
+    RankBar,
   },
 };
 </script>

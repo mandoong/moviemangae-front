@@ -1,7 +1,7 @@
 <template>
   <div
     ref="container"
-    class="w-full gap-4 flex justify-start overflow-x-scroll scrollbar-hide"
+    class="w-full mt-4 gap-4 flex justify-start overflow-x-scroll scrollbar-hide"
     @mousedown.stop="slideStart"
     @mouseup.stop="slideEnd"
   >

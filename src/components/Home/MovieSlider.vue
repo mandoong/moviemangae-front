@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 w-36 rounded-lg">
+  <div class="bg-[#25304B] text-[#98A4B7] w-36 rounded-lg">
     <div
       class="bg-slate-500 w-full aspect-[10/16] w- bg-cover rounded-xl object-cover overflow-hidden scrollbar-hide"
       :style="{ 'background-image': `url(${movie.main_imageUrl})` }"

@@ -1,9 +1,9 @@
 <template>
   <header
-    class="fixed top-0 w-w_main h-12 bg-gradient-to-t from-pink-50 to-white flex justify-between items-center p-2 z-50"
+    class="fixed top-0 w-full h-12 bg-gradient-to-t from-pink-50 to-white flex justify-between items-center p-2 z-50"
   >
-    <div class="pt-4">
-      <img class="w-24 h-24" :src="img" />
+    <div class="w-24 pt-4 overflow-hidden">
+      <img class="w-24 object-cover" :src="img" />
     </div>
     <div class="flex w-32 h-full justify-between items-center">
       <div></div>

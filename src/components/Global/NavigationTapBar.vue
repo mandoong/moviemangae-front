@@ -1,7 +1,5 @@
 <template>
-  <header
-    class="fixed w-w_main bottom-0 h-14 rounded-t-3xl shadow-2xl bg-main z-10"
-  >
+  <div class="fixed w-full bottom-0 h-14 rounded-t-3xl shadow-2xl bg-main z-10">
     <ul class="w-full h-full flex items-center">
       <il v-for="menu in menus" :key="menu" class="flex-1">
         <div
@@ -19,7 +17,7 @@
         </div>
       </il>
     </ul>
-  </header>
+  </div>
 </template>
 
 <script>

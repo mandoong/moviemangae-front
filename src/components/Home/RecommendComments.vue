@@ -1,22 +1,17 @@
 <template>
-  <div class="my-4 flex">
-    <div
-      v-for="comment in comments"
-      :key="comment"
-      class="bg-slate-100 rounded-lg shadow-inner p-4 text-sm"
-    >
-      <div class="text-xs">영화 제목</div>
-      <div class="h-20 py-4 font-bold box">
-        코멘트 내용(너무 재미 있었어요^^) 안녕하세요
+  <div class="w-52 h-28 text-xs text-[#efefef] bg-[#25304B] rounded-lg p-2">
+    <div class="text-xxs text-[#98A4B7]">영화 제목</div>
+    <div class="h-12 py-4 font-bold box">
+      코멘트 내용(너무 재미 있었어요^^) 안녕하세요aaaaaaaaaaaaaaaaaaaaaaaaaaa
+    </div>
+    <div></div>
+    <div class="text-xs text-[#98A4B7] mt-2 flex justify-between items-center">
+      <div class="flex gap-2">
+        <div>O</div>
+        <div>oo 님의 평가</div>
       </div>
-      <div></div>
-      <div class="text-xs flex justify-between items-center">
-        <div>
-          <div>23-02-03</div>
-          <div>oo 님</div>
-        </div>
-        <EllipsisVerticalIcon class="w-6 h-6"></EllipsisVerticalIcon>
-      </div>
+
+      <EllipsisVerticalIcon class="w-6 h-6"></EllipsisVerticalIcon>
     </div>
   </div>
 </template>
