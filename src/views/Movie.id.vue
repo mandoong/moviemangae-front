@@ -114,8 +114,7 @@
 
 <script>
 import ContentWrap from "../components/Global/ContentWrap.vue";
-import Comment from "../components/Movie.id/Comment.vue";
-import { Movie, User } from "../service/repository";
+import { Movie, User, Comment } from "../service/repository";
 import ImdbLogo from "../assets/imdb-logo.png";
 import {
   HandThumbUpIcon,
@@ -130,6 +129,7 @@ export default {
       movie: null,
       img: ImdbLogo,
       onCreateComment: true,
+      comments: [],
     };
   },
 
@@ -142,6 +142,7 @@ export default {
       const id = this.id;
       const movie = await Movie.GetMovieById(id);
       const user = await User.Profile();
+      const movieComment = await Comment.MovieComment(movie.data.id);
 
       if (movie.status === 200) {
         this.movie = movie.data;
@@ -149,7 +150,8 @@ export default {
         this.movie.scoring = JSON.parse(this.movie.scoring);
         this.movie.genre = JSON.parse(this.movie.genre);
         this.movie.actors = this.movie.actors.reverse();
-        console.log(user.data);
+        this.comment = movieComment.data;
+        console.log(movie.data);
       }
     },
   },

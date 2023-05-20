@@ -41,8 +41,6 @@ export default {
 
     async googleLogin() {
       location.href = "http://localhost:3002/auth/login/google";
-
-      this.$router.back();
     },
 
     isToken() {
