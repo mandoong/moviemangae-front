@@ -22,12 +22,7 @@
         </div>
       </div>
       <div>
-        <div
-          class="bg-[#182037] flex items-center px-2 py-0.5 rounded-2xl mt-1 gap-1"
-        >
-          <CurrencyDollarIcon class="w-4 h-4 text-[#FFE860]" />
-          <span class="text-white">0</span>
-        </div>
+        <Point class="mt-1" />
       </div>
     </div>
 
@@ -142,11 +137,11 @@
 import {
   Cog8ToothIcon,
   UserIcon,
-  CurrencyDollarIcon,
   ChevronRightIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/vue/24/solid";
 import { useRouter } from "vue-router";
+import Point from "../components/point.vue";
 
 const router = useRouter();
 </script>

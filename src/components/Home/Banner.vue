@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full my-4">
+  <div class="w-full my-4 z-10">
     <swiper
       :spaceBetween="30"
       :centeredSlides="true"
@@ -16,7 +16,7 @@
       class="w-full h-24"
     >
       <swiper-slide v-for="i in imgs" :key="i"
-        ><img class="h-full w-full object-cover object-center" :src="i"
+        ><img class="h-full w-full object-cover object-center z-10" :src="i"
       /></swiper-slide>
     </swiper>
   </div>
