@@ -10,12 +10,12 @@
       <div>
         <BellIcon class="w-4 h-4 text-subText"></BellIcon>
       </div>
-      <div
+      <button
         class="w-16 flex text-xs text-mainText justify-center bg-gray-400 py-1 px-4 rounded-md"
         @click="googleLogin()"
       >
         {{ isToken() ? "Logout" : "Login" }}
-      </div>
+      </button>
     </div>
   </header>
 </template>
@@ -40,7 +40,8 @@ export default {
     },
 
     async googleLogin() {
-      location.href = "http://localhost:3002/auth/login/google";
+      Cookies.set("redirect", this.$route.fullPath);
+      location.href = `http://localhost:3002/auth/login/google`;
     },
 
     isToken() {

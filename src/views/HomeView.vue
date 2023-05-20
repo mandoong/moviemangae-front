@@ -6,21 +6,22 @@ import ContentWrap from "../components/Global/ContentWrap.vue";
 import MovieSlider from "../components/Home/MovieSlider.vue";
 import Banner from "../components/Home/Banner.vue";
 import { Movie } from "../service/repository";
+import Slider from "../components/Global/slider.vue";
 </script>
 
 <template>
   <main class="w-full h-full">
     <SearchBar></SearchBar>
     <ContentWrap>
-      <LibraryFrame :movies1="movies1" :movies2="movies1"></LibraryFrame>
+      <!-- <LibraryFrame :movies1="movies1" :movies2="movies1"></LibraryFrame> -->
       <Banner></Banner>
+
       <RecommendComment></RecommendComment>
-      <MovieSlider
-        v-if="movies1"
-        title="오늘의 인기 영화"
-        :movies="movies1"
-      ></MovieSlider>
-      <MovieSlider title="따끈한 신작 영화" :movies="movies2"></MovieSlider>
+      <Slider :rows="movies1">
+        <template #item="{ data }">
+          <MovieSlider :movie="data" />
+        </template>
+      </Slider>
 
       <div class="flex justify-center">더 많은 영화 찾으러 가기!</div>
     </ContentWrap>
@@ -55,6 +56,7 @@ export default {
     ContentWrap,
     MovieSlider,
     Banner,
+    Slider,
   },
 };
 </script>

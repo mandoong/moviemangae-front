@@ -1,73 +1,47 @@
 <template>
-  <div v-if="movies" class="my-10">
-    <div class="text-lg font-extrabold my-2">{{ title }}</div>
-    <swiper
-      :slidesPerView="4"
-      :spaceBetween="10"
-      :freeMode="true"
-      :pagination="{
-        clickable: true,
-      }"
-      :modules="modules"
-      class="w-full h-68 rounded-xl"
-    >
-      <swiper-slide
-        v-for="i in movies"
-        :key="i"
-        class="bg-slate-300 rounded-xl"
-      >
-        <div
-          class="bg-slate-500 w-full h-48 rounded-xl object-cover overflow-hidden"
-        >
-          <img :src="i.main_imageUrl" />
-        </div>
-        <div class="flex justify-center flex-col items-center p-2">
-          <div class="w-full text-center truncate">{{ i.title }}</div>
-          <div class="w-full h-6 flex justify-between px-4 mt-2">
-            <div class="flex items-center gap-1">
-              <HandThumbUpIcon class="w-4" />
-              <div>
-                {{ i.like_count / (i.like_count + i.unlike_count) || 0 }}
-              </div>
-            </div>
-            <div class="flex items-center gap-1">
-              <ChatBubbleLeftEllipsisIcon class="w-4" />
-              <div class="text-lg">5</div>
-            </div>
+  <div class="bg-gray-200 w-36 rounded-lg">
+    <div
+      class="bg-slate-500 w-full aspect-[10/16] w- bg-cover rounded-xl object-cover overflow-hidden scrollbar-hide"
+      :style="{ 'background-image': `url(${movie.main_imageUrl})` }"
+    ></div>
+    <div class="flex w-full justify-center flex-col items-center p-2">
+      <div class="w-full text-center truncate">{{ movie.title }}</div>
+      <div class="w-full h-6 flex justify-between px-4 mt-2">
+        <div class="flex items-center gap-1">
+          <HandThumbUpIcon class="w-4" />
+          <div>
+            {{
+              movie.like_count / (movie.like_count + movie.unlike_count) || 0
+            }}
           </div>
         </div>
-      </swiper-slide>
-    </swiper>
+        <div class="flex items-center gap-1">
+          <ChatBubbleLeftEllipsisIcon class="w-4" />
+          <div class="text-lg">5</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+* {
+  user-select: none;
+}
+</style>
 
 <script>
 import {
   HandThumbUpIcon,
   ChatBubbleLeftEllipsisIcon,
 } from "@heroicons/vue/24/outline";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-import { FreeMode } from "swiper";
 
 export default {
-  props: { title: null, movies: null },
-  data() {
-    return {};
-  },
+  props: { movie: { type: Array } },
+
   components: {
-    Swiper,
-    SwiperSlide,
     HandThumbUpIcon,
     ChatBubbleLeftEllipsisIcon,
-  },
-  setup() {
-    return {
-      modules: [FreeMode],
-    };
   },
 };
 </script>

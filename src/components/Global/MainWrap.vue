@@ -12,7 +12,7 @@
 </template>
 
 <style>
-.scroll::-webkit-scrollbar {
+/* .scroll::-webkit-scrollbar {
   display: none;
-}
+} */
 </style>
