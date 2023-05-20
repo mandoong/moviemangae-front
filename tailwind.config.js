@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         main: "#FCE7F3",
+        prime: "#101322",
         sub: "",
         mainText: "#4B5563",
         subText: "",
