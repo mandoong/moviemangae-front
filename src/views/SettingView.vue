@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-16 bg-prime">
+  <div class="pt-4 bg-prime">
     <div class="flex justify-between items-center px-4">
       <div class="w-6 h-6" @click="$router.back()">
         <ChevronLeftIcon class="w-6 h-6 text-[#EFEFEF]" />

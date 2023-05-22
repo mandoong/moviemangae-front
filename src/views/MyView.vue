@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-16 bg-prime">
+  <div class="pt-4 bg-prime">
     <div class="flex justify-end items-center gap-1 px-4">
       <button><UserIcon class="w-5 h-5 text-[#EFEFEF]" /></button>
       <button @click="$router.push('/my/setting')">

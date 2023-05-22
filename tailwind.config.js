@@ -6,9 +6,10 @@ export default {
       colors: {
         main: "#FCE7F3",
         prime: "#101322",
-        sub: "",
-        mainText: "#4B5563",
-        subText: "",
+        sub: "#25304a",
+        sub2: "#172036",
+        primeText: "#efefef",
+        subText: "#98a4b7",
       },
 
       width: {

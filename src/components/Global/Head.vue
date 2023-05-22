@@ -1,25 +1,23 @@
 <template>
-  <header
-<<<<<<< HEAD
-    class="fixed top-0 w-full h-12 bg-gradient-to-t from-pink-50 to-white flex justify-between items-center p-2 z-50"
-=======
-    class="bg-prime fixed w-full h-12 from-pink-50 to-white flex justify-between items-center p-2 z-50"
->>>>>>> feature/main
-  >
-    <div class="w-24 pt-4 overflow-hidden">
-      <img class="w-24 object-cover" :src="img" />
-    </div>
-    <div class="flex h-full justify-between items-center gap-1">
-      <Point :border="true" />
-      <div>
-        <BellIcon class="w-5 h-5 text-[#EFEFEF]"></BellIcon>
+  <header class="w-full fixed h-12 z-50">
+    <div
+      class="max-w-[700px] h-full bg-prime flex justify-between items-center px-2 overflow-hidden"
+    >
+      <div class="w-24 pt-4">
+        <img class="w-24 object-cover" :src="img" />
       </div>
-      <!-- <button
+      <div class="flex h-full justify-between items-center gap-1">
+        <Point :border="true" />
+        <div>
+          <BellIcon class="w-5 h-5 text-[#EFEFEF]"></BellIcon>
+        </div>
+        <!-- <button
         class="w-16 flex text-xs text-mainText justify-center py-1 px-4 rounded-md"
         @click="googleLogin()"
       >
         {{ isToken() ? "Logout" : "Login" }}
       </button> -->
+      </div>
     </div>
   </header>
 </template>

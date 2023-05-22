@@ -17,8 +17,8 @@
 <template>
   <div class="w-full h-16 relative z-40 bg-prime">
     <div
-      class="absolute h-16 bg-prime p-2 transition-all top-0 z-40"
-      :class="focused && '-top-12'"
+      class="absolute h-16 bg-prime p-2 transition-all z-40"
+      :class="focused ? '-top-12' : 'top-0'"
       :style="{ width: 'calc(100% - 8px)' }"
     >
       <div
@@ -34,7 +34,7 @@
       </div>
     </div>
     <Transition>
-      <div v-show="focused" class="h-screen bg-prime z-10">
+      <div v-show="focused" class="h-screen bg-prime z-20">
         <!-- 영화 목록 -->
         <Transition>
           <div v-if="focused" :style="{ transitionDelay: '250ms' }">
@@ -45,9 +45,9 @@
               </div>
             </div>
             <div class="px-4 flex flex-col mt-4 gap-2">
-              <div v-for="movie in movies" class="flex gap-2">
+              <div v-for="movie in movies" class="flex gap-2" :key="movie">
                 <div class="flex-none">
-                  <img class="w-10 aspect-[10/16]" :src="movie.url" />
+                  <img class="w-10 aspect-[10/14]" :src="movie.url" />
                 </div>
                 <div class="flex flex-col">
                   <div class="text-[15px] font-thin text-[#efefef]">
@@ -75,7 +75,11 @@
             </div>
 
             <div class="px-4 flex flex-col mt-4 gap-6">
-              <div v-for="content in contents" class="flex gap-2">
+              <div
+                v-for="content in contents"
+                class="flex gap-2"
+                :key="content"
+              >
                 <div class="flex-none">
                   <img class="w-16 aspect-[16/10]" :src="content.url" />
                 </div>
@@ -95,6 +99,12 @@
             </div>
           </div>
         </Transition>
+        <div
+          class="fixed w-10 h-10 flex justify-center items-center rounded-full bg-[#172036] bottom-20 right-[50%] translate-x-[50%]"
+          @click="exit"
+        >
+          <XMarkIcon class="h-6 w-6" />
+        </div>
       </div>
     </Transition>
   </div>
@@ -104,12 +114,14 @@
 import {
   MagnifyingGlassIcon,
   ChevronRightIcon,
+  XMarkIcon,
 } from "@heroicons/vue/24/outline";
 
 export default {
   components: {
     MagnifyingGlassIcon,
     ChevronRightIcon,
+    XMarkIcon,
   },
   data() {
     return {
@@ -155,7 +167,16 @@ export default {
   },
   watch: {
     focused() {
-      this.$emit("focused");
+      this.$emit("focus");
+      if (!this.focused) {
+        this.$emit("close");
+      }
+    },
+  },
+
+  methods: {
+    exit() {
+      this.focused = false;
     },
   },
 };

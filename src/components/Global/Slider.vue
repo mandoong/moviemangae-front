@@ -1,11 +1,12 @@
 <template>
   <div
     ref="container"
-    class="w-full mt-4 gap-4 flex justify-start overflow-x-scroll scrollbar-hide"
-    @mousedown.stop="slideStart"
-    @mouseup.stop="slideEnd"
+    class="w-full mt-4 flex justify-start overflow-x-scroll scrollbar-hide scroll-smooth'"
+    :class="mouseDragging ? '' : 'scroll-smooth'"
+    @mousedown="slideStart"
+    @mouseup="slideEnd"
   >
-    <div v-for="(row, index) in rows" :key="index">
+    <div class="item px-2" v-for="(row, index) in rows" :key="index">
       <slot name="item" :data="row" />
     </div>
   </div>
@@ -26,15 +27,18 @@ export default {
     return {
       mouseDragging: false,
       startPosition: 0,
+      itemSnapPoint: 0,
     };
   },
 
   mounted() {
     window.addEventListener("mousemove", this.onSlide);
+    window.addEventListener("mouseup", this.slideEnd);
   },
 
   destroyed() {
     window.removeEventListener("mousemove", this.onSlide);
+    window.addEventListener("mouseup", this.slideEnd);
   },
 
   methods: {
@@ -52,8 +56,16 @@ export default {
       }
     },
 
-    slideEnd() {
+    slideEnd(event) {
+      event.stopPropagation();
+      const items = this.$refs.container.querySelector(".item");
+      const point =
+        this.$refs.container.scrollLeft -
+        (this.$refs.container.scrollLeft % items.clientWidth);
+      this.$refs.container.scrollTo({ left: point, behavior: "smooth" });
+
       this.mouseDragging = false;
+      console.log(this.mouseDragging);
     },
   },
 };
