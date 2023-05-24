@@ -92,7 +92,6 @@ import MovieSlider from "../components/Home/MovieSlider.vue";
 import Banner from "../components/Home/Banner.vue";
 import { Movie } from "../service/repository";
 import Slider from "../components/Global/slider.vue";
-import RankBar from "../components/Home/RankBar.vue";
 
 import Head from "../components/Global/Head.vue";
 import UserServiceBanner from "../components/Home/UserServiceBanner.vue";
@@ -100,6 +99,8 @@ import UserFavoriteList from "../components/Home/UserFavoriteList.vue";
 import HomeTitle from "../components/Home/HomeTitle.vue";
 import FlickingList from "../components/Home/FlickingList.vue";
 import HomeServiceBar from "../components/Home/HomeServiceBar.vue";
+import RankBar from "../components/Home/RankBar.vue";
+
 export default {
   data() {
     return {
@@ -153,6 +154,7 @@ export default {
     HomeTitle,
     FlickingList,
     HomeServiceBar,
+    RankBar,
   },
 };
 </script>

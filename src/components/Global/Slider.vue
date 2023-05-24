@@ -3,8 +3,8 @@
     ref="container"
     class="w-full mt-4 flex justify-start overflow-x-scroll scrollbar-hide scroll-smooth'"
     :class="mouseDragging ? '' : 'scroll-smooth'"
-    @mousedown="slideStart"
-    @mouseup="slideEnd"
+    @mousedown.stop="slideStart"
+    @mouseup.stop="slideEnd"
   >
     <div class="item px-2" v-for="(row, index) in rows" :key="index">
       <slot name="item" :data="row" />
@@ -38,7 +38,7 @@ export default {
 
   destroyed() {
     window.removeEventListener("mousemove", this.onSlide);
-    window.addEventListener("mouseup", this.slideEnd);
+    window.removeEventListener("mouseup", this.slideEnd);
   },
 
   methods: {
@@ -57,15 +57,16 @@ export default {
     },
 
     slideEnd(event) {
+      if (this.mouseDragging) {
+        const items = this.$refs.container.querySelector(".item");
+        const point =
+          this.$refs.container.scrollLeft -
+          (this.$refs.container.scrollLeft % items.clientWidth);
+        this.$refs.container.scrollTo({ left: point, behavior: "smooth" });
+      }
       event.stopPropagation();
-      const items = this.$refs.container.querySelector(".item");
-      const point =
-        this.$refs.container.scrollLeft -
-        (this.$refs.container.scrollLeft % items.clientWidth);
-      this.$refs.container.scrollTo({ left: point, behavior: "smooth" });
 
       this.mouseDragging = false;
-      console.log(this.mouseDragging);
     },
   },
 };

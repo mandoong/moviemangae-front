@@ -22,7 +22,7 @@
         <Slider :rows="movie">
           <template #item="{ data }">
             <div
-              class="bg-slate-500 w-28 aspect-[10/16] bg-cover rounded-xl object-cover overflow-hidden scrollbar-hide"
+              class="bg-slate-500 w-28 aspect-[10/14] bg-cover rounded-xl bg-center overflow-hidden scrollbar-hide"
               :style="{ 'background-image': `url(${data.main_imageUrl})` }"
             ></div>
           </template>

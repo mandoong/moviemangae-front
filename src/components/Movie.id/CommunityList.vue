@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full text-main my-4 mb-2">
+  <div class="w-full text-main mb-2 py-4 border-b border-sub">
     <div class="flex justify-between">
       <div class="font-bold">커뮤니티 글</div>
       <ChevronRightIcon class="h-6 w-6 text-gray-500" />
     </div>
     <div
-      class="bg-[#172036] px-4 py-10 h-20 flex justify-between items-center rounded-md mt-4"
+      class="bg-[#172036] px-4 h-20 flex justify-between items-center rounded-md mt-4"
     >
       <div class="w-40 h-12">
         <div class="text-sm">좋아하는 영화 OST 1편</div>

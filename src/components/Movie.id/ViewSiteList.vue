@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full py-2">
+  <div class="w-full pt-2 pb-4 border-b border-sub">
     <div class="w-full flex justify-between">
       <div class="text-main font-bold">지금 여기서 감상</div>
       <div class="text-[#637dea] text-sm">오류 제보</div>

@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        md: "420px",
+      },
       colors: {
         main: "#FCE7F3",
         prime: "#101322",

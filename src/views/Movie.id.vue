@@ -41,7 +41,7 @@
         ></div>
       </div>
 
-      <ContentWrap class="bg-prime h-screen">
+      <ContentWrap class="bg-prime pb-20">
         <LikeButton></LikeButton>
         <ViewSiteList
           :platform="movie.platform"
@@ -55,7 +55,13 @@
           </div>
         </div>
 
-        <CommunityList></CommunityList>
+        <CommunityList />
+
+        <ActorList :actors="movie.actors" :director="movie.director" />
+
+        <RateWrap></RateWrap>
+
+        <MyReview />
       </ContentWrap>
     </div>
   </div>
@@ -73,6 +79,9 @@ import CreateComment from "../components/Movie.id/CreateComment.vue";
 import LikeButton from "../components/Movie.id/likeButton.vue";
 import ViewSiteList from "../components/Movie.id/ViewSiteList.vue";
 import CommunityList from "../components/Movie.id/communityList.vue";
+import ActorList from "../components/Movie.id/ActorList.vue";
+import RateWrap from "../components/Movie.id/RateWrap.vue";
+import MyReview from "../components/Movie.id/MyReview.vue";
 
 export default {
   data() {
@@ -98,11 +107,20 @@ export default {
 
       if (movie.status === 200) {
         this.movie = movie.data;
+        const parser = new DOMParser();
 
         const scoring = JSON.parse(this.movie.scoring);
         this.movie.scoring = scoring.imdbScore;
         this.movie.genre = JSON.parse(this.movie.genre);
+        this.movie.director = JSON.parse(this.movie.director);
         this.movie.actors = this.movie.actors.reverse();
+        this.movie.actors = this.movie.actors.map((v) => {
+          v.character = v.character.replace(/&#x27;/g, "'");
+          v.name = v.name.replace(/&#x27;/g, "'");
+
+          return v;
+        });
+
         this.comment = movieComment.data;
         console.log(movie.data);
       }
@@ -118,6 +136,9 @@ export default {
     LikeButton,
     ViewSiteList,
     CommunityList,
+    ActorList,
+    RateWrap,
+    MyReview,
   },
 };
 </script>
