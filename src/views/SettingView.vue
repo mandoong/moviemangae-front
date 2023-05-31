@@ -1,9 +1,9 @@
 <template>
   <div class="pt-4 bg-prime">
     <div class="flex justify-between items-center px-4">
-      <div class="w-6 h-6" @click="$router.back()">
+      <button class="w-6 h-6" @click="$router.back()">
         <ChevronLeftIcon class="w-6 h-6 text-[#EFEFEF]" />
-      </div>
+      </button>
       <div class="text-[#EFEFEF] text-base">설정</div>
       <div class="opacity-0"><ChevronLeftIcon class="w-6 h-6" /></div>
     </div>

@@ -133,7 +133,8 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+
+<script>
 import {
   Cog8ToothIcon,
   UserIcon,
@@ -142,6 +143,21 @@ import {
 } from "@heroicons/vue/24/solid";
 import { useRouter } from "vue-router";
 import Point from "../components/point.vue";
+import Cookies from "js-cookie";
+
+export default {
+  data() {
+    return {};
+  },
+
+  mounted() {
+    const token = Cookies.get("accessToken");
+
+    if (!token) {
+      this.$router.push("/login");
+    }
+  },
+};
 
 const router = useRouter();
 </script>

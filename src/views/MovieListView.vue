@@ -1,5 +1,8 @@
 <template>
-  <main class="w-full h-screen overflow-y-scroll bg-prime scrollbar-hide">
+  <main
+    ref="scroll"
+    class="w-full h-screen overflow-y-scroll bg-prime scrollbar-hide"
+  >
     <div class="fixed w-full top-0">
       <div
         class="max-w-[700px] bg-prime text-main flex justify-center flex-col items-center px-4"
@@ -28,10 +31,20 @@
       </div>
     </div>
 
-    <div class="w-full px-4 pt-40 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="flex justify-center" v-for="movie in movies" :key="movie">
-        <MovieSlider :movie="movie"></MovieSlider>
-      </div>
+    <div
+      class="w-full px-4 pt-40 grid grid-cols-2 md:grid-cols-4 gap-4"
+      @click="console.log($refs)"
+    >
+      <transition-group name="fade">
+        <div
+          :ref="`movie_${movie.id}`"
+          class="flex justify-center overflow-hidden"
+          v-for="movie in movies"
+          :key="movie"
+        >
+          <MovieSlider :movie="movie"></MovieSlider>
+        </div>
+      </transition-group>
     </div>
   </main>
 </template>
@@ -71,19 +84,53 @@ export default {
       ],
 
       movies: [],
+      yPosition: 0,
     };
+  },
+
+  computed: {
+    header() {
+      if (this.searching) {
+        return false;
+      }
+
+      return this.yPosition < 250;
+    },
   },
 
   mounted() {
     this.fetch();
+    this.$refs.scroll.addEventListener("scroll", this.onScroll);
   },
+
+  destroyed() {
+    this.$refs.scroll.removeEventListener("scroll", this.onScroll);
+  },
+
   methods: {
     async fetch() {
-      const movies = await Movie.GetAllMovie();
-      this.movies = movies.data;
+      const movies = await Movie.GetAllMovie(2);
+      this.movies.push(...movies.data);
       console.log(this.movies[0]);
+    },
+
+    onScroll() {
+      this.yPosition = this.$refs.scroll.scrollTop;
+      const element = this.$refs.movie_120[0];
+      const rect = element.getBoundingClientRect();
+      console.log(this.$refs.scroll.scrollHeight, rect);
     },
   },
   components: { Slider, ChevronDownIcon, MovieSlider },
 };
 </script>
+
+<style>
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 1s ease;
+}
+</style>

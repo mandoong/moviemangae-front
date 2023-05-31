@@ -6,17 +6,17 @@
       <il v-for="menu in menus" :key="menu" class="flex-1">
         <div
           class="flex flex-col justify-center items-center py-2"
-          :class="menu.name === isMenu ? 'text-[#efefef]' : ''"
+          :class="menu.href === isMenu ? 'text-[#efefef]' : ''"
           @click="tabMenu(menu)"
         >
           <Component
             class="w-6 h-6"
-            :class="menu.name === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
+            :class="menu.href === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
             :is="menu.img"
           />
           <div
             class="text-sm"
-            :class="menu.name === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
+            :class="menu.href === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
           >
             {{ menu.name }}
           </div>
@@ -46,7 +46,7 @@ export default {
   },
 
   mounted() {
-    this.isMenu = this.$route;
+    this.isMenu = window.location.pathname;
 
     console.log(this.isMenu);
   },
@@ -54,7 +54,7 @@ export default {
   methods: {
     tabMenu(v) {
       this.$router.push(v.href);
-      this.isMenu = v.name;
+      this.isMenu = v.href;
     },
   },
 

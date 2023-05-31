@@ -11,10 +11,10 @@
         <img class="w-6 h-6" :src="icon[platform]" />
         <div class="text-main font-bold">{{ platform }}</div>
       </div>
-      <div class="w-28 flex items-center gap-2" @click="onClickUrl">
+      <button class="w-28 flex items-center gap-2" @click="onClickUrl">
         <div class="text-[#637dea] text-sm">보러가기</div>
         <ChevronRightIcon class="h-4 w-4 text-subText" />
-      </div>
+      </button>
     </div>
   </div>
 </template>

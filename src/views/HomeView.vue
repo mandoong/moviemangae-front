@@ -41,15 +41,15 @@
 
       <HomeTitle href="/movie/1"> 오늘은 이거 볼까요? 👀 </HomeTitle>
       <Slider :rows="movies1">
-        <template #item="{ data }">
-          <MovieSlider :movie="data" />
+        <template #item="{ data, onClick }">
+          <MovieSlider :movie="data" @onClick="onClick" />
         </template>
       </Slider>
 
       <HomeTitle href="/movie/1"> 키노 회원 들이 보고 있어요! </HomeTitle>
-      <Slider :rows="movies1">
-        <template #item="{ data }">
-          <MovieSlider :movie="data" />
+      <Slider :rows="favoriteMovies">
+        <template #item="{ data, onClick }">
+          <MovieSlider :movie="data" @onClick="onClick" />
         </template>
       </Slider>
 
@@ -64,17 +64,19 @@
       <HomeTitle href="/movie/1"> 인증회원의 인생작 엿보기 🎠</HomeTitle>
       <UserFavoriteList></UserFavoriteList>
 
-      <HomeTitle href="/movie/1"> 5월 넷플릭스 종료 예정작 ⏳ </HomeTitle>
-      <Slider :rows="movies1">
-        <template #item="{ data }">
-          <MovieSlider :movie="data" />
+      <HomeTitle href="/movie/1">
+        {{ new Date().getMonth() + 1 }}월 넷플릭스 종료 예정작 ⏳
+      </HomeTitle>
+      <Slider :rows="deadlineMovies">
+        <template #item="{ data, onClick }">
+          <MovieSlider :movie="data" @onClick="onClick" />
         </template>
       </Slider>
 
       <HomeTitle href="/movie/1"> 볼까말까 고민된다면?!</HomeTitle>
       <Slider :rows="movies1">
-        <template #item="{ data }">
-          <FlickingList :movie="data"></FlickingList>
+        <template #item="{ data, onClick }">
+          <FlickingList :movie="data" @onClick="onClick"></FlickingList>
         </template>
       </Slider>
 
@@ -106,6 +108,8 @@ export default {
     return {
       movies1: null,
       movies2: [{}, {}, {}, {}, {}, {}],
+      deadlineMovies: null,
+      favoriteMovies: null,
       searching: false,
       yPosition: 0,
     };
@@ -121,7 +125,7 @@ export default {
   },
 
   mounted() {
-    this.getTop10Movie();
+    this.fetch();
     this.$refs.scroll.addEventListener("scroll", this.onScroll);
   },
 
@@ -130,10 +134,16 @@ export default {
   },
 
   methods: {
-    async getTop10Movie() {
-      const result = await Movie.GetTop10();
-      this.movies1 = result.data;
+    async fetch() {
+      const top10Movies = await Movie.GetTop10();
+      const deadlineMovies = await Movie.GetDeadlineMovie();
+      const favoriteMovies = await Movie.GetFavoriteMovies();
+
+      this.movies1 = top10Movies.data;
+      this.deadlineMovies = deadlineMovies.data;
+      this.favoriteMovies = favoriteMovies.data;
     },
+
     onScroll() {
       this.yPosition = this.$refs.scroll.scrollTop;
     },

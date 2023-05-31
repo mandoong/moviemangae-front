@@ -1,9 +1,9 @@
 <template>
   <div class="bg-[#172036] text-[#98A4B7] w-36 rounded-lg">
-    <div>
+    <div @mouseup="onClick">
       <div
         class="bg-slate-500 w-full aspect-[10/14] bg-cover rounded-xl object-cover overflow-hidden scrollbar-hide"
-        :style="{ 'background-image': `url(${movie.main_imageUrl})` }"
+        :style="{ 'background-image': `url(${movie.imageUrl})` }"
       ></div>
       <div class="flex w-full justify-center flex-col items-center p-2">
         <div class="w-full text-[#efefef] text-center truncate">
@@ -46,7 +46,16 @@ import {
 } from "@heroicons/vue/24/outline";
 
 export default {
-  props: { movie: { type: Array } },
+  props: {
+    movie: { type: Array },
+    click: { type: Boolean },
+  },
+
+  methods: {
+    onClick() {
+      this.$emit("onClick", `movie/${this.movie.id}`);
+    },
+  },
 
   components: {
     HandThumbUpIcon,

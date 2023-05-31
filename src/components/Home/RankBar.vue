@@ -2,9 +2,9 @@
   <div v-if="movie" class="w-full text-[#efefef]">
     <div class="text-[#efefef] mt-4 text-lg font-bold flex justify-between">
       오늘의 넷플릭스 랭킹
-      <div @click="this.$router.push(href)">
+      <button @click="this.$router.push(href)">
         <ChevronRightIcon class="h-6 w-6 text-gray-500" />
-      </div>
+      </button>
     </div>
     <div class="w-full mt-4 h-20 relative">
       <div
@@ -30,10 +30,12 @@
         <div class="w-10 h-10 flex items-center">
           <div
             class="w-6 aspect-[10/14] bg-cover bg-center rounded-sm"
-            :style="{ 'background-image': `url(${movie.main_imageUrl})` }"
+            :style="{ 'background-image': `url(${movie.imageUrl})` }"
           ></div>
         </div>
-        <div class="ml-2 w-8">{{ index + 1 }}</div>
+        <div class="ml-2 w-8 font-extrabold text-xl">
+          {{ index + 1 }}
+        </div>
         <div class="flex-1">{{ movie.title }}</div>
         <div class="w-10">-</div>
       </div>

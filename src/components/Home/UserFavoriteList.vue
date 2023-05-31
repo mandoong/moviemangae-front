@@ -29,6 +29,7 @@
         </Slider>
       </div>
     </div>
+
     <div
       class="w-full flex justify-between text-sm font-bold mt-4 px-4 bg-[#172036] text-[#efefef] py-2 rounded-lg"
     >

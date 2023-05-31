@@ -3,11 +3,11 @@
     ref="container"
     class="w-full mt-4 flex justify-start overflow-x-scroll scrollbar-hide scroll-smooth'"
     :class="mouseDragging ? '' : 'scroll-smooth'"
-    @mousedown.stop="slideStart"
-    @mouseup.stop="slideEnd"
+    @mousedown="slideStart"
+    @mouseup="slideEnd"
   >
     <div class="item px-2" v-for="(row, index) in rows" :key="index">
-      <slot name="item" :data="row" />
+      <slot name="item" :data="row" :onClick="onClick" />
     </div>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default {
       mouseDragging: false,
       startPosition: 0,
       itemSnapPoint: 0,
+      onSliding: true,
+      href: null,
     };
   },
 
@@ -43,6 +45,7 @@ export default {
 
   methods: {
     slideStart(event) {
+      event.stopPropagation();
       this.mouseDragging = true;
       const scroll = this.$refs.container.scrollLeft;
       this.startPosition = event.clientX + scroll;
@@ -51,22 +54,35 @@ export default {
     onSlide(event) {
       event.stopPropagation();
       if (this.mouseDragging) {
+        this.onSliding = false;
         const movePoint = this.startPosition - event.clientX;
-        this.$refs.container.scrollTo(movePoint, 0);
+        if (this.$refs.container) {
+          this.$refs.container.scrollTo(movePoint, 0);
+        }
       }
     },
 
     slideEnd(event) {
-      if (this.mouseDragging) {
+      event.stopPropagation();
+      if (this.mouseDragging && this.$refs.container) {
         const items = this.$refs.container.querySelector(".item");
+
         const point =
           this.$refs.container.scrollLeft -
           (this.$refs.container.scrollLeft % items.clientWidth);
         this.$refs.container.scrollTo({ left: point, behavior: "smooth" });
       }
-      event.stopPropagation();
-
       this.mouseDragging = false;
+      this.onSliding = true;
+    },
+
+    onClick(row) {
+      if (this.onSliding) {
+        this.mouseDragging = false;
+        window.removeEventListener("mousemove", this.onSlide);
+        window.removeEventListener("mouseup", this.slideEnd);
+        this.$router.push(row);
+      }
     },
   },
 };

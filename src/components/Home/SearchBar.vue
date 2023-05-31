@@ -12,6 +12,15 @@
   transform: translateY(40px);
   opacity: 0;
 }
+
+.fade-enter-from {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 0.5s ease-in;
+}
 </style>
 
 <template>
@@ -28,6 +37,8 @@
         <MagnifyingGlassIcon class="w-4 h-4"></MagnifyingGlassIcon>
         <input
           @focus="focused = true"
+          @input="searchMovie"
+          :value="keyword"
           class="w-full h-10 px-2 relative bottom-[1px] text-[#EFEFEF] text-sm outline-none bg-transparent placeholder:text-[#556781] placeholder:font-light placeholder:text-sm"
           placeholder="영화를 검색해보세요!"
         />
@@ -36,28 +47,37 @@
     <Transition>
       <div v-show="focused" class="h-screen bg-prime z-20">
         <!-- 영화 목록 -->
-        <Transition>
+        <Transition appear-active-class>
           <div v-if="focused" :style="{ transitionDelay: '250ms' }">
             <div class="pt-4 px-4 flex justify-between">
-              <div class="text-[#efefef] text-base font-semibold">영화 3</div>
+              <div class="text-[#efefef] text-base font-semibold">
+                영화 {{ movies.length }}
+              </div>
               <div>
                 <ChevronRightIcon class="w-5 h-5 stroke-2 text-[#efefef]" />
               </div>
             </div>
             <div class="px-4 flex flex-col mt-4 gap-2">
-              <div v-for="movie in movies" class="flex gap-2" :key="movie">
-                <div class="flex-none">
-                  <img class="w-10 aspect-[10/14]" :src="movie.url" />
-                </div>
-                <div class="flex flex-col">
-                  <div class="text-[15px] font-thin text-[#efefef]">
-                    {{ movie.title }}
+              <transition-group name="fade" mode="in-out">
+                <div
+                  v-for="movie in movies.slice(0, 3)"
+                  class="flex gap-2"
+                  :key="movie"
+                  @click="$router.push(`/movie/${movie.id}`)"
+                >
+                  <div class="flex-none">
+                    <img class="w-10 aspect-[10/14]" :src="movie.imageUrl" />
                   </div>
-                  <div class="text-[#98a4b7] text-xs font-thin">
-                    {{ movie.category }}·{{ movie.year }}
+                  <div class="flex flex-col">
+                    <div class="text-[15px] font-thin text-[#efefef]">
+                      {{ movie.title }}
+                    </div>
+                    <div class="text-[#98a4b7] text-xs font-thin">
+                      {{ movie.genre }} · {{ movie.dateCreated }}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </transition-group>
             </div>
           </div>
         </Transition>
@@ -99,12 +119,12 @@
             </div>
           </div>
         </Transition>
-        <div
+        <button
           class="fixed w-10 h-10 flex justify-center items-center rounded-full bg-[#172036] bottom-20 right-[50%] translate-x-[50%]"
           @click="exit"
         >
           <XMarkIcon class="h-6 w-6" />
-        </div>
+        </button>
       </div>
     </Transition>
   </div>
@@ -116,6 +136,7 @@ import {
   ChevronRightIcon,
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
+import axios from "axios";
 
 export default {
   components: {
@@ -126,26 +147,9 @@ export default {
   data() {
     return {
       focused: false,
-      movies: [
-        {
-          url: "https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/movie_poster_images/280x400/movie_36791_1511861836.jpg",
-          title: "테넷",
-          category: "액션",
-          year: "2009",
-        },
-        {
-          url: "https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/movie_poster_images/280x400/movie_118423_1674239160.jpeg",
-          title: "초합금 로봇 쏠리",
-          category: "액션",
-          year: "2009",
-        },
-        {
-          url: "https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/movie_poster_images/280x400/movie_58446_1523025240.jpg",
-          title: "황금날개",
-          category: "액션",
-          year: "2009",
-        },
-      ],
+      keyword: "",
+      movies: [],
+      typingTimer: null,
       contents: [
         {
           url: "https://file.kinolights.com/original/post_detail/202301/27/2f372575-e5b7-4bf7-91cb-a1b92adbf6f1.jpeg",
@@ -174,9 +178,35 @@ export default {
     },
   },
 
+  computed: {},
+
   methods: {
     exit() {
       this.focused = false;
+    },
+
+    async searchMovie(e) {
+      this.keyword = e.target.value;
+      if (!this.keyword) {
+        return;
+      }
+
+      clearTimeout(this.typingTimer);
+
+      this.typingTimer = setTimeout(async () => {
+        const movies = await axios.get(
+          `http://localhost:3002/movie/search/movie?word=${this.keyword}`
+        );
+
+        if (movies.status === 200) {
+          this.movies = movies.data;
+          const genre = this.movies.genre;
+          this.movies = this.movies.map((v) => {
+            v.genre = JSON.parse(v.genre).join(" ");
+            return v;
+          });
+        }
+      }, 300);
     },
   },
 };

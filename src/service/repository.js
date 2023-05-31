@@ -21,8 +21,8 @@ export const User = {
 };
 
 export const Movie = {
-  GetAllMovie: async () => {
-    return MMAPI.get("/movie/")
+  GetAllMovie: async (page = 0) => {
+    return MMAPI.get(`/movie?page=${page}`)
       .then((res) => res)
       .catch((err) => err);
   },
@@ -53,6 +53,18 @@ export const Movie = {
 
   UnlikeMovie: async (id, userId) => {
     return MMAPI.delete(`/${id}/movie/${userId}/`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
+  GetDeadlineMovie: async () => {
+    return MMAPI.get("/movie/list/deadline")
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
+  GetFavoriteMovies: async () => {
+    return MMAPI.get("/movie/list/favorite")
       .then((res) => res)
       .catch((err) => err);
   },

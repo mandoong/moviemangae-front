@@ -4,7 +4,7 @@
       <div>
         <div>
           <div></div>
-          <div></div>
+          <div>{{ comment.user }}</div>
         </div>
         <div></div>
       </div>
@@ -19,7 +19,13 @@
 <script>
 export default {
   props: {
-    user: { type: Array },
+    comment: { type: Array },
+  },
+
+  data() {
+    return {
+      comment: {},
+    };
   },
 };
 </script>

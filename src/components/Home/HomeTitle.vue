@@ -1,9 +1,9 @@
 <template>
   <div class="text-[#efefef] mt-10 text-lg font-bold flex justify-between">
     <slot></slot>
-    <div @click="this.$router.push(href)">
+    <button @click="this.$router.push(href)">
       <ChevronRightIcon class="h-6 w-6 text-gray-500" />
-    </div>
+    </button>
   </div>
 </template>
 
