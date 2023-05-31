@@ -32,19 +32,17 @@
     </div>
 
     <div
-      class="w-full px-4 pt-40 grid grid-cols-2 md:grid-cols-4 gap-4"
-      @click="console.log($refs)"
+      class="w-full px-4 pt-40 grid grid-cols-2 md:grid-cols-5 gap-2"
+      ref="movieList"
     >
       <transition-group name="fade">
-        <div
-          :ref="`movie_${movie.id}`"
-          class="flex justify-center overflow-hidden"
-          v-for="movie in movies"
-          :key="movie"
-        >
-          <MovieSlider :movie="movie"></MovieSlider>
+        <div v-for="movie in movies" :key="movie">
+          <div class="flex justify-center h-42 overflow-hidden">
+            <MovieList :movie="movie"></MovieList>
+          </div>
         </div>
       </transition-group>
+      <div ref="observer" class="h-20"></div>
     </div>
   </main>
 </template>
@@ -53,7 +51,7 @@
 import { ChevronDownIcon } from "@heroicons/vue/24/outline";
 import Slider from "../components/Global/slider.vue";
 import { Movie } from "../service/repository";
-import MovieSlider from "../components/Home/MovieSlider.vue";
+import MovieList from "../components/Global/MovieList.vue";
 
 export default {
   data() {
@@ -84,50 +82,55 @@ export default {
       ],
 
       movies: [],
-      yPosition: 0,
+      page: 1,
     };
-  },
-
-  computed: {
-    header() {
-      if (this.searching) {
-        return false;
-      }
-
-      return this.yPosition < 250;
-    },
   },
 
   mounted() {
     this.fetch();
-    this.$refs.scroll.addEventListener("scroll", this.onScroll);
+    this.observeMovies();
   },
 
-  destroyed() {
-    this.$refs.scroll.removeEventListener("scroll", this.onScroll);
-  },
+  destroyed() {},
 
   methods: {
     async fetch() {
-      const movies = await Movie.GetAllMovie(2);
+      const movies = await Movie.GetAllMovie();
       this.movies.push(...movies.data);
-      console.log(this.movies[0]);
     },
 
-    onScroll() {
-      this.yPosition = this.$refs.scroll.scrollTop;
-      const element = this.$refs.movie_120[0];
-      const rect = element.getBoundingClientRect();
-      console.log(this.$refs.scroll.scrollHeight, rect);
+    observeMovies() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.addMovies();
+            }
+          });
+        },
+        {
+          threshold: 0,
+        }
+      );
+
+      observer.observe(this.$refs.observer);
+    },
+
+    async addMovies() {
+      const movies = await Movie.GetAllMovie(this.page);
+      this.movies.push(...movies.data);
+      this.page++;
+      console.log(this.page);
     },
   },
-  components: { Slider, ChevronDownIcon, MovieSlider },
+  components: { Slider, ChevronDownIcon, MovieList },
 };
 </script>
 
 <style>
 .fade-enter-from {
   opacity: 0;
+  transform: translateY(40px);
 }
 
 .fade-enter-active {
