@@ -31,7 +31,7 @@
             </div>
             <div class="flex gap-2">
               <img class="w-6 h-6" src="../assets/imdbLogo.png" />
-              <div>{{ movie.scoring || "-" }}</div>
+              <div>{{ movie.scoring.toFixed(1) || "-" }}</div>
             </div>
           </div>
         </div>
@@ -109,8 +109,6 @@ export default {
         this.movie = movie.data;
         const parser = new DOMParser();
 
-        const scoring = JSON.parse(this.movie.scoring);
-        this.movie.scoring = scoring.imdbScore;
         this.movie.genre = JSON.parse(this.movie.genre);
         this.movie.director = JSON.parse(this.movie.director);
         this.movie.actors = this.movie.actors.reverse();

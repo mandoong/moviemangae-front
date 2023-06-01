@@ -21,7 +21,7 @@ MMAPI.interceptors.response.use(
     if (error.request) {
     } else if (error.response) {
       if (error.response.status === 401) {
-        Cookies.remove("auth_token");
+        Cookies.remove("accessToken");
         location.href = "/";
       }
     } else {

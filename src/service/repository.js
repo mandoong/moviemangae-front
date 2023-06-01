@@ -33,6 +33,12 @@ export const Movie = {
       .catch((err) => err);
   },
 
+  GetSelectMovie: async (select) => {
+    return MMAPI.post(`/movie/select/movie`, { dto: select })
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   GetTop10: async () => {
     return MMAPI.get("/top10/today/")
       .then((res) => res)

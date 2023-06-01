@@ -178,8 +178,6 @@ export default {
     },
   },
 
-  computed: {},
-
   methods: {
     exit() {
       this.focused = false;
