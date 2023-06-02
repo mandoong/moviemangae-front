@@ -4,10 +4,12 @@
     class="w-full h-screen overflow-y-scroll bg-prime scrollbar-hide"
     @click="onOption = ''"
   >
-    <div class="fixed w-full top-0 z-10">
+    <div
+      class="fixed w-full top-0 z-20 transition-all duration-300"
+      :class="yPosition > 500 ? '-top-10' : 'top-0'"
+    >
       <div
-        class="max-w-[700px] bg-prime text-main flex justify-center flex-col items-center px-4 transition-all duration-300"
-        :class="yPosition > 500 ? '-translate-y-10' : ''"
+        class="max-w-[700px] bg-prime text-main flex justify-center flex-col items-center px-4"
       >
         <div class="text py-4">작품 탐색</div>
         <div class="w-full flex gap-2">
@@ -133,89 +135,94 @@
 
     <div
       v-if="selectBoxDefault"
-      class="w-full flex text-subText gap-2 px-4 text-sm justify-start flex-wrap mt-40 pb-4 transition-all"
+      class="w-full bg-prime sticky top-0 pt-40 flex text-subText gap-2 px-4 text-sm justify-start flex-wrap pb-4 transition-all duration-300 z-10"
+      :class="yPosition > 500 ? '-translate-y-10' : ''"
     >
-      <div
-        class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
-        v-for="item in selectBox.platform"
-        :key="item"
-      >
-        {{ item
-        }}<XCircleIcon
-          class="h-4 w-4"
-          @click="
-            setTimeout(() => {
-              selectBox.platform = selectBox.platform.filter((e) => e !== item);
-            })
-          "
-        />
-      </div>
-      <div
-        class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
-        v-for="item in selectBox.genre"
-        :key="item"
-      >
-        {{ item
-        }}<XCircleIcon
-          class="h-4 w-4"
-          @click="
-            setTimeout(() => {
-              selectBox.genre = selectBox.genre.filter((e) => e !== item);
-            })
-          "
-        />
-      </div>
+      <transition-group name="fadeDown">
+        <div
+          class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
+          v-for="item in selectBox.platform"
+          :key="item"
+        >
+          {{ item
+          }}<XCircleIcon
+            class="h-4 w-4"
+            @click="
+              setTimeout(() => {
+                selectBox.platform = selectBox.platform.filter(
+                  (e) => e !== item
+                );
+              })
+            "
+          />
+        </div>
+        <div
+          class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
+          v-for="item in selectBox.genre"
+          :key="item"
+        >
+          {{ item
+          }}<XCircleIcon
+            class="h-4 w-4"
+            @click="
+              setTimeout(() => {
+                selectBox.genre = selectBox.genre.filter((e) => e !== item);
+              })
+            "
+          />
+        </div>
 
-      <!-- <div class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"></div> -->
+        <!-- <div class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"></div> -->
 
-      <div
-        v-if="selectBox.scoring[0] !== 0 || selectBox.scoring[1] !== 10"
-        class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"
-      >
-        평점 {{ selectBox.scoring[0] }} ~ {{ selectBox.scoring[1] }}
-        <XCircleIcon
-          class="h-4 w-4"
-          @click="
-            setTimeout(() => {
-              selectBox.scoring = [0, 10];
-              dot1Position = 0;
-              dot2Position = 240;
-            })
-          "
-        />
-      </div>
-      <div
-        v-if="duration"
-        class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"
-      >
-        {{ duration }}
-        <XCircleIcon
-          class="h-5 w-5"
-          @click="
-            setTimeout(() => {
-              duration = null;
-              selectBox.duration = null;
-            })
-          "
-        />
-      </div>
-      <div
-        class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
-        v-for="item in selectBox.presentationType"
-        :key="item"
-      >
-        {{ item
-        }}<XCircleIcon
-          class="h-4 w-4"
-          @click="
-            setTimeout(() => {
-              selectBox.presentationType = selectBox.presentationType.filter(
-                (e) => e !== item
-              );
-            })
-          "
-        />
-      </div>
+        <div
+          v-if="selectBox.scoring[0] !== 0 || selectBox.scoring[1] !== 10"
+          class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"
+        >
+          평점 {{ selectBox.scoring[0] }} ~ {{ selectBox.scoring[1] }}
+          <XCircleIcon
+            class="h-4 w-4"
+            @click="
+              setTimeout(() => {
+                selectBox.scoring = [0, 10];
+                dot1Position = 0;
+                dot2Position = 240;
+              })
+            "
+          />
+        </div>
+        <div
+          v-if="duration"
+          class="bg-sub2 h-6 flex items-center gap-2 px-2 rounded-lg"
+        >
+          {{ duration }}
+          <XCircleIcon
+            class="h-5 w-5"
+            @click="
+              setTimeout(() => {
+                duration = null;
+                selectBox.duration = null;
+              })
+            "
+          />
+        </div>
+        <div
+          class="bg-sub2 h-6 flex items-center gap-1 rounded-2xl px-2"
+          v-for="item in selectBox.presentationType"
+          :key="item"
+        >
+          {{ item
+          }}<XCircleIcon
+            class="h-4 w-4"
+            @click="
+              setTimeout(() => {
+                selectBox.presentationType = selectBox.presentationType.filter(
+                  (e) => e !== item
+                );
+              })
+            "
+          />
+        </div>
+      </transition-group>
     </div>
 
     <div
@@ -224,9 +231,13 @@
       ref="movieList"
     >
       <transition-group appear name="fade">
-        <div v-for="movie in movies" :key="movie">
+        <div
+          v-for="(movie, index) in movies"
+          :key="movie"
+          :style="{ 'transition-delay': `${(index * 0.05) % 1.5}s` }"
+        >
           <div class="flex justify-center h-42 overflow-hidden">
-            <MovieList :movie="movie"></MovieList>
+            <MovieList :movie="movie" @onClick="goto"></MovieList>
           </div>
         </div>
       </transition-group>
@@ -642,6 +653,10 @@ export default {
       e();
       this.startTimer();
     },
+
+    goto(page) {
+      this.$router.push(page);
+    },
   },
   components: { Slider, ChevronDownIcon, MovieList, XCircleIcon },
 };
@@ -657,13 +672,16 @@ export default {
   transition: all 1s ease;
 }
 
-.fadeDown-enter-active {
-  transition: all 1s ease;
+.fadeDown-enter-active,
+.fadeDown-leave-active,
+.fadeDown-move {
+  transition: all 0.2s ease;
 }
 
-.fadeDown-enter-from {
+.fadeDown-enter-from,
+.fadeDown-leave-to {
   opacity: 0;
-  transform: translateY(-40px);
+  transform: translateY(10px);
 }
 
 .option-enter-from,

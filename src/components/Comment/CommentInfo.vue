@@ -1,20 +1,23 @@
 <template>
-  <div class="w-full p-4 bg-sub2 rounded-md text-main">
+  <div
+    v-if="comment"
+    class="w-full px-4 py-2 mt-4 bg-sub2 rounded-md text-main"
+  >
     <div class="w-full flex justify-between">
       <div class="flex">
         <UserCircleIcon class="h-8 w-8 text-gray-500 mr-2" />
-        <div>{{ comment.user.name }}</div>
+        <div class="flex items-center">{{ comment.user.name }}</div>
       </div>
       <div class="text-subText text-sm">0 일전</div>
     </div>
     <div
-      class="w-24 flex justify-center items-center gap-2 text-center rounded-md p-1 border border-[#3b4869]"
+      class="w-20 mt-2 flex justify-center items-center gap-2 text-center rounded-md p-1 border border-[#3b4869]"
     >
-      <FaceSmileIcon class="h-6 w-6 text-gray-500" />
+      <FaceSmileIcon class="h-4 w-4 text-gray-500" />
 
-      <div class="text-sm">좋아요</div>
+      <div class="text-xs">좋아요</div>
     </div>
-    <div class="text-main py-4 font-bold">
+    <div class="text-subText text-sm py-8 px-2 font-bold">
       {{ comment.content }}
     </div>
 
@@ -29,7 +32,7 @@
       </div>
     </div>
 
-    <div class="pb-2 pt-4 flex justify-around border-t border-subText">
+    <div class="pt-2 flex justify-around border-t border-subText">
       <div class="flex justify-center gap-2 flex-1">
         <HeartIcon class="h-6 w-6 text-gray-500" />
         좋아요

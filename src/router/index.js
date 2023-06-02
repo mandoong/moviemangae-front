@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import("../views/MovieListView.vue"),
     },
     {
+      path: "/movie/:id/comment",
+      name: "createComment",
+      component: () => import("../views/CreateCommentView.vue"),
+    },
+    {
       path: "/comment",
       name: "comment",
       component: () => import("../views/CommentsView.vue"),

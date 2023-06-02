@@ -12,6 +12,7 @@
       >
         <div>
           <div class="text-primeText font-bold text-xl">{{ movie.title }}</div>
+          <div class="text-subText">{{ movie.genre.join(" · ") }}</div>
           <div class="text-subText">{{ movie.dateCreated }}</div>
           <div class="flex gap-2 mt-2">
             <img
@@ -31,7 +32,7 @@
             </div>
             <div class="flex gap-2">
               <img class="w-6 h-6" src="../assets/imdbLogo.png" />
-              <div>{{ movie.scoring.toFixed(1) || "-" }}</div>
+              <div>{{ movie.scoring ? movie.scoring.toFixed(1) : "-" }}</div>
             </div>
           </div>
         </div>
@@ -62,6 +63,18 @@
         <RateWrap></RateWrap>
 
         <MyReview />
+
+        <div class="w-full h-8 text-sm text-main flex justify-between">
+          <div>모든 리뷰</div>
+          <div class="w-32 flex justify-end gap-1">
+            <div>좋아요 순</div>
+            <QueueListIcon class="h-5 w-5 pt-1" />
+          </div>
+        </div>
+
+        <div v-for="comment in movie.comments" :key="comment">
+          <CommentInfo :comment="comment"></CommentInfo>
+        </div>
       </ContentWrap>
     </div>
   </div>
@@ -82,6 +95,8 @@ import CommunityList from "../components/Movie.id/communityList.vue";
 import ActorList from "../components/Movie.id/ActorList.vue";
 import RateWrap from "../components/Movie.id/RateWrap.vue";
 import MyReview from "../components/Movie.id/MyReview.vue";
+import { QueueListIcon } from "@heroicons/vue/20/solid";
+import CommentInfo from "../components/Comment/CommentInfo.vue";
 
 export default {
   data() {
@@ -137,6 +152,8 @@ export default {
     ActorList,
     RateWrap,
     MyReview,
+    QueueListIcon,
+    CommentInfo,
   },
 };
 </script>

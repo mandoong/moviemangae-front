@@ -102,6 +102,7 @@ import HomeTitle from "../components/Home/HomeTitle.vue";
 import FlickingList from "../components/Home/FlickingList.vue";
 import HomeServiceBar from "../components/Home/HomeServiceBar.vue";
 import RankBar from "../components/Home/RankBar.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -139,9 +140,20 @@ export default {
       const deadlineMovies = await Movie.GetDeadlineMovie();
       const favoriteMovies = await Movie.GetFavoriteMovies();
 
-      this.movies1 = top10Movies.data;
-      this.deadlineMovies = deadlineMovies.data;
-      this.favoriteMovies = favoriteMovies.data;
+      if (top10Movies.data.length === 0) {
+        const result = await axios.get("http://localhost:3002/crawler/top10/");
+
+        if (result.status === 200) {
+          const top10 = await Movie.GetTop10();
+          this.movies1 = top10.data;
+          this.deadlineMovies = deadlineMovies.data;
+          this.favoriteMovies = favoriteMovies.data;
+        }
+      } else {
+        this.movies1 = top10Movies.data;
+        this.deadlineMovies = deadlineMovies.data;
+        this.favoriteMovies = favoriteMovies.data;
+      }
     },
 
     onScroll() {
