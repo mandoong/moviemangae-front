@@ -62,19 +62,7 @@
 
         <RateWrap></RateWrap>
 
-        <MyReview />
-
-        <div class="w-full h-8 text-sm text-main flex justify-between">
-          <div>모든 리뷰</div>
-          <div class="w-32 flex justify-end gap-1">
-            <div>좋아요 순</div>
-            <QueueListIcon class="h-5 w-5 pt-1" />
-          </div>
-        </div>
-
-        <div v-for="comment in movie.comments" :key="comment">
-          <CommentInfo :comment="comment"></CommentInfo>
-        </div>
+        <MyReview :myReview="myComment[0]" :allReview="comments" />
       </ContentWrap>
     </div>
   </div>
@@ -106,6 +94,7 @@ export default {
 
       onCreateComment: true,
       comments: [],
+      myComment: [],
     };
   },
 
@@ -118,10 +107,10 @@ export default {
       const id = this.id;
       const movie = await Movie.GetMovieById(id);
       const user = await User.Profile();
-      const movieComment = await Comment.MovieComment(movie.data.id);
 
       if (movie.status === 200) {
         this.movie = movie.data;
+
         const parser = new DOMParser();
 
         this.movie.genre = JSON.parse(this.movie.genre);
@@ -134,8 +123,12 @@ export default {
           return v;
         });
 
-        this.comment = movieComment.data;
-        console.log(movie.data);
+        this.comments = this.movie.comments.filter(
+          (e) => e.user.id !== user.data.id
+        );
+        this.myComment = this.movie.comments.filter(
+          (e) => e.user.id === user.data.id
+        );
       }
     },
   },

@@ -47,8 +47,6 @@ export default {
 
   mounted() {
     this.isMenu = window.location.pathname;
-
-    console.log(this.isMenu);
   },
 
   methods: {

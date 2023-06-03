@@ -5,6 +5,7 @@
       <div class="text-sm mt-2">내가 쓴 리뷰</div>
       <div
         class="flex flex-col justify-center items-center text-sm gap-4 py-10"
+        v-if="!myReview"
       >
         <div class="flex flex-col justify-center items-center">
           <div>✍️</div>
@@ -19,11 +20,25 @@
         </button>
       </div>
     </div>
+    <CommentInfo v-if="myReview" :comment="myReview" :isMe="true"></CommentInfo>
+
+    <div class="w-full h-8 mt-4 text-sm text-main flex justify-between">
+      <div>모든 리뷰</div>
+      <div class="w-32 flex justify-end gap-1">
+        <div>좋아요 순</div>
+        <QueueListIcon class="h-5 w-5 pt-1" />
+      </div>
+    </div>
+
+    <div v-for="comment in allReview" :key="comment">
+      <CommentInfo :comment="comment"></CommentInfo>
+    </div>
   </div>
 </template>
 
 <script>
 import { QueueListIcon } from "@heroicons/vue/20/solid";
+import CommentInfo from "../Comment/CommentInfo.vue";
 
 export default {
   props: {
@@ -33,6 +48,6 @@ export default {
   data() {
     return {};
   },
-  components: { QueueListIcon },
+  components: { QueueListIcon, CommentInfo },
 };
 </script>
