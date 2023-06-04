@@ -20,7 +20,11 @@
         </button>
       </div>
     </div>
-    <CommentInfo v-if="myReview" :comment="myReview" :isMe="true"></CommentInfo>
+    <MovieComments
+      v-if="myReview"
+      :comment="myReview"
+      :isMe="true"
+    ></MovieComments>
 
     <div class="w-full h-8 mt-4 text-sm text-main flex justify-between">
       <div>모든 리뷰</div>
@@ -31,7 +35,7 @@
     </div>
 
     <div v-for="comment in allReview" :key="comment">
-      <CommentInfo :comment="comment"></CommentInfo>
+      <MovieComments :comment="comment"></MovieComments>
     </div>
   </div>
 </template>
@@ -39,6 +43,7 @@
 <script>
 import { QueueListIcon } from "@heroicons/vue/20/solid";
 import CommentInfo from "../Comment/CommentInfo.vue";
+import MovieComments from "../Comment/movieComments.vue";
 
 export default {
   props: {
@@ -48,6 +53,6 @@ export default {
   data() {
     return {};
   },
-  components: { QueueListIcon, CommentInfo },
+  components: { QueueListIcon, CommentInfo, MovieComments },
 };
 </script>

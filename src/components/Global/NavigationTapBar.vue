@@ -39,7 +39,7 @@ export default {
       menus: [
         { name: "홈", href: "/", img: HomeIcon },
         { name: "영화", href: "/movie", img: FilmIcon },
-        { name: "댓글", href: "/comment", img: ChatBubbleLeftRightIcon },
+        { name: "리뷰", href: "/comment", img: ChatBubbleLeftRightIcon },
         { name: "마이페이지", href: "/my", img: UserIcon },
       ],
     };

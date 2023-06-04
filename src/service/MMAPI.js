@@ -18,11 +18,10 @@ MMAPI.interceptors.response.use(
   (response) => response,
   (error) => {
     console.log(error);
-    if (error.request) {
-    } else if (error.response) {
+    if (error.response) {
       if (error.response.status === 401) {
         Cookies.remove("accessToken");
-        location.href = "/";
+        location.href = "/login";
       }
     } else {
     }

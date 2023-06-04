@@ -79,7 +79,7 @@ import {
 import CreateComment from "../components/Movie.id/CreateComment.vue";
 import LikeButton from "../components/Movie.id/likeButton.vue";
 import ViewSiteList from "../components/Movie.id/ViewSiteList.vue";
-import CommunityList from "../components/Movie.id/communityList.vue";
+import CommunityList from "../components/Movie.id/CommunityList.vue";
 import ActorList from "../components/Movie.id/ActorList.vue";
 import RateWrap from "../components/Movie.id/RateWrap.vue";
 import MyReview from "../components/Movie.id/MyReview.vue";
@@ -110,6 +110,7 @@ export default {
 
       if (movie.status === 200) {
         this.movie = movie.data;
+        console.log(this.movie);
 
         const parser = new DOMParser();
 

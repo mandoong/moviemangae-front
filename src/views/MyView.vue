@@ -100,15 +100,13 @@
     </div>
 
     <div class="px-4 mt-8 relative">
-      <div class="text-[#EFEFEF]">인생작품</div>
+      <div class="text-[#EFEFEF]">종아하는 영화</div>
       <div class="flex flex-col justify-center items-center gap-4 mt-6 pb-10">
-        <div class="text-sm text-[#98a4b7]">
-          등록한 인생작품이 아직 없습니다.
-        </div>
+        <div class="text-sm text-[#98a4b7]">좋아하는 영화가 아직 없습니다.</div>
         <button
           class="text-[#EFEFEF] bg-[#4263eb] w-[140px] h-10 text-sm rounded-[4px]"
         >
-          인생작품 등록하기
+          나의 영화 등록하기
         </button>
       </div>
 
@@ -144,10 +142,13 @@ import {
 import { useRouter } from "vue-router";
 import Point from "../components/point.vue";
 import Cookies from "js-cookie";
+import { User } from "../service/repository";
 
 export default {
   data() {
-    return {};
+    return {
+      user: { type: Object },
+    };
   },
 
   mounted() {
@@ -155,7 +156,24 @@ export default {
 
     if (!token) {
       this.$router.push("/login");
+    } else {
+      this.fetch();
     }
+  },
+
+  methods: {
+    async fetch() {
+      const user = await User.Profile();
+      this.user = user.data;
+      console.log(this.user);
+    },
+  },
+
+  components: {
+    Cog8ToothIcon,
+    UserIcon,
+    ChevronRightIcon,
+    QuestionMarkCircleIcon,
   },
 };
 

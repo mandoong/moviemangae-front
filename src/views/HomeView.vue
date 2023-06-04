@@ -33,7 +33,7 @@
       <Banner></Banner>
 
       <HomeTitle href="/movie/1"> 최신 리뷰 한줄평 ✍🏻 </HomeTitle>
-      <Slider :rows="movies1">
+      <Slider :rows="recommendComment">
         <template #item="{ data }">
           <RecommendComment :comments="data" />
         </template>
@@ -55,7 +55,7 @@
 
       <HomeTitle href="/movie/1"> 커뮤니티 인기글 🔥</HomeTitle>
 
-      <Slider :rows="movies1">
+      <Slider :rows="recommendComment">
         <template #item="{ data }">
           <RecommendComment :comments="data" />
         </template>
@@ -92,7 +92,7 @@ import RecommendComment from "../components/Home/RecommendComments.vue";
 import ContentWrap from "../components/Global/ContentWrap.vue";
 import MovieSlider from "../components/Home/MovieSlider.vue";
 import Banner from "../components/Home/Banner.vue";
-import { Movie } from "../service/repository";
+import { Comment, Movie } from "../service/repository";
 import Slider from "../components/Global/slider.vue";
 
 import Head from "../components/Global/Head.vue";
@@ -113,6 +113,7 @@ export default {
       favoriteMovies: null,
       searching: false,
       yPosition: 0,
+      recommendComment: [],
     };
   },
   computed: {
@@ -139,6 +140,7 @@ export default {
       const top10Movies = await Movie.GetTop10();
       const deadlineMovies = await Movie.GetDeadlineMovie();
       const favoriteMovies = await Movie.GetFavoriteMovies();
+      const comments = await Comment.getAllComment();
 
       if (top10Movies.data.length === 0) {
         const result = await axios.get("http://localhost:3002/crawler/top10/");
@@ -153,6 +155,7 @@ export default {
         this.movies1 = top10Movies.data;
         this.deadlineMovies = deadlineMovies.data;
         this.favoriteMovies = favoriteMovies.data;
+        this.recommendComment = comments.data;
       }
     },
 

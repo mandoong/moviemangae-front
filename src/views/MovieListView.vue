@@ -5,7 +5,7 @@
     @click="onOption = ''"
   >
     <div
-      class="fixed w-full top-0 z-20 transition-all duration-300"
+      class="fixed w-full z-20 transition-all duration-300"
       :class="yPosition > 500 ? '-top-10' : 'top-0'"
     >
       <div
@@ -230,11 +230,11 @@
       :class="selectBoxDefault ? '' : 'pt-40'"
       ref="movieList"
     >
-      <transition-group appear name="fade">
+      <transition-group name="fade">
         <div
           v-for="(movie, index) in movies"
           :key="movie"
-          :style="{ 'transition-delay': `${(index * 0.05) % 1.5}s` }"
+          :style="{ 'transition-delay': `${(index * 0.04) % 1.2}s` }"
         >
           <div class="flex justify-center h-42 overflow-hidden">
             <MovieList :movie="movie" @onClick="goto"></MovieList>
@@ -672,10 +672,14 @@ export default {
   transition: all 1s ease;
 }
 
+.fade-leave-active {
+  display: none;
+}
+
 .fadeDown-enter-active,
 .fadeDown-leave-active,
 .fadeDown-move {
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in;
 }
 
 .fadeDown-enter-from,
