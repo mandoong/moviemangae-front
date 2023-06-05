@@ -140,7 +140,7 @@ export default {
       const top10Movies = await Movie.GetTop10();
       const deadlineMovies = await Movie.GetDeadlineMovie();
       const favoriteMovies = await Movie.GetFavoriteMovies();
-      const comments = await Comment.getAllComment();
+      const comments = await Comment.GetAllComment();
 
       if (top10Movies.data.length === 0) {
         const result = await axios.get("http://localhost:3002/crawler/top10/");

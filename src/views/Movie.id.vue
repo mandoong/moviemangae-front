@@ -43,7 +43,12 @@
       </div>
 
       <ContentWrap class="bg-prime pb-20">
-        <LikeButton></LikeButton>
+        <LikeButton
+          v-if="user"
+          :movie="movie"
+          :user="user"
+          :comment="myComment[0]"
+        ></LikeButton>
         <ViewSiteList
           :platform="movie.platform"
           :movie-url="movie.standardWebURL"
@@ -77,7 +82,7 @@ import {
   ChatBubbleLeftEllipsisIcon,
 } from "@heroicons/vue/24/outline";
 import CreateComment from "../components/Movie.id/CreateComment.vue";
-import LikeButton from "../components/Movie.id/likeButton.vue";
+import LikeButton from "../components/Movie.id/LikeButton.vue";
 import ViewSiteList from "../components/Movie.id/ViewSiteList.vue";
 import CommunityList from "../components/Movie.id/CommunityList.vue";
 import ActorList from "../components/Movie.id/ActorList.vue";
@@ -91,10 +96,11 @@ export default {
     return {
       id: this.$route.params.id,
       movie: null,
-
+      user: { type: Object },
       onCreateComment: true,
       comments: [],
       myComment: [],
+      isLikedMovie: false,
     };
   },
 
@@ -110,19 +116,7 @@ export default {
 
       if (movie.status === 200) {
         this.movie = movie.data;
-        console.log(this.movie);
-
-        const parser = new DOMParser();
-
         this.movie.genre = JSON.parse(this.movie.genre);
-        this.movie.director = JSON.parse(this.movie.director);
-        this.movie.actors = this.movie.actors.reverse();
-        this.movie.actors = this.movie.actors.map((v) => {
-          v.character = v.character.replace(/&#x27;/g, "'");
-          v.name = v.name.replace(/&#x27;/g, "'");
-
-          return v;
-        });
 
         this.comments = this.movie.comments.filter(
           (e) => e.user.id !== user.data.id
@@ -130,6 +124,8 @@ export default {
         this.myComment = this.movie.comments.filter(
           (e) => e.user.id === user.data.id
         );
+
+        this.user = user.data;
       }
     },
   },

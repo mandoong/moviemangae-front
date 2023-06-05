@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const comment = await Comment.getAllComment();
+      const comment = await Comment.GetAllComment();
       this.comments = comment.data;
     },
   },

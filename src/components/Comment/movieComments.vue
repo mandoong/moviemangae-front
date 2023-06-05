@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="comment"
-    class="w-full px-4 py-2 mt-4 bg-sub2 rounded-md text-main"
-  >
+  <div v-if="comment" class="w-full p-4 mt-4 bg-sub2 rounded-lg text-main">
     <div class="w-full flex justify-between">
       <div class="flex">
         <UserCircleIcon class="h-8 w-8 text-gray-500 mr-2" />
@@ -42,7 +39,7 @@
       </div>
     </div>
 
-    <div class="pt-2 flex justify-around border-t border-subText">
+    <div class="pt-4 flex justify-around border-t border-subText">
       <div class="flex justify-center gap-2 flex-1">
         <HeartIcon class="h-6 w-6 text-gray-500" />
         좋아요

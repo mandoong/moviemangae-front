@@ -22,19 +22,19 @@ export const User = {
 
 export const Movie = {
   GetAllMovie: async (page = 0) => {
-    return MMAPI.get(`/movie?page=${page}`)
+    return MMAPI.get(`/movies/all?page=${page}`)
       .then((res) => res)
       .catch((err) => err);
   },
 
   GetMovieById: async (id) => {
-    return MMAPI.get(`/movie/${id}/`)
+    return MMAPI.get(`/movies/find/${id}/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
   GetSelectMovie: async (select) => {
-    return MMAPI.post(`/movie/select/movie`, { dto: select })
+    return MMAPI.post(`/movies/select/`, { dto: select })
       .then((res) => res)
       .catch((err) => err);
   },
@@ -45,76 +45,70 @@ export const Movie = {
       .catch((err) => err);
   },
 
-  GetMoviePlatform: async (id) => {
-    return MMAPI.get(`/movie/platform/${id}`)
+  addMyMovieList: async (id, type) => {
+    return MMAPI.post(`/movies/${id}/like/`, { type })
       .then((res) => res)
       .catch((err) => err);
   },
 
-  LikeMovie: async (id, userId) => {
-    return MMAPI.get(`/${id}/movie/${userId}/`)
-      .then((res) => res)
-      .catch((err) => err);
-  },
-
-  UnlikeMovie: async (id, userId) => {
-    return MMAPI.delete(`/${id}/movie/${userId}/`)
+  removeMyMovieList: async (id, type) => {
+    return MMAPI.delete(`/movies/${id}/like/`, { data: { type: type } })
       .then((res) => res)
       .catch((err) => err);
   },
 
   GetDeadlineMovie: async () => {
-    return MMAPI.get("/movie/list/deadline")
+    return MMAPI.get("/movies/deadline")
       .then((res) => res)
       .catch((err) => err);
   },
 
   GetFavoriteMovies: async () => {
-    return MMAPI.get("/movie/list/favorite")
+    return MMAPI.get("/movies/favorite")
       .then((res) => res)
       .catch((err) => err);
   },
 };
 
 export const Comment = {
-  MovieComment: async (id) => {
-    return MMAPI.get(`/comment/movie/${id}/`)
+  GetCommentByMovieId: async (id) => {
+    return MMAPI.get(`/comments/movie/${id}/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
-  getAllComment: async () => {
-    return MMAPI.get(`/comment/all/`)
+  GetAllComment: async () => {
+    return MMAPI.get(`/comments/all/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
-  CreateComment: async (post) => {
-    return MMAPI.post(`/comment/`, post)
+  CreateComment: async (data) => {
+    return MMAPI.post(`/comments/`, data)
       .then((res) => res)
       .catch((err) => err);
   },
 
   DeleteComment: async (id) => {
-    return MMAPI.delete(`/comment/${id}/`)
+    return MMAPI.delete(`/comments/${id}/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
   MyComment: async () => {
-    return MMAPI.get(`/comment/my/`)
+    return MMAPI.get(`/comments/my/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
   LikeComment: async (id) => {
-    return MMAPI.get(`/comment/like/${id}/`)
+    return MMAPI.get(`/comments/${id}/like/`)
       .then((res) => res)
       .catch((err) => err);
   },
 
   CancelLikeComment: async (id) => {
-    return MMAPI.delete(`/comment/like/${id}/`)
+    return MMAPI.delete(`/comments/${id}/like/`)
       .then((res) => res)
       .catch((err) => err);
   },
