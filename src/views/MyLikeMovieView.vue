@@ -68,7 +68,7 @@ export default {
     return {
       likeMovies: [],
       dislikeMovies: [],
-      selectType: "like",
+      selectType: null,
       selectMovieList: [],
     };
   },

@@ -1,9 +1,9 @@
 <template>
   <main class="w-full h-screen scrollbar-hide relative">
-    <div class="fixed w-[700px] h-full -z-10">
+    <div class="w-[700px] h-full z-0">
       <div class="grid w-full grid-cols-7 gap-2 bg-black px-2">
         <div
-          class="w-full h-40 bg-cover rounded-md bg-center brightness-[12%] hover:scale-110 duration-150 hover:brightness-[35%]"
+          class="w-full z-0 h-40 bg-cover rounded-md bg-center brightness-[12%] hover:scale-110 duration-150 hover:brightness-[35%]"
           v-for="movie in movieList"
           :key="movie"
           :style="{ 'background-image': `url(${movie.imageUrl})` }"
@@ -11,7 +11,9 @@
       </div>
     </div>
 
-    <div class="w-full h-full pt-64 z-20 flex items-center flex-col">
+    <div
+      class="absolute top-[calc(50%-192px)] w-96 left-[calc(50%-192px)] z-20 flex items-center flex-col"
+    >
       <div>
         <img class="w-56" src="../assets/Logo.png" />
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="movie" class="w-full h-screen relative overflow-hidden">
-    <div class="fixed w-full h-80 -z-10">
+    <div class="w-full h-80 -z-10">
       <div
         class="max-w-[700px] h-full bg-cover bg-center"
         :style="{ 'background-image': `url(${movie.cover_imageUrl})` }"
@@ -15,7 +15,7 @@
       </div>
     </Transition>
 
-    <div class="w-full h-full overflow-y-scroll scrollbar-hide">
+    <div class="absolute top-0 w-full h-full overflow-y-scroll scrollbar-hide">
       <button
         class="w-12 h-16 flex justify-center items-center"
         @click="$router.back()"

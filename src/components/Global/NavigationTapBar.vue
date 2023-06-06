@@ -4,23 +4,18 @@
       class="w-[700px] h-full flex items-center rounded-t-3xl bg-prime shadow-[0_-20px_10px_0_rgba(0,0,0,0.3)]"
     >
       <il v-for="menu in menus" :key="menu" class="flex-1">
-        <div
-          class="flex flex-col justify-center items-center py-2"
-          :class="menu.href === isMenu ? 'text-[#efefef]' : ''"
+        <button
+          class="w-full flex flex-col justify-center items-center rounded-t-3xl py-2"
+          :class="
+            menu.href === isMenu ? 'text-[#efefef] bg-sub' : 'text-subText'
+          "
           @click="tabMenu(menu)"
         >
-          <Component
-            class="w-6 h-6"
-            :class="menu.href === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
-            :is="menu.img"
-          />
-          <div
-            class="text-sm"
-            :class="menu.href === isMenu ? 'text-[#efefef] ' : 'text-mainText'"
-          >
+          <Component class="w-6 h-6" :is="menu.img" />
+          <div>
             {{ menu.name }}
           </div>
-        </div>
+        </button>
       </il>
     </ul>
   </div>

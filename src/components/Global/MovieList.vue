@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#172036] text-[#98A4B7] w-32 rounded-lg">
+  <div class="bg-[#172036] text-[#98A4B7] w-full rounded-lg overflow-hidden">
     <div @mouseup="onClick">
       <div
         class="bg-slate-500 w-full aspect-[10/14] bg-cover rounded-xl overflow-hidden"

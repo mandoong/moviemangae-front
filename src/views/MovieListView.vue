@@ -226,7 +226,7 @@
     </div>
 
     <div
-      class="w-full px-4 grid grid-cols-2 md:grid-cols-5 gap-2"
+      class="w-full px-4 grid grid-cols-3 md:grid-cols-5 gap-2"
       :class="selectBoxDefault ? '' : 'pt-40'"
       ref="movieList"
     >

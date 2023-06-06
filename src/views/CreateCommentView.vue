@@ -26,7 +26,7 @@
           <div>
             <div>{{ movie.title }}</div>
             <div class="text-sm text-subText">
-              {{ movie.genre }}
+              {{ movie.genre.join(" · ") }}
             </div>
             <div class="text-sm text-subText">{{ movie.dateCreated }}</div>
           </div>
@@ -47,7 +47,7 @@
         />
         <transition appear name="fade">
           <div v-if="textValidate" class="text-subText mt-4">
-            * 10자 이상 입력해주세요!
+            * 5자 이상 입력해주세요!
           </div>
         </transition>
       </div>
@@ -97,7 +97,6 @@ export default {
       const movie = await Movie.GetMovieById(id);
 
       this.movie = movie.data;
-      this.movie.genre = JSON.parse(this.movie.genre).join(" · ");
     },
 
     async createComment() {
@@ -108,7 +107,7 @@ export default {
         content: this.textContent,
       };
 
-      if (this.textContent.length < 10) {
+      if (this.textContent.length < 5) {
         this.textValidate = true;
         return;
       }

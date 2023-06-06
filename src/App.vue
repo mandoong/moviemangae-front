@@ -6,7 +6,7 @@ import NavigationTapBar from "./components/Global/NavigationTapBar.vue";
 
 <template>
   <MainWrap>
-    <div class="h-full">
+    <div class="h-full bg-prime">
       <RouterView />
     </div>
   </MainWrap>
