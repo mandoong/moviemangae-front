@@ -38,7 +38,7 @@
         <button
           class="flex flex-1 flex-col justify-center items-center gap-2"
           :class="comment ? 'text-blue-600' : ''"
-          @click="$router.push(`/movie/${$route.params.id}/comment`)"
+          @click="$emit('scrollView')"
         >
           <PencilIcon class="h-6 w-6" />
           <div>리뷰쓰기</div>
@@ -87,6 +87,7 @@ export default {
       if (!this.likeStatus) {
         await Movie.addMyMovieList(id, type);
         this.likeStatus = type;
+        this.$emit("onModal", "영화에 의견을 반영하였습니다. ");
       } else if (this.likeStatus === type) {
         await Movie.removeMyMovieList(id, type);
         this.likeStatus = null;
@@ -96,6 +97,7 @@ export default {
         await Movie.removeMyMovieList(id, isLike);
         await Movie.addMyMovieList(id, type);
         this.likeStatus = type;
+        this.$emit("onModal", "영화에 의견을 반영하였습니다. ");
       }
     },
 

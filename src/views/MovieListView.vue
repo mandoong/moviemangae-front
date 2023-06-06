@@ -234,7 +234,7 @@
         <div
           v-for="(movie, index) in movies"
           :key="movie"
-          :style="{ 'transition-delay': `${(index * 0.04) % 1.2}s` }"
+          :style="{ 'transition-delay': `${(index * 0.04) % 2.4}s` }"
         >
           <div class="flex justify-center h-42 overflow-hidden">
             <MovieList :movie="movie" @onClick="goto"></MovieList>

@@ -15,6 +15,11 @@
       <div>
         <img class="w-56" src="../assets/Logo.png" />
       </div>
+      <div class="text-subText mb-6">
+        로그인을 하고
+        <span class="text-main">서비스</span>
+        를 자유롭게 이용해보세요!
+      </div>
       <button
         class="w-[300px] flex px-1 items-center rounded-md h-12 text-base text-[#444444] font-bold bg-white"
         @click="onClickGoogle"

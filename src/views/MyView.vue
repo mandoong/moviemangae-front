@@ -109,13 +109,28 @@
 
     <div class="px-4 mt-8 relative">
       <div class="text-[#EFEFEF]">나의 베스트 리스트</div>
-      <div class="flex flex-col justify-center items-center gap-4 mt-6 pb-10">
-        <div class="text-sm text-[#98a4b7]">베스트 영화가 아직 없습니다.</div>
-        <button
-          class="text-[#EFEFEF] bg-[#4263eb] w-[140px] h-10 text-sm rounded-[4px]"
-        >
-          나의 영화 등록하기
-        </button>
+      <div>
+        <div class="flex flex-col justify-center items-center gap-4 mt-6 pb-10">
+          <div v-if="!user.best_movies">
+            <div class="text-sm text-[#98a4b7]">
+              베스트 영화가 아직 없습니다.
+            </div>
+            <button
+              class="text-[#EFEFEF] bg-[#4263eb] w-[140px] h-10 text-sm rounded-[4px]"
+            >
+              나의 영화 등록하기
+            </button>
+          </div>
+          <Slider :rows="user.best_movies">
+            <template #item="{ data, onClick }"
+              ><button
+                class="bg-slate-500 w-32 aspect-[10/14] bg-cover rounded-xl overflow-hidden"
+                :style="{ 'background-image': `url(${data.movie.imageUrl})` }"
+                @mouseup="onClick(`/movie/${data.movie.id}`)"
+              ></button>
+            </template>
+          </Slider>
+        </div>
       </div>
 
       <div
@@ -151,6 +166,8 @@ import { useRouter } from "vue-router";
 import Point from "../components/point.vue";
 import Cookies from "js-cookie";
 import { User } from "../service/repository";
+import Slider from "../components/Global/slider.vue";
+import MovieSlider from "../components/Home/MovieSlider.vue";
 
 export default {
   data() {
@@ -182,6 +199,8 @@ export default {
     UserIcon,
     ChevronRightIcon,
     QuestionMarkCircleIcon,
+    Slider,
+    MovieSlider,
   },
 };
 

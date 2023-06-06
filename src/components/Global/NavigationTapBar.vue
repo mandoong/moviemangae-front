@@ -51,8 +51,8 @@ export default {
 
   methods: {
     tabMenu(v) {
-      this.$router.push(v.href);
       this.isMenu = v.href;
+      this.$router.push(v.href);
     },
   },
 

@@ -6,6 +6,15 @@
         :style="{ 'background-image': `url(${movie.cover_imageUrl})` }"
       ></div>
     </div>
+    <Transition appear name="fade">
+      <div
+        v-if="modalActive"
+        class="fixed flex justify-center text-sm items-center text-main w-72 h-10 left-[calc(50%-144px)] top-24 bg-sub rounded-full shadow-2xl z-30"
+      >
+        <div>{{ modalMassage }}</div>
+      </div>
+    </Transition>
+
     <div class="w-full h-full overflow-y-scroll scrollbar-hide">
       <div
         class="w-full h-96 p-4 flex items-end justify-between bg-gradient-to-t from-prime via-prime via-20%"
@@ -48,6 +57,8 @@
           :movie="movie"
           :user="user"
           :comment="myComment[0]"
+          @scrollView="scrollView"
+          @onModal="onModal"
         ></LikeButton>
         <ViewSiteList
           :platform="movie.platform"
@@ -67,7 +78,9 @@
 
         <RateWrap></RateWrap>
 
-        <MyReview :myReview="myComment[0]" :allReview="comments" />
+        <div ref="myComment">
+          <MyReview :myReview="myComment[0]" :allReview="comments" />
+        </div>
       </ContentWrap>
     </div>
   </div>
@@ -101,6 +114,9 @@ export default {
       comments: [],
       myComment: [],
       isLikedMovie: false,
+      modalActive: false,
+      modalMassage: "",
+      modalTimer: null,
     };
   },
 
@@ -128,6 +144,27 @@ export default {
         this.user = user.data;
       }
     },
+
+    scrollView() {
+      if (this.myComment[0]) {
+        const target = this.$refs.myComment;
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+          this.onModal("이미 작성한 리뷰가 있습니다.");
+        }
+      } else {
+        this.$router.push(`/movie/${this.movie.id}/comment`);
+      }
+    },
+
+    onModal(text) {
+      clearTimeout(this.modalTimer);
+      this.modalActive = true;
+      this.modalMassage = text;
+      this.modalTimer = setTimeout(() => {
+        this.modalActive = false;
+      }, 2000);
+    },
   },
 
   components: {
@@ -147,3 +184,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.1s ease-in;
+}
+</style>
