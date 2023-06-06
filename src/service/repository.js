@@ -68,6 +68,12 @@ export const Movie = {
       .then((res) => res)
       .catch((err) => err);
   },
+
+  GetSearchMovies: async (keyword) => {
+    return MMAPI.get(`/movies/search?word=${keyword}`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
 };
 
 export const Comment = {

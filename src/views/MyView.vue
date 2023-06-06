@@ -65,7 +65,10 @@
             <div class="text-sm text-[#efefef]">작성한 리뷰</div>
             <div><QuestionMarkCircleIcon class="w-4 h-4 text-[#586A85]" /></div>
           </div>
-          <button class="flex items-center gap-1">
+          <button
+            class="flex items-center gap-1"
+            @click="$router.push(`/my/comment`)"
+          >
             <div class="text-base text-[#d4d9e1]">
               {{ user.comments.length }}
             </div>
@@ -166,7 +169,7 @@ import { useRouter } from "vue-router";
 import Point from "../components/point.vue";
 import Cookies from "js-cookie";
 import { User } from "../service/repository";
-import Slider from "../components/Global/slider.vue";
+import Slider from "../components/Global/Slider.vue";
 import MovieSlider from "../components/Home/MovieSlider.vue";
 
 export default {

@@ -93,7 +93,7 @@ import ContentWrap from "../components/Global/ContentWrap.vue";
 import MovieSlider from "../components/Home/MovieSlider.vue";
 import Banner from "../components/Home/Banner.vue";
 import { Comment, Movie } from "../service/repository";
-import Slider from "../components/Global/slider.vue";
+import Slider from "../components/Global/Slider.vue";
 
 import Head from "../components/Global/Head.vue";
 import UserServiceBanner from "../components/Home/UserServiceBanner.vue";

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full text-main mb-2 py-4 border-b border-sub">
+  <div class="w-full text-main py-4">
     <div class="flex justify-between">
       <div class="font-bold">커뮤니티 글</div>
       <ChevronRightIcon class="h-6 w-6 text-gray-500" />

@@ -53,9 +53,9 @@
               <div class="text-[#efefef] text-base font-semibold">
                 영화 {{ movies.length }}
               </div>
-              <div>
+              <button @click="onClickSearchMovie">
                 <ChevronRightIcon class="w-5 h-5 stroke-2 text-[#efefef]" />
-              </div>
+              </button>
             </div>
             <div class="px-4 flex flex-col mt-4 gap-2">
               <transition-group name="fade" mode="in-out">
@@ -73,9 +73,12 @@
                       {{ movie.title }}
                     </div>
                     <div class="text-[#98a4b7] text-xs font-thin">
-                      {{ movie.genre }} · {{ movie.dateCreated }}
+                      {{ movie.genre.join(" · ") }} · {{ movie.dateCreated }}
                     </div>
                   </div>
+                </div>
+                <div v-if="keyword && movieUndefine" class="px-4 text-main">
+                  해당 영화를 찾지 못했어요
                 </div>
               </transition-group>
             </div>
@@ -137,6 +140,7 @@ import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import axios from "axios";
+import { Movie } from "../../service/repository";
 
 export default {
   components: {
@@ -149,6 +153,7 @@ export default {
       focused: false,
       keyword: "",
       movies: [],
+      movieUndefine: false,
       typingTimer: null,
       contents: [
         {
@@ -185,6 +190,7 @@ export default {
 
     async searchMovie(e) {
       this.keyword = e.target.value;
+      this.movieUndefine = false;
       if (!this.keyword) {
         return;
       }
@@ -192,19 +198,22 @@ export default {
       clearTimeout(this.typingTimer);
 
       this.typingTimer = setTimeout(async () => {
-        const movies = await axios.get(
-          `http://localhost:3002/movie/search/movie?word=${this.keyword}`
-        );
+        const movies = await Movie.GetSearchMovies(this.keyword);
 
         if (movies.status === 200) {
           this.movies = movies.data;
           const genre = this.movies.genre;
-          this.movies = this.movies.map((v) => {
-            v.genre = JSON.parse(v.genre).join(" ");
-            return v;
-          });
+        }
+        if (this.movies.length === 0) {
+          this.movieUndefine = true;
         }
       }, 300);
+    },
+
+    onClickSearchMovie() {
+      if (this.movies.length > 0) {
+        this.$router.push(`/movie/search?keyword=${this.keyword}`);
+      }
     },
   },
 };

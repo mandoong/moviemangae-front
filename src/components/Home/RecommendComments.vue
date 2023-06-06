@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .box {
   display: -webkit-box;
   word-wrap: break-word;

@@ -107,6 +107,7 @@ export default {
       if (!this.bestStatus) {
         await Movie.addMyMovieList(id, "bestMovie");
         this.bestStatus = true;
+        this.$emit("onModal", "베스트 영화에 등록하였습니다. ");
       } else {
         await Movie.removeMyMovieList(id, "bestMovie");
         this.bestStatus = false;

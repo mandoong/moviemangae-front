@@ -9,15 +9,21 @@
     <Transition appear name="fade">
       <div
         v-if="modalActive"
-        class="fixed flex justify-center text-sm items-center text-main w-72 h-10 left-[calc(50%-144px)] top-24 bg-sub rounded-full shadow-2xl z-30"
+        class="fixed flex justify-center text-sm items-center text-main w-72 h-10 left-[calc(50%-144px)] top-20 bg-sub rounded-full shadow-2xl z-30"
       >
         <div>{{ modalMassage }}</div>
       </div>
     </Transition>
 
     <div class="w-full h-full overflow-y-scroll scrollbar-hide">
+      <button
+        class="w-12 h-16 flex justify-center items-center"
+        @click="$router.back()"
+      >
+        <ChevronLeftIcon class="h-8 w-8 text-main" />
+      </button>
       <div
-        class="w-full h-96 p-4 flex items-end justify-between bg-gradient-to-t from-prime via-prime via-20%"
+        class="w-full h-80 p-4 flex items-end justify-between bg-gradient-to-t from-prime via-prime via-20%"
       >
         <div>
           <div class="text-primeText font-bold text-xl">{{ movie.title }}</div>
@@ -65,14 +71,13 @@
           :movie-url="movie.standardWebURL"
         ></ViewSiteList>
 
-        <div class="w-full my-6">
-          <div class="w-full text-main font-bold my-4">작품 정보</div>
+        <div class="w-full py-6 border-b border-sub">
+          <div class="w-full text-main font-bold mb-4">작품 정보</div>
           <div class="w-full text-subText text-sm">
             {{ movie.description }}
           </div>
+          <!-- <CommunityList /> -->
         </div>
-
-        <CommunityList />
 
         <ActorList :actors="movie.actors" :director="movie.director" />
 
@@ -93,6 +98,7 @@ import ImdbLogo from "../assets/imdbLogo.png";
 import {
   HandThumbUpIcon,
   ChatBubbleLeftEllipsisIcon,
+  ChevronLeftIcon,
 } from "@heroicons/vue/24/outline";
 import CreateComment from "../components/Movie.id/CreateComment.vue";
 import LikeButton from "../components/Movie.id/LikeButton.vue";
@@ -132,7 +138,6 @@ export default {
 
       if (movie.status === 200) {
         this.movie = movie.data;
-        this.movie.genre = JSON.parse(this.movie.genre);
 
         this.comments = this.movie.comments.filter(
           (e) => e.user.id !== user.data.id
@@ -181,11 +186,12 @@ export default {
     MyReview,
     QueueListIcon,
     CommentInfo,
+    ChevronLeftIcon,
   },
 };
 </script>
 
-<style>
+<style scoped>
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

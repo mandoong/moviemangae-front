@@ -30,7 +30,7 @@
 
 <script>
 import CommentInfo from "../components/Comment/CommentInfo.vue";
-import Slider from "../components/Global/slider.vue";
+import Slider from "../components/Global/Slider.vue";
 import HomeTitle from "../components/Home/HomeTitle.vue";
 import RecommendComments from "../components/Home/RecommendComments.vue";
 import { Comment } from "../service/repository";

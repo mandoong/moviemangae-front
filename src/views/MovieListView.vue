@@ -248,7 +248,7 @@
 
 <script>
 import { ChevronDownIcon } from "@heroicons/vue/24/outline";
-import Slider from "../components/Global/slider.vue";
+import Slider from "../components/Global/Slider.vue";
 import { Movie } from "../service/repository";
 import MovieList from "../components/Global/MovieList.vue";
 import { XCircleIcon } from "@heroicons/vue/20/solid";
@@ -662,7 +662,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .fade-enter-from {
   opacity: 0;
   transform: translateY(40px);
