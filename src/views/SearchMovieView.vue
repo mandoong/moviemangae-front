@@ -13,11 +13,11 @@
     </div>
     <div v-for="movie in movies" :key="movie">
       <div
-        class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub p-2 mb-2"
+        class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub2 p-2 mb-2"
         @click="$router.push(`/movie/${movie.id}`)"
       >
         <div
-          class="rounded-lg w-14 aspect-[10/14] bg-cover bg-center"
+          class="rounded-lg w-14 aspect-[10/14] bg-slate-500 bg-cover bg-center"
           :style="{ backgroundImage: `url(${movie.imageUrl})` }"
         ></div>
         <div class="flex-1 h-full">

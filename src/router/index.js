@@ -45,6 +45,11 @@ const router = createRouter({
       component: () => import("../views/MyCommentView.vue"),
     },
     {
+      path: "/my/movie",
+      name: "myMovie",
+      component: () => import("../views/MyLikeMovieView.vue"),
+    },
+    {
       path: "/my/setting",
       name: "setting",
       component: () => import("../views/SettingView.vue"),

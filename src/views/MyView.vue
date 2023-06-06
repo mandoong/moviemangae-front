@@ -33,6 +33,7 @@
       <div class="bg-[#182037] flex py-6 rounded-lg">
         <button
           class="flex-1 flex flex-col items-center justify-center relative"
+          @click="$router.push('/my/movie')"
         >
           <div class="text-xl text-[#EFEFEF]">
             {{ user.liked_movie.length }}
@@ -43,11 +44,12 @@
 
         <button
           class="flex-1 flex flex-col items-center justify-center relative"
+          @click="$router.push('/my/movie?type=dislike')"
         >
           <div class="text-xl text-[#EFEFEF]">
             {{ user.liked_comments.length }}
           </div>
-          <div class="text-sm text-subText">좋아하는 리뷰</div>
+          <div class="text-sm text-subText">별로인 영화</div>
           <div class="absolute w-[1px] h-8 bg-[#25304B] right-0"></div>
         </button>
 
@@ -60,15 +62,15 @@
 
     <div class="px-4 mt-4">
       <div class="bg-[#182037] rounded-lg">
-        <div class="py-4 px-4 flex justify-between relative">
+        <div
+          class="py-4 px-4 flex justify-between relative"
+          @click="$router.push(`/my/comment`)"
+        >
           <div class="flex items-center gap-1">
             <div class="text-sm text-[#efefef]">작성한 리뷰</div>
             <div><QuestionMarkCircleIcon class="w-4 h-4 text-[#586A85]" /></div>
           </div>
-          <button
-            class="flex items-center gap-1"
-            @click="$router.push(`/my/comment`)"
-          >
+          <button class="flex items-center gap-1">
             <div class="text-base text-[#d4d9e1]">
               {{ user.comments.length }}
             </div>

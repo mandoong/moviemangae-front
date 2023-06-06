@@ -7,6 +7,12 @@ export const User = {
       .catch((err) => err);
   },
 
+  GetLikeMovies: async () => {
+    return MMAPI.get("/user/like/movie")
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   UserById: async (id) => {
     return MMAPI.get(`/user/find/${id}/`)
       .then((res) => res)
