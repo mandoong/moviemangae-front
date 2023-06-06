@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Slider from "../Global/slider.vue";
+import Slider from "../Global/Slider.vue";
 import MovieSlider from "./MovieSlider.vue";
 import { Movie } from "../../service/repository";
 import { ArrowPathIcon } from "@heroicons/vue/24/outline";
