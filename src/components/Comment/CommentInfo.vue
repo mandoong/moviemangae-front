@@ -18,12 +18,12 @@
           {{
             date > 30
               ? date > 365
-                ? parseInt(date / 365) + "년"
-                : parseInt(date / 30) + "달"
+                ? parseInt(date / 365) + "년 전"
+                : parseInt(date / 30) + "달 전"
               : date - 1 === 0
-              ? "방금"
-              : date - 1 + "일"
-          }}전
+              ? "오늘"
+              : date - 1 + "일 전"
+          }}
         </div>
       </div>
 
