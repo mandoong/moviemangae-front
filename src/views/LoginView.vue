@@ -56,7 +56,6 @@
 <script>
 import { Movie } from "../service/repository";
 import Cookies from "js-cookie";
-import axios from "axios";
 
 export default {
   data() {
@@ -79,18 +78,10 @@ export default {
       this.movieList = movies.data;
     },
 
-    async onClickAuth(auth) {
+    onClickAuth(auth) {
       const path = window.location.href;
       Cookies.set("redirect", path);
-      // location.href = `${this.loginUrl}/auth/login/${auth}`;
-      try {
-        const result = await axios.get(
-          "https://62kar4rc7f.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/google"
-        );
-        console.log(result.data);
-      } catch {
-        console.error("error");
-      }
+      location.href = `${this.loginUrl}/auth/login/${auth}`;
     },
   },
 };
