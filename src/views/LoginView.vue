@@ -24,7 +24,7 @@
       </div>
       <button
         class="w-[300px] flex px-1 items-center rounded-md h-12 text-base text-[#444444] font-bold bg-white"
-        @click="onClickGoogle('google')"
+        @click="onClickAuth('google')"
       >
         <img
           class="w-10"
@@ -38,12 +38,12 @@
         </div>
         <div class="w-10"></div>
       </button>
-      <button class="mt-2" @click="onClickKakao('kakao')">
+      <button class="mt-2" @click="onClickAuth('kakao')">
         <img src="../assets/kakao_login_medium_wide.png" />
       </button>
       <button
         class="w-[300px] h-12 flex px-1 mt-2 items-center font-bold text-sm rounded-md text-white bg-[#03C75A]"
-        @click="onClickNaver('naver')"
+        @click="onClickAuth('naver')"
       >
         <img class="w-10" src="../assets/btnG_아이콘사각.png" />
         <div class="flex-1 text-center">네이버로 시작하기</div>
@@ -78,7 +78,7 @@ export default {
       this.movieList = movies.data;
     },
 
-    onClickGoogle(auth) {
+    onClickAuth(auth) {
       const path = window.location.href;
       Cookies.set("redirect", path);
       location.href = `${this.loginUrl}/auth/login/${auth}`;
