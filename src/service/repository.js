@@ -45,8 +45,8 @@ export const Movie = {
       .catch((err) => err);
   },
 
-  GetTop10: async () => {
-    return MMAPI.get("/top10/today/")
+  GetTop10: async (type) => {
+    return MMAPI.get(`/top10/today?type=${type}`)
       .then((res) => res)
       .catch((err) => err);
   },

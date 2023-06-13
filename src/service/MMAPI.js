@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const MMAPI = axios.create({
   // baseURL: "http://localhost:3000/dev/", // API의 기본 URL을 설정합니다.
-  baseURL: "https://62kar4rc7f.execute-api.ap-northeast-2.amazonaws.com/dev/", // API의 기본 URL을 설정합니다.
+  baseURL: "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/", // API의 기본 URL을 설정합니다.
 });
 
 const Token = Cookies.get("accessToken") || null;

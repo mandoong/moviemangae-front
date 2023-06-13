@@ -11,10 +11,10 @@
         class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-gradient-to-r to-black from-black via-transparent"
       >
         <div class="flex gap-2">
-          <div>aa</div>
-          <div>박하경 여행기</div>
+          <div></div>
+          <div>{{ movie[0].title }}</div>
         </div>
-        <div>aa</div>
+        <div></div>
       </div>
       <div
         class="flex h-20 items-end justify-between bg-cover bg-center"
@@ -37,23 +37,73 @@
           {{ index + 1 }}
         </div>
         <div class="flex-1">{{ movie.title }}</div>
-        <div class="w-10">-</div>
+        <div
+          class="w-14 flex items-center justify-center text-subText"
+          :class="[
+            rank(index, movie.id) < 0 && 'text-green-400',
+            rank(index, movie.id) > 0 && 'text-red-400',
+          ]"
+        >
+          {{
+            Math.abs(rank(index, movie.id)) === 0
+              ? "-"
+              : Math.abs(rank(index, movie.id))
+          }}
+          <div v-if="rank(index, movie.id) === 0" class="w-4"></div>
+          <ArrowLongDownIcon
+            v-if="rank(index, movie.id) > 0"
+            class="h-4 w-4 text-red-400"
+          />
+          <ArrowLongUpIcon
+            v-if="rank(index, movie.id) < 0"
+            class="h-4 w-4 text-green-400"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ChevronRightIcon } from "@heroicons/vue/24/outline";
+import {
+  ArrowLongDownIcon,
+  ArrowLongUpIcon,
+  ChevronRightIcon,
+} from "@heroicons/vue/24/outline";
 import HomeTitle from "./HomeTitle.vue";
+import { Movie } from "../../service/repository";
 
 export default {
   props: {
     movie: { type: Array },
   },
   data() {
-    return {};
+    return {
+      yesterdayRank: [],
+    };
   },
-  components: { HomeTitle, ChevronRightIcon },
+
+  mounted() {
+    this.fetch();
+  },
+
+  methods: {
+    async fetch() {
+      const movies = await Movie.GetTop10("yesterday");
+      this.yesterdayRank = movies.data;
+    },
+
+    rank(index, id) {
+      const rank = this.yesterdayRank.findIndex((e) => e.id === id);
+      return index - rank;
+    },
+  },
+
+  components: {
+    HomeTitle,
+    ChevronRightIcon,
+    ArrowLongDownIcon,
+    ArrowLongUpIcon,
+  },
 };
 </script>
