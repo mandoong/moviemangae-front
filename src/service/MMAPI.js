@@ -6,7 +6,7 @@ const MMAPI = axios.create({
   baseURL: "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/", // API의 기본 URL을 설정합니다.
 });
 
-const Token = Cookies.get("accessToken") || null;
+const Token = window.localStorage.getItem("accessToken") || null;
 
 if (Token) {
   MMAPI.defaults.headers.Authorization = "Bearer " + Token;

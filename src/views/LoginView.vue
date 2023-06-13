@@ -63,7 +63,7 @@ export default {
       movieList: null,
 
       loginUrl:
-        "https://62kar4rc7f.execute-api.ap-northeast-2.amazonaws.com/dev",
+        "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev",
     };
   },
 

@@ -59,6 +59,21 @@ const router = createRouter({
       name: "login",
       component: () => import("../views/LoginView.vue"),
     },
+    {
+      path: "/login/naver",
+      name: "naverRedirect",
+      component: () => import("../views/loginRedirect/RedirectNaver.vue"),
+    },
+    {
+      path: "/login/google",
+      name: "googleRedirect",
+      component: () => import("../views/loginRedirect/RedirectGoogle.vue"),
+    },
+    {
+      path: "/login/kakao",
+      name: "kakaoRedirect",
+      component: () => import("../views/loginRedirect/RedirectKakao.vue"),
+    },
   ],
 });
 

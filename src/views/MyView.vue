@@ -189,7 +189,7 @@ export default {
   },
 
   mounted() {
-    const token = Cookies.get("accessToken");
+    const token = window.localStorage.getItem("accessToken");
 
     if (!token) {
       this.$router.push("/login");

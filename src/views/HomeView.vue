@@ -103,6 +103,7 @@ import FlickingList from "../components/Home/FlickingList.vue";
 import HomeServiceBar from "../components/Home/HomeServiceBar.vue";
 import RankBar from "../components/Home/RankBar.vue";
 import axios from "axios";
+import { MMAPI } from "../service/MMAPI";
 
 export default {
   data() {
@@ -143,9 +144,7 @@ export default {
       const comments = await Comment.GetAllComment();
 
       if (top10Movies.data.length === 0) {
-        const result = await axios.get(
-          "https://62kar4rc7f.execute-api.ap-northeast-2.amazonaws.com/dev/crawler/top10/"
-        );
+        const result = await MMAPI.get("crawler/top10/");
 
         if (result.status === 200) {
           const top10 = await Movie.GetTop10();
