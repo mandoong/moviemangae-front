@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full flex my-12 gap-4">
+  <div class="w-full grid grid-cols-3 md:grid-cols-6 my-12 gap-4">
     <div
       class="flex-1 h-28 bg-[#25304a] rounded-md p-2"
       v-for="item in items"
       :key="item"
     >
       <div class="h-14">{{ item.icon }}</div>
-      <div class="text-xs font-bold text-[#efefef]">{{ item.text }}</div>
+      <div class="text-xxs font-bold text-[#efefef]">{{ item.text }}</div>
     </div>
   </div>
 </template>

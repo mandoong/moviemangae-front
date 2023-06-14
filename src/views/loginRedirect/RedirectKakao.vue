@@ -54,9 +54,8 @@ export default {
       console.log(accessToken.data, "???");
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);
+        location.href = window.localStorage.getItem("redirect");
       }
-
-      this.$router.push("/my");
     },
   },
 };

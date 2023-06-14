@@ -27,111 +27,197 @@
             ></button>
           </div>
         </div>
-        <div class="w-full flex py-4 gap-2">
-          <div
-            class="px-2 h-6 text-xs font-bold flex items-center relative rounded-md bg-sub"
-            v-for="option in options"
-            :key="option"
-          >
-            <button
-              class="flex gap-2 justify-center items-center"
-              @click.stop="
-                onOption === option.name
-                  ? (onOption = '')
-                  : (onOption = option.name)
-              "
+        <div class="w-full flex items-center">
+          <div class="flex-1 flex py-4 gap-2">
+            <div
+              class="px-2 h-6 text-xs font-bold flex items-center relative rounded-md bg-sub"
+              v-for="option in options"
+              :key="option"
             >
-              <div>{{ option.name }}</div>
-              <ChevronDownIcon class="h-4 w-4 text-main" />
-            </button>
-            <transition name="option">
-              <div
-                v-show="onOption === option.name"
-                class="absolute top-8 left-0 py-1 flex gap-1 flex-col rounded-md border text-sm shadow-2xl bg-sub2 px-2 text-subText"
+              <button
+                class="flex gap-2 justify-center items-center"
+                @click.stop="
+                  onOption === option.name
+                    ? (onOption = '')
+                    : (onOption = option.name)
+                "
               >
-                <div v-if="option.boxName !== 'scoring'">
-                  <button
-                    v-for="item in option.option"
-                    :key="item"
-                    @click.stop="setOption(option.boxName, item)"
-                    :class="
-                      Array.isArray(selectBox[option.boxName])
-                        ? selectBox[option.boxName].some(
-                            (e) => e === item.class
-                          )
+                <div>{{ option.name }}</div>
+                <ChevronDownIcon class="h-4 w-4 text-main" />
+              </button>
+              <transition name="option">
+                <div
+                  v-show="onOption === option.name"
+                  class="absolute top-8 left-0 py-1 flex gap-1 flex-col rounded-md border text-sm shadow-2xl bg-sub2 px-2 text-subText"
+                >
+                  <div v-if="option.boxName !== 'scoring'">
+                    <button
+                      v-for="item in option.option"
+                      :key="item"
+                      @click.stop="setOption(option.boxName, item)"
+                      :class="
+                        Array.isArray(selectBox[option.boxName])
+                          ? selectBox[option.boxName].some(
+                              (e) => e === item.class
+                            )
+                            ? ''
+                            : 'brightness-50'
+                          : selectBox[option.boxName] === item.class
                           ? ''
                           : 'brightness-50'
-                        : selectBox[option.boxName] === item.class
-                        ? ''
-                        : 'brightness-50'
-                    "
+                      "
+                    >
+                      <div class="w-32">
+                        {{ item.tag }}
+                      </div>
+                    </button>
+                  </div>
+
+                  <div
+                    class="w-64 flex justify-center flex-col items-center"
+                    v-if="option.boxName === 'scoring'"
+                    @click.stop
                   >
-                    <div class="w-32">
-                      {{ item.tag }}
-                    </div>
-                  </button>
-                </div>
-
-                <div
-                  class="w-64 flex justify-center flex-col items-center"
-                  v-if="option.boxName === 'scoring'"
-                  @click.stop
-                >
-                  <div>IMDB 점수</div>
-                  <div class="relative w-full mt-4 flex items-center">
-                    <div
-                      ref="bar"
-                      class="w-full h-2 my-2 bg-sub rounded-full flex items-start"
-                    ></div>
-                    <div
-                      class="absolute w-4 h-14 z-20"
-                      :style="{ transform: `translateX(${dot1Position}px)` }"
-                    >
-                      <div class="text-center">
-                        {{ selectBox.scoring[0] }}
+                    <div>IMDB 점수</div>
+                    <div class="relative w-full mt-4 flex items-center">
+                      <div
+                        ref="bar"
+                        class="w-full h-2 my-2 bg-sub rounded-full flex items-start"
+                      ></div>
+                      <div
+                        class="absolute w-4 h-14 z-20"
+                        :style="{ transform: `translateX(${dot1Position}px)` }"
+                      >
+                        <div class="text-center">
+                          {{ selectBox.scoring[0] }}
+                        </div>
+                        <button
+                          ref="dot1"
+                          class="bg-white rounded-full w-4 h-4 z-20"
+                          @mousedown.stop="onClickDot1"
+                          @mouseup.stop="endMoveDot1"
+                          @click.stop
+                        ></button>
                       </div>
-                      <button
-                        ref="dot1"
-                        class="bg-white rounded-full w-4 h-4 z-20"
-                        @mousedown.stop="onClickDot1"
-                        @mouseup.stop="endMoveDot1"
-                        @click.stop
-                      ></button>
-                    </div>
 
-                    <div
-                      class="absolute w-4 h-14 z-20"
-                      :style="{ transform: `translateX(${dot2Position}px)` }"
-                    >
-                      <div class="text-center">
-                        {{ selectBox.scoring[1] }}
+                      <div
+                        class="absolute w-4 h-14 z-20"
+                        :style="{ transform: `translateX(${dot2Position}px)` }"
+                      >
+                        <div class="text-center">
+                          {{ selectBox.scoring[1] }}
+                        </div>
+                        <button
+                          ref="dot2"
+                          class="bg-white rounded-full w-4 h-4 z-20"
+                          @mousedown="onClickDot2"
+                          @mouseup.stop="endMoveDot2"
+                        ></button>
                       </div>
-                      <button
-                        ref="dot2"
-                        class="bg-white rounded-full w-4 h-4 z-20"
-                        @mousedown="onClickDot2"
-                        @mouseup.stop="endMoveDot2"
-                      ></button>
+                      <div
+                        class="h-2 bg-blue-400 absolute rounded-full z-10"
+                        :style="{
+                          width: `${
+                            Math.abs(dot1Position - dot2Position) + 4
+                          }px`,
+                          left: `${
+                            dot1Position > dot2Position
+                              ? dot2Position
+                              : dot1Position
+                          }px`,
+                        }"
+                      ></div>
                     </div>
-                    <div
-                      class="h-2 bg-blue-400 absolute rounded-full z-10"
-                      :style="{
-                        width: `${Math.abs(dot1Position - dot2Position) + 4}px`,
-                        left: `${
-                          dot1Position > dot2Position
-                            ? dot2Position
-                            : dot1Position
-                        }px`,
-                      }"
-                    ></div>
                   </div>
                 </div>
+              </transition>
+            </div>
+          </div>
+          <div class="w-28 text-sm relative flex">
+            <div
+              class="w-full flex justify-end gap-1"
+              @click="onSortOption = !onSortOption"
+            >
+              <div>{{ sortName }}</div>
+              <QueueListIcon class="h-5 w-5 pt-1" />
+            </div>
+            <Transition name="option">
+              <div
+                class="absolute w-28 px-2 py-1 top-6 -left-2 font-bold rounded-md border border-[#e5e7eb] text-sm text-subText shadow-2xl bg-sub2"
+                v-if="onSortOption"
+              >
+                <div
+                  v-for="option in sortOption"
+                  :key="option"
+                  @click="
+                    (sortName = option.tag), (onSortOption = false);
+                    setTimeout(() => {
+                      selectBox.sort = option.option;
+                    });
+                  "
+                >
+                  {{ option.tag }}
+                </div>
               </div>
-            </transition>
+            </Transition>
           </div>
         </div>
       </div>
     </div>
+
+    <transition name="fadeDown">
+      <div
+        v-if="onMovieMenu"
+        class="fixed w-full flex flex-col justify-end bottom-0 h-screen text-main z-30"
+      >
+        <div
+          class="flex-1 max-w-[700px] bg-black opacity-60"
+          @click="onMovieMenu = false"
+        ></div>
+        <div
+          class="h-72 py-2 px-4 rounded-t-xl max-w-[700px] bg-sub text-subText"
+        >
+          <div class="w-full flex items-center mb-4 text-center font-extrabold">
+            <div class="w-6"></div>
+            <div class="flex-1">{{ movieMenuItem.title }}</div>
+            <XMarkIcon
+              class="h-6 w-6 text-subText"
+              @click="onMovieMenu = false"
+            />
+          </div>
+          <div
+            class="mb-3 flex items-center gap-2"
+            @click="$router.push(`movie/${movieMenuItem.id}`)"
+          >
+            <FaceSmileIcon class="h-5 w-5 text-subText" /> 좋아요
+          </div>
+          <div
+            class="mb-3 flex items-center gap-2"
+            @click="$router.push(`movie/${movieMenuItem.id}`)"
+          >
+            <FaceFrownIcon class="h-5 w-5 text-subText" /> 별로에요
+          </div>
+          <div
+            class="mb-3 flex items-center gap-2"
+            @click="onClickCreateComment"
+          >
+            <ChatBubbleLeftIcon class="h-5 w-5 text-subText" /> 리뷰 작성하기
+          </div>
+          <div
+            class="mb-3 flex items-center gap-2"
+            @click="onClickAddBestMovie"
+          >
+            <HandThumbUpIcon
+              class="h-5 w-5"
+              :class="bestStatus ? 'text-green-400' : 'text-subText'"
+            />
+            {{
+              bestStatus ? "나의 베스트 목록에서 제외" : "나의 베스트 영화 등록"
+            }}
+          </div>
+        </div>
+      </div>
+    </transition>
 
     <div
       v-if="selectBoxDefault"
@@ -237,7 +323,11 @@
           :style="{ 'transition-delay': `${(index * 0.04) % 2.4}s` }"
         >
           <div class="flex justify-center h-42 overflow-hidden">
-            <MovieList :movie="movie" @onClick="goto"></MovieList>
+            <MovieList
+              :movie="movie"
+              @onClick="goto"
+              @onMovieMenu="onClickMovieMenu"
+            ></MovieList>
           </div>
         </div>
       </transition-group>
@@ -247,15 +337,27 @@
 </template>
 
 <script>
-import { ChevronDownIcon } from "@heroicons/vue/24/outline";
+import {
+  ChevronDownIcon,
+  QueueListIcon,
+  XMarkIcon,
+} from "@heroicons/vue/24/outline";
 import Slider from "../components/Global/Slider.vue";
-import { Movie } from "../service/repository";
+import { Movie, User } from "../service/repository";
 import MovieList from "../components/Global/MovieList.vue";
-import { XCircleIcon } from "@heroicons/vue/20/solid";
+import {
+  XCircleIcon,
+  HandThumbUpIcon,
+  FaceSmileIcon,
+  FaceFrownIcon,
+  ChatBubbleLeftIcon,
+} from "@heroicons/vue/20/solid";
 
 export default {
   data() {
     return {
+      user: null,
+      bestStatus: false,
       yPosition: 0,
       onOption: "",
       searchTimer: null,
@@ -410,6 +512,7 @@ export default {
         scoring: [0, 10],
         duration: null,
         presentationType: [],
+        sort: "created_at",
       },
       dot1Position: 0,
       dot2Position: 240,
@@ -417,6 +520,16 @@ export default {
       onDragging1: false,
       onDragging2: false,
       duration: null,
+      onSortOption: false,
+      sortName: "최신 순",
+      sortOption: [
+        { option: "like_count", tag: "좋아요 순" },
+        { option: "scoring", tag: "해외 평가 순" },
+        { option: "created_at", tag: "최신 순" },
+      ],
+
+      onMovieMenu: false,
+      movieMenuItem: null,
     };
   },
 
@@ -456,7 +569,9 @@ export default {
     async fetch() {
       this.selectBox.page = 0;
       const movies = await Movie.GetSelectMovie(this.selectBox);
+      const user = await User.Profile();
       this.movies = movies.data;
+      this.user = user.data;
     },
 
     async startTimer() {
@@ -488,6 +603,38 @@ export default {
       this.selectBox.page++;
       const movies = await Movie.GetSelectMovie(this.selectBox);
       this.movies.push(...movies.data);
+    },
+
+    onClickMovieMenu(movie) {
+      this.onMovieMenu = true;
+      this.movieMenuItem = movie;
+
+      if (this.user.best_movies.some((e) => e.movie.id === movie.id)) {
+        this.bestStatus = true;
+      } else {
+        this.bestStatus = false;
+      }
+    },
+
+    onClickCreateComment() {
+      const { id } = this.movieMenuItem;
+      if (this.user.comments.some((e) => e.movie_id === id)) {
+        this.$router.push(`/movie/${id}`);
+      } else {
+        this.$router.push(`/movie/${id}/comment`);
+      }
+    },
+
+    async onClickAddBestMovie() {
+      const { id } = this.movieMenuItem;
+
+      if (!this.bestStatus) {
+        await Movie.addMyMovieList(id, "bestMovie");
+        this.bestStatus = true;
+      } else {
+        await Movie.removeMyMovieList(id, "bestMovie");
+        this.bestStatus = false;
+      }
     },
 
     setPlatform(platform) {
@@ -560,8 +707,9 @@ export default {
 
     onScroll() {
       this.yPosition = this.$refs.scroll.scrollTop;
-      if (this.onOption) {
+      if (this.onOption || this.onSortOption) {
         this.onOption = null;
+        this.onSortOption = false;
       }
     },
 
@@ -658,7 +806,18 @@ export default {
       this.$router.push(page);
     },
   },
-  components: { Slider, ChevronDownIcon, MovieList, XCircleIcon },
+  components: {
+    Slider,
+    ChevronDownIcon,
+    MovieList,
+    XCircleIcon,
+    QueueListIcon,
+    XMarkIcon,
+    HandThumbUpIcon,
+    FaceSmileIcon,
+    FaceFrownIcon,
+    ChatBubbleLeftIcon,
+  },
 };
 </script>
 

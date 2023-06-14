@@ -16,16 +16,16 @@
               class="w-4"
             />
             <div class="mt-1 text-sm font-bold text-[#0ca678]">
-              57.8%
+              57.9%
               <!-- {{
                 movie.like_count / (movie.like_count + movie.unlike_count) || 0
               }} -->
             </div>
           </div>
-          <EllipsisVerticalIcon
-            @click="this.$router.push(`/movie/${movie.id}`)"
-            class="w-6 h-6"
-          ></EllipsisVerticalIcon>
+
+          <div @mouseup.stop class="w-6">
+            <EllipsisVerticalIcon class="w-6 h-6" @click="onMovieMenu" />
+          </div>
         </div>
       </div>
     </div>
@@ -54,6 +54,10 @@ export default {
   methods: {
     onClick() {
       this.$emit("onClick", `movie/${this.movie.id}`);
+    },
+
+    onMovieMenu() {
+      this.$emit("onMovieMenu", this.movie);
     },
   },
 

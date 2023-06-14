@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="w-full flex-1 px-4">
+      <div class="w-full flex-1 px-4 bg-sub2">
         <div class="mt-8 flex justify-between">
           <div>리뷰 작성하기</div>
           <div class="text-subText">( {{ textLength }} / 100 )</div>
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { Comment, Movie } from "../service/repository";
+import { Comment, Movie, User } from "../service/repository";
 
 export default {
   props: {
@@ -95,8 +95,11 @@ export default {
       const id = this.$route.params.id;
 
       const movie = await Movie.GetMovieById(id);
-
+      const user = await User.Profile();
       this.movie = movie.data;
+      if (user.data.comments.some((e) => e.movie_id === Number(id))) {
+        this.$router.push(`/movie/${id}`);
+      }
     },
 
     async createComment() {

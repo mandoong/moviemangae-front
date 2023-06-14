@@ -79,8 +79,6 @@ export default {
     },
 
     onClickAuth(auth) {
-      const path = window.location.href;
-      Cookies.set("redirect", path);
       location.href = `${this.loginUrl}/auth/login/${auth}`;
     },
   },

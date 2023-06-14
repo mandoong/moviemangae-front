@@ -38,10 +38,11 @@
         </div>
         <div class="flex-1">{{ movie.title }}</div>
         <div
-          class="w-14 flex items-center justify-center text-subText"
+          class="w-14 flex items-center justify-center"
           :class="[
             rank(index, movie.id) < 0 && 'text-green-400',
             rank(index, movie.id) > 0 && 'text-red-400',
+            rank(index, movie.id) === 0 && 'text-subText',
           ]"
         >
           {{

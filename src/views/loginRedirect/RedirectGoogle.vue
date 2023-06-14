@@ -49,11 +49,11 @@ export default {
       const query = this.$route.query;
       console.log(query);
       const accessToken = await axios.get(
-        `https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/google-login?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
+        `https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
       );
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);
-        this.$router.push("/my");
+        location.href = window.localStorage.getItem("redirect");
       }
     },
   },

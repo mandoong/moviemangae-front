@@ -32,28 +32,32 @@
       <UserServiceBanner />
       <Banner></Banner>
 
-      <HomeTitle href="/movie/1"> 최신 리뷰 한줄평 ✍🏻 </HomeTitle>
+      <HomeTitle href="/comment"> 최신 리뷰 한줄평 ✍🏻 </HomeTitle>
       <Slider :rows="recommendComment">
         <template #item="{ data }">
           <RecommendComment :comments="data" />
         </template>
       </Slider>
 
-      <HomeTitle href="/movie/1"> 오늘은 이거 볼까요? 👀 </HomeTitle>
+      <HomeTitle href="/movie/list?type=top10">
+        오늘은 이거 볼까요? 👀
+      </HomeTitle>
       <Slider :rows="movies1">
         <template #item="{ data, onClick }">
           <MovieSlider :movie="data" @onClick="onClick" />
         </template>
       </Slider>
 
-      <HomeTitle href="/movie/1"> 키노 회원 들이 보고 있어요! </HomeTitle>
+      <HomeTitle href="/movie/list?type=favorite">
+        지금 회원 들이 보고 있어요!
+      </HomeTitle>
       <Slider :rows="favoriteMovies">
         <template #item="{ data, onClick }">
           <MovieSlider :movie="data" @onClick="onClick" />
         </template>
       </Slider>
 
-      <HomeTitle href="/movie/1"> 커뮤니티 인기글 🔥</HomeTitle>
+      <HomeTitle href="/comment"> 인기있는 리뷰 🔥</HomeTitle>
 
       <Slider :rows="recommendComment">
         <template #item="{ data }">
@@ -64,7 +68,7 @@
       <HomeTitle href="/movie/1"> 인증회원의 인생작 엿보기 🎠</HomeTitle>
       <UserFavoriteList></UserFavoriteList>
 
-      <HomeTitle href="/movie/1">
+      <HomeTitle href="/movie/list?type=deadline">
         {{ new Date().getMonth() + 1 }}월 넷플릭스 종료 예정작 ⏳
       </HomeTitle>
       <Slider :rows="deadlineMovies">
@@ -73,7 +77,9 @@
         </template>
       </Slider>
 
-      <HomeTitle href="/movie/1"> 볼까말까 고민된다면?!</HomeTitle>
+      <HomeTitle href="/movie/list?type=top10">
+        볼까말까 고민된다면?!</HomeTitle
+      >
       <Slider :rows="movies1">
         <template #item="{ data, onClick }">
           <FlickingList :movie="data" @onClick="onClick"></FlickingList>

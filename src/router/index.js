@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import("../views/MovieListView.vue"),
     },
     {
+      path: "/movie/list",
+      name: "movieContainer",
+      component: () => import("../views/HomeMoviesContainerView.vue"),
+    },
+    {
       path: "/movie/search",
       name: "searchMovie",
       component: () => import("../views/SearchMovieView.vue"),
