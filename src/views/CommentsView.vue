@@ -8,7 +8,7 @@
 
     <div class="mb-2 border-b border-subText pb-8">
       <div class="text-main text-lg">지금 핫한 리뷰 🔥</div>
-      <Slider :rows="comments">
+      <Slider :rows="bestComments">
         <template #item="{ data }">
           <RecommendComments :comments="data" />
         </template>
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       comments: [],
+      bestComments: [],
     };
   },
   mounted() {
@@ -47,7 +48,9 @@ export default {
   methods: {
     async fetch() {
       const comment = await Comment.GetAllComment();
+      const bestComments = await Comment.GetBestComment();
       this.comments = comment.data;
+      this.bestComments = bestComments.data;
     },
   },
   components: { CommentInfo, Slider, RecommendComments, HomeTitle },

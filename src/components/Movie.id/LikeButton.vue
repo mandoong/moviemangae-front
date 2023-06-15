@@ -31,7 +31,11 @@
           <BookmarkIcon class="h-6 w-6" />
           <div>나의 베스트 등록</div>
         </button>
-        <button class="flex flex-1 flex-col justify-center items-center gap-2">
+        <button
+          class="flex flex-1 flex-col justify-center items-center gap-2"
+          :class="viewStatus ? 'text-blue-600' : ''"
+          @click="onClickAddViewMovie"
+        >
           <CheckIcon class="h-6 w-6" />
           <div>봤어요</div>
         </button>
@@ -73,6 +77,7 @@ export default {
     return {
       likeStatus: null,
       bestStatus: false,
+      viewStatus: false,
     };
   },
 
@@ -114,6 +119,19 @@ export default {
       }
     },
 
+    async onClickAddViewMovie() {
+      const { id } = this.movie;
+
+      if (!this.viewStatus) {
+        await Movie.addMyMovieList(id, "viewMovie");
+        this.viewStatus = true;
+        this.$emit("onModal", " 내가 본 영화에 등록하였습니다. ");
+      } else {
+        await Movie.removeMyMovieList(id, "viewMovie");
+        this.viewStatus = false;
+      }
+    },
+
     isStatus() {
       if (
         this.user.liked_movie.some(
@@ -138,7 +156,14 @@ export default {
       ) {
         this.bestStatus = true;
       }
-      console.log(this.bestStatus);
+
+      if (
+        this.user.view_movies.some(
+          (e) => e.movie.id === Number(this.$route.params.id)
+        )
+      ) {
+        this.viewStatus = true;
+      }
     },
   },
   components: {

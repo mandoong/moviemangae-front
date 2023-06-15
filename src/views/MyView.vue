@@ -52,8 +52,10 @@
           </button>
 
           <button class="flex-1 flex flex-col items-center justify-center">
-            <div class="text-xl text-[#EFEFEF]">0</div>
-            <div class="text-sm text-subText">봤어요</div>
+            <div class="text-xl text-[#EFEFEF]">
+              {{ user.view_movies.length }}
+            </div>
+            <div class="text-sm text-subText">내가 본 영화</div>
           </button>
         </div>
       </div>
@@ -149,20 +151,6 @@
           :style="{ width: 'calc(100% - 32px)' }"
         ></div>
       </div>
-
-      <!-- <div class="px-4 mt-8 relative">
-      <div class="text-[#EFEFEF]">인생작품</div>
-      <div class="flex flex-col justify-center items-center gap-4 mt-6 pb-64">
-        <div class="text-sm text-[#98a4b7]">
-          등록한 인생작품이 아직 없습니다.
-        </div>
-        <button
-          class="text-[#EFEFEF] bg-[#4263eb] w-[140px] h-10 text-sm rounded-[4px]"
-        >
-          인생작품 등록하기
-        </button>
-      </div>
-    </div> -->
     </div>
   </div>
 </template>

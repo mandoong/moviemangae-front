@@ -101,6 +101,12 @@ export const Comment = {
       .catch((err) => err);
   },
 
+  GetBestComment: async () => {
+    return MMAPI.get(`/comments/best/`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   CreateComment: async (data) => {
     return MMAPI.post(`/comments/`, data)
       .then((res) => res)

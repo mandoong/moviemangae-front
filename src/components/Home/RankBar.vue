@@ -6,9 +6,9 @@
         <ChevronRightIcon class="h-6 w-6 text-gray-500" />
       </button>
     </div>
-    <div class="w-full mt-4 h-20 relative">
+    <div class="w-full mt-4 h-24 relative overflow-hidden">
       <div
-        class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-gradient-to-r to-black from-black via-transparent"
+        class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-black"
       >
         <div class="flex gap-2">
           <div></div>
@@ -16,10 +16,16 @@
         </div>
         <div></div>
       </div>
-      <div
-        class="flex h-20 items-end justify-between bg-cover bg-center"
-        :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
-      ></div>
+      <div class="flex h-24 justify-center">
+        <div
+          class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
+          :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
+        >
+          <div
+            class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
+          ></div>
+        </div>
+      </div>
     </div>
     <div>
       <div
@@ -41,13 +47,16 @@
           class="w-14 flex items-center justify-center"
           :class="[
             rank(index, movie.id) < 0 && 'text-green-400',
-            rank(index, movie.id) > 0 && 'text-red-400',
+            rank(index, movie.id) > 0 ||
+              (rank(index, movie.id) === 'new' && 'text-red-400'),
             rank(index, movie.id) === 0 && 'text-subText',
           ]"
         >
           {{
             Math.abs(rank(index, movie.id)) === 0
               ? "-"
+              : Math.abs(rank(index, movie.id)) === "new"
+              ? "New"
               : Math.abs(rank(index, movie.id))
           }}
           <div v-if="rank(index, movie.id) === 0" class="w-4"></div>
@@ -96,6 +105,9 @@ export default {
 
     rank(index, id) {
       const rank = this.yesterdayRank.findIndex((e) => e.id === id);
+      if (rank === null) {
+        return "new";
+      }
       return index - rank;
     },
   },
