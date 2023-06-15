@@ -2,7 +2,7 @@
   <main
     ref="scroll"
     class="w-full h-screen overflow-y-scroll bg-prime scrollbar-hide"
-    @click="onOption = ''"
+    @click="(onOption = ''), (onSortOption = false)"
   >
     <div
       class="fixed w-full z-20 transition-all duration-300"
@@ -12,6 +12,7 @@
         class="max-w-[700px] bg-prime text-main flex justify-center flex-col items-center px-4"
       >
         <div class="text py-4">작품 탐색</div>
+
         <div class="w-full flex gap-2">
           <div class="w-12 h-12" v-for="item in platform" :key="item">
             <button
@@ -27,8 +28,9 @@
             ></button>
           </div>
         </div>
+
         <div class="w-full flex items-center">
-          <div class="flex-1 flex py-4 gap-2">
+          <div class="flex-1 flex pt-4 gap-2">
             <div
               class="px-2 h-6 text-xs font-bold flex items-center relative rounded-md bg-sub"
               v-for="option in options"
@@ -133,10 +135,14 @@
               </transition>
             </div>
           </div>
+
+          <!-- 정렬 옵션 -->
+        </div>
+        <div class="w-full flex justify-end py-1">
           <div class="w-28 text-sm relative flex">
             <div
               class="w-full flex justify-end gap-1"
-              @click="onSortOption = !onSortOption"
+              @click.stop="onSortOption = !onSortOption"
             >
               <div>{{ sortName }}</div>
               <QueueListIcon class="h-5 w-5 pt-1" />
@@ -165,6 +171,7 @@
       </div>
     </div>
 
+    <!-- 토스터 -->
     <transition name="fadeDown">
       <div
         v-if="onMovieMenu"
@@ -219,9 +226,10 @@
       </div>
     </transition>
 
+    <!-- 현재 선택한 옵션 목록 -->
     <div
       v-if="selectBoxDefault"
-      class="w-full bg-prime sticky top-0 pt-40 flex text-subText gap-2 px-4 text-sm justify-start flex-wrap pb-4 transition-all duration-300 z-10"
+      class="w-full bg-prime sticky top-0 pt-44 flex text-subText gap-2 px-4 text-sm justify-start flex-wrap pb-4 transition-all duration-300 z-10"
       :class="yPosition > 500 ? '-translate-y-10' : ''"
     >
       <transition-group name="fadeDown">
@@ -313,7 +321,7 @@
 
     <div
       class="w-full px-4 grid grid-cols-3 md:grid-cols-5 gap-2"
-      :class="selectBoxDefault ? '' : 'pt-40'"
+      :class="selectBoxDefault ? '' : 'pt-44'"
       ref="movieList"
     >
       <transition-group name="fade">

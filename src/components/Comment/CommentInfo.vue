@@ -8,6 +8,7 @@
     <div
       v-if="comment"
       class="w-full flex flex-col justify-between flex-1 p-2 bg-sub2 rounded-lg text-main"
+      @click="onClickGotoComment"
     >
       <div class="w-full flex justify-between">
         <div class="flex">
@@ -78,6 +79,14 @@ export default {
       const date = new Date(this.comment.created_at);
       const timeDiff = now.getTime() - date.getTime();
       this.date = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    },
+
+    onClickGotoComment() {
+      if (this.comment.depth === 0) {
+        this.$router.push(`/comment/${this.comment.id}`);
+      } else {
+        this.$router.push(`/comment/${this.comment.parent.id}`);
+      }
     },
   },
 

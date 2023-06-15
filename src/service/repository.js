@@ -120,7 +120,7 @@ export const Comment = {
   },
 
   LikeComment: async (id) => {
-    return MMAPI.get(`/comments/${id}/like/`)
+    return MMAPI.post(`/comments/${id}/like/`)
       .then((res) => res)
       .catch((err) => err);
   },

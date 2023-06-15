@@ -43,8 +43,18 @@
     </div>
 
     <div class="pt-4 flex justify-around border-t border-subText">
-      <button class="flex justify-center gap-2 flex-1">
-        <HeartIcon class="h-6 w-6 text-gray-500" />
+      <button
+        class="flex justify-center gap-2 flex-1"
+        @click="onClickCommentLike"
+      >
+        <HeartIcon
+          class="h-6 w-6"
+          :class="
+            this.comment.liked_user.some((e) => e.user.id === this.user.id)
+              ? 'text-red-500'
+              : 'text-gray-500'
+          "
+        />
         좋아요
       </button>
       <button
@@ -54,7 +64,11 @@
         <ChatBubbleLeftIcon class="h-6 w-6 text-gray-500" />
         댓글 달기
       </button>
-      <button v-if="isMe" class="flex justify-center gap-2 flex-1">
+      <button
+        v-if="isMe"
+        class="flex justify-center gap-2 flex-1"
+        @click="onClickDeleteComment"
+      >
         <XMarkIcon class="h-6 w-6 text-gray-500" />
 
         지우기
@@ -71,11 +85,14 @@ import {
 } from "@heroicons/vue/20/solid";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { ChatBubbleLeftIcon } from "@heroicons/vue/24/solid";
+import { Comment } from "../../service/repository";
+import { User } from "../../service/repository";
 
 export default {
   props: {
     comment: { type: Array },
     isMe: { type: Boolean },
+    user: { type: Object },
   },
 
   data() {
@@ -94,6 +111,21 @@ export default {
       const date = new Date(this.comment.created_at);
       const timeDiff = now.getTime() - date.getTime();
       this.date = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    },
+
+    async onClickDeleteComment() {
+      const result = await Comment.DeleteComment(this.comment.id);
+      this.$emit("fetch");
+    },
+
+    async onClickCommentLike() {
+      console.log(this.comment);
+      if (this.comment.liked_user.some((e) => e.user.id === this.user.id)) {
+        await Comment.CancelLikeComment(this.comment.id);
+      } else {
+        await Comment.LikeComment(this.comment.id);
+      }
+      this.$emit("fetch");
     },
   },
 

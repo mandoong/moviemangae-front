@@ -54,8 +54,21 @@
         <div
           class="w-28 aspect-[10/14] bg-cover bg-center rounded-lg"
           :style="{ 'background-image': `url(${movie.main_imageUrl})` }"
+          @click="onTitleImg = true"
         ></div>
       </div>
+      <Transition name="title">
+        <div
+          class="fixed top-0 left-0 w-screen h-screen bg-black/[0.5] flex justify-center items-center z-50"
+          v-if="onTitleImg"
+          @click="onTitleImg = false"
+        >
+          <div
+            class="w-full max-w-[500px] aspect-[10/14] bg-white bg-cover bg-center"
+            :style="{ backgroundImage: `url(${movie.main_imageUrl})` }"
+          ></div>
+        </div>
+      </Transition>
 
       <ContentWrap class="bg-prime pb-20">
         <LikeButton
@@ -84,7 +97,12 @@
         <RateWrap></RateWrap>
 
         <div ref="myComment">
-          <MyReview :myReview="myComment[0]" :allReview="comments" />
+          <MyReview
+            :user="user"
+            :myReview="myComment[0]"
+            :allReview="comments"
+            @fetch="fetch"
+          />
         </div>
       </ContentWrap>
     </div>
@@ -123,15 +141,16 @@ export default {
       modalActive: false,
       modalMassage: "",
       modalTimer: null,
+      onTitleImg: false,
     };
   },
 
   mounted() {
-    this.setup();
+    this.fetch();
   },
 
   methods: {
-    async setup() {
+    async fetch() {
       const id = this.id;
       const movie = await Movie.GetMovieById(id);
       const user = await User.Profile();
@@ -200,6 +219,16 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
+  transition: all 0.1s ease-in;
+}
+
+.title-enter-from,
+.title-leave-to {
+  opacity: 0;
+}
+
+.title-enter-active,
+.title-leave-active {
   transition: all 0.1s ease-in;
 }
 </style>
