@@ -25,8 +25,8 @@ export default {
   methods: {
     async onClickLogin() {
       const accessToken = await axios.post(
-        // "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev",
-        "http://localhost:3000/dev/auth/login/local",
+        "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/local",
+        // "http://localhost:3000/dev/auth/login/local",
         { email: this.email, name: this.nickname }
       );
 
