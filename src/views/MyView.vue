@@ -1,6 +1,9 @@
 <template>
-  <div class="pt-4 h-screen overflow-y-scroll scrollbar-hide bg-prime">
-    <div v-if="user">
+  <div>
+    <div
+      class="pt-4 h-screen overflow-y-scroll scrollbar-hide bg-prime pb-40"
+      v-if="user"
+    >
       <div class="flex justify-end items-center gap-1 px-4">
         <button><UserIcon class="w-5 h-5 text-[#EFEFEF]" /></button>
         <button @click="$router.push('/my/setting')">
@@ -51,7 +54,10 @@
             <div class="absolute w-[1px] h-8 bg-[#25304B] right-0"></div>
           </button>
 
-          <button class="flex-1 flex flex-col items-center justify-center">
+          <button
+            class="flex-1 flex flex-col items-center justify-center"
+            @click="$router.push('/my/movie?type=view')"
+          >
             <div class="text-xl text-[#EFEFEF]">
               {{ user.view_movies.length }}
             </div>
@@ -68,9 +74,7 @@
           >
             <div class="flex items-center gap-1">
               <div class="text-sm text-[#efefef]">작성한 리뷰</div>
-              <div>
-                <QuestionMarkCircleIcon class="w-4 h-4 text-[#586A85]" />
-              </div>
+              <div></div>
             </div>
             <button class="flex items-center gap-1">
               <div class="text-base text-[#d4d9e1]">
@@ -87,10 +91,8 @@
 
           <div class="py-4 px-4 flex justify-between relative">
             <div class="flex items-center gap-1">
-              <div class="text-sm text-[#efefef]">관심없어요</div>
-              <div>
-                <QuestionMarkCircleIcon class="w-4 h-4 text-[#586A85]" />
-              </div>
+              <div class="text-sm text-[#efefef]">작성한 댓글</div>
+              <div></div>
             </div>
             <div class="flex items-center gap-1">
               <div class="text-base text-[#d4d9e1]">0</div>
@@ -106,9 +108,7 @@
           <div class="py-4 px-4 flex justify-between relative">
             <div class="flex items-center gap-1">
               <div class="text-sm text-[#efefef]">구독 중인 서비스</div>
-              <div>
-                <QuestionMarkCircleIcon class="w-4 h-4 text-[#586A85]" />
-              </div>
+              <div></div>
             </div>
             <div class="flex items-center gap-1">
               <div class="text-base text-[#d4d9e1]">0</div>
@@ -120,9 +120,9 @@
 
       <div class="px-4 mt-8 relative">
         <div class="text-[#EFEFEF]">나의 베스트 리스트</div>
-        <div>
+        <div class="w-full">
           <div
-            class="flex flex-col justify-center items-center gap-4 mt-6 pb-10"
+            class="flex flex-col overflow-hidden justify-center items-center gap-4 mt-6 pb-10"
           >
             <div v-if="!user.best_movies">
               <div class="text-sm text-[#98a4b7]">
@@ -151,6 +151,16 @@
           :style="{ width: 'calc(100% - 32px)' }"
         ></div>
       </div>
+    </div>
+    <!-- skeleton -->
+    <div v-if="!user" class="px-4">
+      <div class="h-6"></div>
+      <div class="px-4 mt-6">
+        <div class="w-16 h-16 rounded-full bg-skeleton"></div>
+      </div>
+      <div class="h-24 mt-4 px-4 w-full rounded-lg bg-skeleton"></div>
+      <div class="h-40 mt-4 px-4 bg-skeleton w-full rounded-lg"></div>
+      <slider></slider>
     </div>
   </div>
 </template>

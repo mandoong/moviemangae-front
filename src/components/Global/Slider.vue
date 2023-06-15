@@ -1,15 +1,25 @@
 <template>
-  <div
-    ref="container"
-    class="w-full mt-4 flex justify-start overflow-x-scroll scrollbar-hide scroll-smooth'"
-    :class="mouseDragging ? '' : 'scroll-smooth'"
-    @mousedown="slideStart"
-    @mouseup="slideEnd"
-  >
-    <div class="item px-2" v-for="(row, index) in rows" :key="index">
-      <slot name="item" :data="row" :onClick="onClick" />
+  <main class="w-full">
+    <div
+      ref="container"
+      class="w-full mt-4 flex justify-start overflow-x-scroll scrollbar-hide scroll-smooth'"
+      :class="mouseDragging ? '' : 'scroll-smooth'"
+      @mousedown="slideStart"
+      @mouseup="slideEnd"
+    >
+      <div class="item px-2" v-for="(row, index) in rows" :key="index">
+        <slot name="item" :data="row" :onClick="onClick" />
+      </div>
     </div>
-  </div>
+
+    <!-- skeleton -->
+    <div v-if="!rows" class="text-main w-full flex gap-2">
+      <div class="w-36 aspect-[10/14] rounded-lg bg-skeleton"></div>
+      <div class="w-36 aspect-[10/14] rounded-lg bg-skeleton"></div>
+      <div class="w-36 aspect-[10/14] rounded-lg bg-skeleton"></div>
+    </div>
+    <!-- skeleton -->
+  </main>
 </template>
 
 <style scoped>

@@ -1,6 +1,8 @@
 <template>
-  <div class="pt-4 bg-prime">
-    <div class="flex justify-between items-center px-4">
+  <div class="overflow-y-scroll scrollbar-hide h-screen bg-prime">
+    <div
+      class="flex sticky top-0 py-4 bg-prime justify-between items-center px-4"
+    >
       <button class="w-6 h-6" @click="$router.back()">
         <ChevronLeftIcon class="w-6 h-6 text-[#EFEFEF]" />
       </button>
@@ -8,7 +10,7 @@
       <div class="opacity-0"><ChevronLeftIcon class="w-6 h-6" /></div>
     </div>
 
-    <div class="bg-[#182037] text-xs text-[#98a4b7] px-4 mt-4 pt-3 pb-2">
+    <div class="bg-[#182037] text-xs text-[#98a4b7] px-4 pt-3 pb-2">
       활동로그
     </div>
     <div class="px-4 gap-1 flex flex-col">
@@ -17,17 +19,6 @@
       </div>
       <div class="py-3">
         <a class="text-[#efefef] text-sm font-light"> 리뷰 댓글 관리 </a>
-      </div>
-      <div class="py-3">
-        <a class="text-[#efefef] text-sm font-light">
-          커뮤니티 글 / 댓글 관리
-        </a>
-      </div>
-      <div class="py-3">
-        <a class="text-[#efefef] text-sm font-light"> 나의 이벤트 </a>
-      </div>
-      <div class="py-3">
-        <a class="text-[#efefef] text-sm font-light"> 가져오기 / 내보내기 </a>
       </div>
       <div class="py-3">
         <a class="text-[#efefef] text-sm font-light"> 푸시알림 설정 </a>
@@ -81,7 +72,7 @@
     </div>
 
     <div class="px-4 gap-1 flex flex-col pb-32">
-      <div class="py-3">
+      <div class="py-3" @click="onClickLogout">
         <a class="text-[#efefef] text-sm font-light"> 로그아웃 </a>
       </div>
       <div class="py-3">
@@ -90,6 +81,22 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script>
 import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
+
+export default {
+  data() {
+    return {};
+  },
+
+  methods: {
+    onClickLogout() {
+      window.localStorage.removeItem("accessToken", null);
+      this.$router.push("/home");
+    },
+  },
+  components: {
+    ChevronLeftIcon,
+  },
+};
 </script>

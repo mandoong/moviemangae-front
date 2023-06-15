@@ -11,22 +11,31 @@
       </div>
       <div class="w-12"></div>
     </div>
-    <div v-for="movie in movies" :key="movie">
+    <transition-group
+      enter-from-class="opacity-0 translate-y-4"
+      enter-active-class="transition-all duration-500"
+    >
       <div
-        class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub2 p-2 mb-2"
-        @click="$router.push(`/movie/${movie.id}`)"
+        v-for="(movie, index) in movies"
+        :key="movie"
+        :style="{ transitionDelay: `${index * 0.05}s` }"
       >
         <div
-          class="rounded-lg w-14 aspect-[10/14] bg-slate-500 bg-cover bg-center"
-          :style="{ backgroundImage: `url(${movie.imageUrl})` }"
-        ></div>
-        <div class="flex-1 h-full">
-          <div class="text-main">{{ movie.title }}</div>
-          <div class="text-xs">{{ JSON.parse(movie.genre).join(" · ") }}</div>
-          <div class="text-xs">{{ movie.dateCreated }}</div>
+          class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub2 p-2 mb-2"
+          @click="$router.push(`/movie/${movie.id}`)"
+        >
+          <div
+            class="rounded-lg w-14 aspect-[10/14] bg-slate-500 bg-cover bg-center"
+            :style="{ backgroundImage: `url(${movie.imageUrl})` }"
+          ></div>
+          <div class="flex-1 h-full">
+            <div class="text-main">{{ movie.title }}</div>
+            <div class="text-xs">{{ JSON.parse(movie.genre).join(" · ") }}</div>
+            <div class="text-xs">{{ movie.dateCreated }}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </main>
 </template>
 

@@ -120,7 +120,7 @@ export default {
       favoriteMovies: null,
       searching: false,
       yPosition: 0,
-      recommendComment: [],
+      recommendComment: null,
     };
   },
   computed: {

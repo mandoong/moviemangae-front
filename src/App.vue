@@ -20,3 +20,20 @@ export default {
   components: { MainWrap, NavigationTapBar, Head },
 };
 </script>
+
+<style>
+.bg-skeleton {
+  background: linear-gradient(-75deg, #172036 15%, #25304a 25%, #172036 35%);
+  background-size: 200%;
+  animation: shimmer 2s ease-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -200% 100%;
+  }
+}
+</style>

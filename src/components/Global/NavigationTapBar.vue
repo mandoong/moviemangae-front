@@ -7,7 +7,9 @@
         <button
           class="w-full flex flex-col justify-center items-center rounded-t-3xl py-2"
           :class="
-            menu.href === isMenu ? 'text-[#efefef] bg-sub' : 'text-subText'
+            isMenu.startsWith(menu.href)
+              ? 'text-[#efefef] bg-sub'
+              : 'text-subText'
           "
           @click="tabMenu(menu)"
         >
@@ -30,9 +32,9 @@ import { UserIcon } from "@heroicons/vue/24/outline";
 export default {
   data() {
     return {
-      isMenu: "/",
+      isMenu: "",
       menus: [
-        { name: "홈", href: "/", img: HomeIcon },
+        { name: "홈", href: "/home", img: HomeIcon },
         { name: "영화", href: "/movie", img: FilmIcon },
         { name: "리뷰", href: "/comment", img: ChatBubbleLeftRightIcon },
         { name: "마이페이지", href: "/my", img: UserIcon },
@@ -40,13 +42,16 @@ export default {
     };
   },
 
-  mounted() {
-    this.isMenu = window.location.pathname;
+  watch: {
+    $route(to) {
+      this.isMenu = to.fullPath;
+    },
   },
+
+  mounted() {},
 
   methods: {
     tabMenu(v) {
-      this.isMenu = v.href;
       this.$router.push(v.href);
     },
   },

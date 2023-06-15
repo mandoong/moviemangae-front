@@ -1,33 +1,34 @@
 <template>
-  <div v-if="movie" class="w-full text-[#efefef]">
+  <main>
     <div class="text-[#efefef] mt-4 text-lg font-bold flex justify-between">
       오늘의 넷플릭스 랭킹
-      <button @click="this.$router.push(href)">
+      <button @click="this.$router.push('/movie/list?type=top10')">
         <ChevronRightIcon class="h-6 w-6 text-gray-500" />
       </button>
     </div>
-    <div class="w-full mt-4 h-24 relative overflow-hidden">
-      <div
-        class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-black"
-      >
-        <div class="flex gap-2">
-          <div></div>
-          <div>{{ movie[0].title }}</div>
-        </div>
-        <div></div>
-      </div>
-      <div class="flex h-24 justify-center">
+    <div v-if="movie" class="w-full text-[#efefef]">
+      <div class="w-full mt-4 h-24 relative overflow-hidden">
         <div
-          class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
-          :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
+          class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-black"
         >
+          <div class="flex gap-2">
+            <div></div>
+            <div class="z-20">{{ movie[0].title }}</div>
+          </div>
+          <div></div>
+        </div>
+        <div class="flex h-24 justify-center">
           <div
-            class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
-          ></div>
+            class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
+            :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
+          >
+            <div
+              class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
+            ></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
+
       <div
         class="w-full h-12 my-2 px-2 text-sm rounded-lg font-bold flex items-center bg-[#25304B] text-[#efefef]"
         v-for="(movie, index) in movie"
@@ -71,7 +72,15 @@
         </div>
       </div>
     </div>
-  </div>
+    <!-- skeleton -->
+    <div v-if="!movie">
+      <div class="w-full mt-4 h-24 relative overflow-hidden bg-skeleton"></div>
+      <div class="w-full h-12 my-2 rounded-lg bg-skeleton"></div>
+      <div class="w-full h-12 my-2 rounded-lg bg-skeleton"></div>
+      <div class="w-full h-12 my-2 rounded-lg bg-skeleton"></div>
+    </div>
+    <!-- skeleton -->
+  </main>
 </template>
 
 <script>

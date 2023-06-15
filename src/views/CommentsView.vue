@@ -25,6 +25,11 @@
         <CommentInfo :comment="comment" />
       </div>
     </div>
+    <div v-if="!comments" class="w-full">
+      <div class="flex" v-for="item in Array(5)" :key="item">
+        <div class="w-full h-40 rounded-md bg-skeleton mb-4"></div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -38,8 +43,8 @@ import { Comment } from "../service/repository";
 export default {
   data() {
     return {
-      comments: [],
-      bestComments: [],
+      comments: null,
+      bestComments: null,
     };
   },
   mounted() {
@@ -49,8 +54,10 @@ export default {
     async fetch() {
       const comment = await Comment.GetAllComment();
       const bestComments = await Comment.GetBestComment();
-      this.comments = comment.data;
-      this.bestComments = bestComments.data;
+      if (comment.status === 200 && bestComments.status === 200) {
+        this.comments = comment.data;
+        this.bestComments = bestComments.data;
+      }
     },
   },
   components: { CommentInfo, Slider, RecommendComments, HomeTitle },

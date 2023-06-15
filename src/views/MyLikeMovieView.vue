@@ -35,26 +35,48 @@
         >
           별로에요
         </button>
+        <button
+          @click="(selectType = 'view'), (selectMovieList = viewMovies)"
+          class="flex-1 text-center pb-1"
+          :class="
+            selectType === 'view'
+              ? 'text-main border-b-2 border-blue-400'
+              : 'text-subText'
+          "
+        >
+          봤어요
+        </button>
       </div>
     </div>
-    <div v-for="movie in selectMovieList" :key="movie">
+
+    <transition-group
+      enter-from-class="opacity-0 translate-y-4"
+      enter-active-class="transition-all duration-500"
+      leave-active-class="hidden"
+    >
       <div
-        class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub2 p-2 mb-2"
-        @click="$router.push(`/movie/${movie.movie.id}`)"
+        v-for="(movie, index) in selectMovieList"
+        :key="movie"
+        :style="{ transitionDelay: `${index * 0.05}s` }"
       >
         <div
-          class="rounded-lg w-14 aspect-[10/14] bg-slate-500 bg-cover bg-center"
-          :style="{ backgroundImage: `url(${movie.movie.imageUrl})` }"
-        ></div>
-        <div class="flex-1 h-full">
-          <div class="text-main">{{ movie.movie.title }}</div>
-          <div class="text-xs">
-            {{ JSON.parse(movie.movie.genre).join(" · ") }}
+          class="w-full h-24 flex gap-2 items-center rounded-lg text-subText bg-sub2 p-2 mb-2"
+          @click="$router.push(`/movie/${movie.movie.id}`)"
+        >
+          <div
+            class="rounded-lg w-14 aspect-[10/14] bg-slate-500 bg-cover bg-center"
+            :style="{ backgroundImage: `url(${movie.movie.imageUrl})` }"
+          ></div>
+          <div class="flex-1 h-full">
+            <div class="text-main">{{ movie.movie.title }}</div>
+            <div class="text-xs">
+              {{ JSON.parse(movie.movie.genre).join(" · ") }}
+            </div>
+            <div class="text-xs">{{ movie.movie.dateCreated }}</div>
           </div>
-          <div class="text-xs">{{ movie.movie.dateCreated }}</div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </main>
 </template>
 
@@ -68,6 +90,7 @@ export default {
     return {
       likeMovies: [],
       dislikeMovies: [],
+      viewMovies: [],
       selectType: null,
       selectMovieList: [],
     };
@@ -77,17 +100,23 @@ export default {
   },
   methods: {
     async fetch() {
-      const user = await User.GetLikeMovies();
-      if (user.status === 200) {
-        this.likeMovies = user.data.liked_movie;
-        this.dislikeMovies = user.data.disliked_movie;
-        if (this.$route.query.type === "dislike") {
-          this.selectType = "dislike";
-          this.selectMovieList = this.dislikeMovies;
-        } else {
-          this.selectType = "like";
+      const user = await User.Profile();
+      console.log(user.data);
+      this.likeMovies = user.data.liked_movie;
+      this.dislikeMovies = user.data.disliked_movie;
+      this.viewMovies = user.data.view_movies;
+
+      this.selectType = this.$route.query.type || "like";
+      switch (this.selectType) {
+        case "like":
           this.selectMovieList = this.likeMovies;
-        }
+          break;
+        case "dislike":
+          this.selectMovieList = this.dislikeMovies;
+          break;
+        case "view":
+          this.selectMovieList = this.viewMovies;
+          break;
       }
     },
   },

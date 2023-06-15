@@ -10,7 +10,7 @@
       class="w-full flex flex-col justify-between flex-1 p-2 bg-sub2 rounded-lg text-main"
       @click="onClickGotoComment"
     >
-      <div class="w-full flex justify-between">
+      <div class="w-full flex justify-between text-subText">
         <div class="flex">
           <UserCircleIcon class="h-8 w-8 text-gray-500 mr-2" />
           <div class="flex items-center text-sm">{{ comment.user.name }}</div>
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="text-subText h-20 text-sm py-8 px-2 font-bold">
+      <div class="text-main h-20 text-sm py-8 px-2">
         {{ comment.content }}
       </div>
 
