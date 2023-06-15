@@ -4,9 +4,10 @@
       <div class="grid w-full grid-cols-7 gap-2 bg-black px-2">
         <div
           class="w-full z-0 h-40 bg-cover rounded-md bg-center brightness-[12%] hover:scale-110 duration-150 hover:brightness-[35%]"
-          v-for="movie in movieList"
+          v-for="(movie, index) in movieList"
           :key="movie"
           :style="{ 'background-image': `url(${movie.imageUrl})` }"
+          @click="onClickLogin(index)"
         ></div>
       </div>
     </div>
@@ -80,6 +81,13 @@ export default {
 
     onClickAuth(auth) {
       location.href = `${this.loginUrl}/auth/login/${auth}`;
+    },
+
+    onClickLogin(index) {
+      if (index === 2) {
+        console.log("good");
+        this.$router.push("/login/local");
+      }
     },
   },
 };

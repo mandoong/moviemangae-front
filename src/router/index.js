@@ -84,6 +84,11 @@ const router = createRouter({
       name: "kakaoRedirect",
       component: () => import("../views/loginRedirect/RedirectKakao.vue"),
     },
+    {
+      path: "/login/local",
+      name: "localLogin",
+      component: () => import("../views/loginRedirect/LocalLogin.vue"),
+    },
   ],
 });
 
