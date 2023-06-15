@@ -29,30 +29,36 @@
     </div>
 
     <div class="flex justify-start text-sm gap-4 pb-2 text-subText">
-      <div class="flex justify-center gap-2">
+      <button class="flex justify-center gap-2">
         <HeartIcon class="h-5 w-5" />
         <div>{{ comment.like }} 개</div>
-      </div>
-      <div class="flex justify-center gap-2">
+      </button>
+      <button
+        class="flex justify-center gap-2"
+        @click="$router.push(`/comment/${comment.id}`)"
+      >
         <ChatBubbleLeftIcon class="h-5 w-5" />
         <div>{{ comment.children.length }} 개</div>
-      </div>
+      </button>
     </div>
 
     <div class="pt-4 flex justify-around border-t border-subText">
-      <div class="flex justify-center gap-2 flex-1">
+      <button class="flex justify-center gap-2 flex-1">
         <HeartIcon class="h-6 w-6 text-gray-500" />
         좋아요
-      </div>
-      <div class="flex justify-center gap-2 flex-1">
+      </button>
+      <button
+        class="flex justify-center gap-2 flex-1"
+        @click="$router.push(`/comment/${comment.id}`)"
+      >
         <ChatBubbleLeftIcon class="h-6 w-6 text-gray-500" />
         댓글 달기
-      </div>
-      <div v-if="isMe" class="flex justify-center gap-2 flex-1">
+      </button>
+      <button v-if="isMe" class="flex justify-center gap-2 flex-1">
         <XMarkIcon class="h-6 w-6 text-gray-500" />
 
         지우기
-      </div>
+      </button>
     </div>
   </div>
 </template>

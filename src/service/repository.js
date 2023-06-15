@@ -89,6 +89,12 @@ export const Comment = {
       .catch((err) => err);
   },
 
+  GetCommentById: async (id) => {
+    return MMAPI.get(`/comments/id/${id}/`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   GetAllComment: async () => {
     return MMAPI.get(`/comments/all/`)
       .then((res) => res)

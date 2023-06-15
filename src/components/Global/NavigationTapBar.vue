@@ -1,7 +1,7 @@
 <template>
   <div class="fixed w-full bottom-0 flex justify-center h-14 z-10">
     <ul
-      class="w-[700px] h-full flex items-center rounded-t-3xl bg-prime shadow-[0_-20px_10px_0_rgba(0,0,0,0.3)]"
+      class="w-[700px] h-full flex items-center rounded-t-3xl bg-prime shadow-[0_-10px_10px_0_rgba(0,0,0,0.3)]"
     >
       <il v-for="menu in menus" :key="menu" class="flex-1">
         <button

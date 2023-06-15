@@ -352,6 +352,7 @@ import {
   FaceFrownIcon,
   ChatBubbleLeftIcon,
 } from "@heroicons/vue/20/solid";
+import { nextTick } from "vue";
 
 export default {
   data() {
@@ -502,7 +503,7 @@ export default {
         },
       ],
 
-      movies: [],
+      movies: null,
       selectBox: {
         page: 0,
         platform: [],
@@ -512,7 +513,7 @@ export default {
         scoring: [0, 10],
         duration: null,
         presentationType: [],
-        sort: "created_at",
+        sort: "dateCreated",
       },
       dot1Position: 0,
       dot2Position: 240,
@@ -525,7 +526,7 @@ export default {
       sortOption: [
         { option: "like_count", tag: "좋아요 순" },
         { option: "scoring", tag: "해외 평가 순" },
-        { option: "created_at", tag: "최신 순" },
+        { option: "dateCreated", tag: "최신 순" },
       ],
 
       onMovieMenu: false,
@@ -551,7 +552,6 @@ export default {
       }
     },
   },
-
   mounted() {
     this.fetch();
     this.observeMovies();
@@ -600,9 +600,11 @@ export default {
     },
 
     async addMovies() {
-      this.selectBox.page++;
-      const movies = await Movie.GetSelectMovie(this.selectBox);
-      this.movies.push(...movies.data);
+      if (this.movies) {
+        this.selectBox.page++;
+        const movies = await Movie.GetSelectMovie(this.selectBox);
+        this.movies.push(...movies.data);
+      }
     },
 
     onClickMovieMenu(movie) {
