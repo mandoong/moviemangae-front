@@ -119,7 +119,6 @@ export default {
     },
 
     async onClickCommentLike() {
-      console.log(this.comment);
       if (this.comment.liked_user.some((e) => e.user.id === this.user.id)) {
         await Comment.CancelLikeComment(this.comment.id);
       } else {

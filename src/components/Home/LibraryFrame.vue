@@ -76,7 +76,6 @@ export default {
 
   methods: {
     isHover(e) {
-      console.log("aa");
       return false;
     },
   },

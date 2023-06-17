@@ -3,7 +3,10 @@
     <div class="w-[700px] h-full z-0">
       <div class="grid w-full grid-cols-7 gap-2 bg-black px-2">
         <div
-          class="w-full z-0 h-40 bg-cover rounded-md bg-center brightness-[12%] hover:scale-110 duration-150 hover:brightness-[35%]"
+          class="w-full z-0 h-40 bg-cover rounded-md bg-center brightness-[12%] hover:scale-110 duration-500 hover:brightness-[35%]"
+          :class="
+            lightNumber.some((e) => e === index) && 'brightness-[35%] scale-110'
+          "
           v-for="(movie, index) in movieList"
           :key="movie"
           :style="{ 'background-image': `url(${movie.imageUrl})` }"
@@ -62,6 +65,7 @@ export default {
   data() {
     return {
       movieList: null,
+      lightNumber: [0, 10, 20],
 
       loginUrl:
         "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev",
@@ -70,6 +74,13 @@ export default {
 
   mounted() {
     this.fetch();
+
+    setInterval(() => {
+      this.lightNumber = this.lightNumber.map((e, i) => {
+        e = parseInt(Math.random() * 14) + i * 14;
+        return e;
+      });
+    }, 3000);
   },
 
   methods: {
@@ -85,7 +96,6 @@ export default {
 
     onClickLogin(index) {
       if (index === 2) {
-        console.log("good");
         this.$router.push("/login/local");
       }
     },

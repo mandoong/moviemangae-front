@@ -187,20 +187,16 @@ export default {
   },
 
   mounted() {
-    const token = window.localStorage.getItem("accessToken");
-
-    if (!token) {
-      this.$router.push("/login");
-    } else {
-      this.fetch();
-    }
+    this.fetch();
   },
 
   methods: {
     async fetch() {
       const user = await User.Profile();
+      if (user.status === 401) {
+        this.$router.push("/login");
+      }
       this.user = user.data;
-      console.log(this.user);
     },
   },
 

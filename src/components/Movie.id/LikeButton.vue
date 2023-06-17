@@ -22,7 +22,7 @@
     </div>
     <div class="w-full h-16 flex mt-4 pb-4 border-b border-[#25304a]">
       <div class="w-10"></div>
-      <div class="flex-1 flex justify-between px-10 text-xs">
+      <div class="flex-1 flex justify-between text-xs">
         <button
           class="flex flex-1 flex-col justify-center items-center gap-2"
           :class="bestStatus ? 'text-blue-600' : ''"
@@ -98,7 +98,6 @@ export default {
         this.likeStatus = null;
       } else {
         const isLike = type === "likeMovie" ? "dislikeMovie" : "likeMovie";
-        console.log(isLike);
         await Movie.removeMyMovieList(id, isLike);
         await Movie.addMyMovieList(id, type);
         this.likeStatus = type;

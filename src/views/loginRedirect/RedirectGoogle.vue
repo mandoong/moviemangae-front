@@ -47,7 +47,6 @@ export default {
       this.movieList = movies.data;
 
       const query = this.$route.query;
-      console.log(query);
       const accessToken = await axios.get(
         `https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
       );

@@ -91,7 +91,7 @@ export default {
 
   methods: {
     onClickLogout() {
-      window.localStorage.removeItem("accessToken", null);
+      window.localStorage.removeItem("accessToken");
       this.$router.push("/home");
     },
   },

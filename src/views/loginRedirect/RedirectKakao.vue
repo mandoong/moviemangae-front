@@ -50,8 +50,6 @@ export default {
       const accessToken = await axios.get(
         `https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/kakao?code=${query.code}`
       );
-
-      console.log(accessToken.data, "???");
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);
         location.href = window.localStorage.getItem("redirect");

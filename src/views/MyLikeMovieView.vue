@@ -101,7 +101,6 @@ export default {
   methods: {
     async fetch() {
       const user = await User.Profile();
-      console.log(user.data);
       this.likeMovies = user.data.liked_movie;
       this.dislikeMovies = user.data.disliked_movie;
       this.viewMovies = user.data.view_movies;

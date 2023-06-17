@@ -177,7 +177,6 @@ export default {
       this.$refs.textarea.style.height = "32px";
       const textarea = this.$refs.textarea;
       this.$refs.textarea.style.height = `${textarea.scrollHeight}px`;
-      console.log(this.$refs.textarea.style.height);
     },
 
     async onClickAddComment() {
