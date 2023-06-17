@@ -9,8 +9,8 @@
     <div class="mb-2 border-b border-subText pb-8">
       <div class="text-main text-lg">지금 핫한 리뷰 🔥</div>
       <Slider :rows="bestComments">
-        <template #item="{ data }">
-          <RecommendComments :comments="data" />
+        <template #item="{ data, onClick }">
+          <RecommendComments :comments="data" @onClick="onClick" />
         </template>
       </Slider>
     </div>

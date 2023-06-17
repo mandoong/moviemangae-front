@@ -1,5 +1,8 @@
 <template>
-  <div class="w-52 h-36 text-xs text-[#efefef] bg-[#172036] rounded-lg p-4">
+  <div
+    class="w-52 h-36 text-xs text-[#efefef] bg-[#172036] rounded-lg p-4"
+    @mouseup="onClick"
+  >
     <div class="text-xs text-[#98A4B7]">
       {{ comments.comment_movie.title }}
     </div>
@@ -30,6 +33,11 @@ import { EllipsisVerticalIcon } from "@heroicons/vue/24/outline";
 export default {
   props: {
     comments: { type: Array },
+  },
+  methods: {
+    onClick() {
+      this.$emit("onClick", `/comment/${this.comments.id}`);
+    },
   },
   components: { EllipsisVerticalIcon },
 };

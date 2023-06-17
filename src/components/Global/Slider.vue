@@ -77,9 +77,16 @@ export default {
       if (this.mouseDragging && this.$refs.container) {
         const items = this.$refs.container.querySelector(".item");
 
-        const point =
-          this.$refs.container.scrollLeft -
-          (this.$refs.container.scrollLeft % items.clientWidth);
+        const left = this.$refs.container.scrollLeft;
+        const width = items.clientWidth;
+        let point;
+
+        if (left % width < width / 2) {
+          point = left - (left % width);
+        } else {
+          point = left + (width - (left % width));
+        }
+
         this.$refs.container.scrollTo({ left: point, behavior: "smooth" });
       }
       this.mouseDragging = false;

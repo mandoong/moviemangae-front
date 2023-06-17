@@ -53,7 +53,7 @@ export default {
 
   methods: {
     onClick() {
-      this.$emit("onClick", `movie/${this.movie.id}`);
+      this.$emit("onClick", `/movie/${this.movie.id}`);
     },
   },
 
