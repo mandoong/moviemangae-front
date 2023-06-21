@@ -21,8 +21,6 @@
         ></div>
         <div clas="h-2">{{ comments.user.name }} 님의 평가</div>
       </div>
-
-      <EllipsisVerticalIcon class="w-6 h-6"></EllipsisVerticalIcon>
     </div>
   </div>
 </template>
