@@ -43,7 +43,10 @@
         <div class="w-10"></div>
       </button>
       <button class="mt-2" @click="onClickAuth('kakao')">
-        <img src="../assets/kakao_login_medium_wide.png" />
+        <img
+          class="w-[300px] h-12"
+          src="../assets/kakao_login_medium_wide.png"
+        />
       </button>
       <button
         class="w-[300px] h-12 flex px-1 mt-2 items-center font-bold text-sm rounded-md text-white bg-[#03C75A]"
