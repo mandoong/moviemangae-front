@@ -1,11 +1,11 @@
 <template>
-  <div class="fixed w-full bottom-0 flex justify-center h-14 z-10">
+  <div class="fixed w-full bottom-0 flex justify-center h-16 z-10">
     <ul
       class="w-[700px] h-full flex items-center rounded-t-3xl bg-prime shadow-[0_-10px_10px_0_rgba(0,0,0,0.3)]"
     >
       <il v-for="menu in menus" :key="menu" class="flex-1">
         <button
-          class="w-full flex flex-col justify-center items-center rounded-t-3xl py-2"
+          class="w-full flex gap-1 flex-col justify-center items-center rounded-t-3xl py-2"
           :class="
             isMenu.startsWith(menu.href)
               ? 'text-[#efefef] bg-sub'
@@ -14,7 +14,7 @@
           @click="tabMenu(menu)"
         >
           <Component class="w-6 h-6" :is="menu.img" />
-          <div>
+          <div class="text-xs">
             {{ menu.name }}
           </div>
         </button>

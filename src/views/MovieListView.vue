@@ -194,13 +194,21 @@
           </div>
           <div
             class="mb-3 flex items-center gap-2"
-            @click="$router.push(`movie/${movieMenuItem.id}`)"
+            @click="
+              user
+                ? $router.push(`movie/${movieMenuItem.id}`)
+                : $router.push('/login')
+            "
           >
             <FaceSmileIcon class="h-5 w-5 text-subText" /> 좋아요
           </div>
           <div
             class="mb-3 flex items-center gap-2"
-            @click="$router.push(`movie/${movieMenuItem.id}`)"
+            @click="
+              user
+                ? $router.push(`movie/${movieMenuItem.id}`)
+                : $router.push('/login')
+            "
           >
             <FaceFrownIcon class="h-5 w-5 text-subText" /> 별로에요
           </div>
@@ -579,7 +587,9 @@ export default {
       const movies = await Movie.GetSelectMovie(this.selectBox);
       const user = await User.Profile();
       this.movies = movies.data;
-      this.user = user.data;
+      if (user.status === 200) {
+        this.user = user.data;
+      }
     },
 
     async startTimer() {
@@ -619,7 +629,10 @@ export default {
       this.onMovieMenu = true;
       this.movieMenuItem = movie;
 
-      if (this.user.best_movies.some((e) => e.movie.id === movie.id)) {
+      if (
+        this.user &&
+        this.user.best_movies.some((e) => e.movie.id === movie.id)
+      ) {
         this.bestStatus = true;
       } else {
         this.bestStatus = false;
@@ -628,6 +641,10 @@ export default {
 
     onClickCreateComment() {
       const { id } = this.movieMenuItem;
+      if (!this.user) {
+        this.$router.push("/login");
+      }
+
       if (this.user.comments.some((e) => e.movie_id === id)) {
         this.$router.push(`/movie/${id}`);
       } else {
@@ -637,8 +654,9 @@ export default {
 
     async onClickAddBestMovie() {
       const { id } = this.movieMenuItem;
-
-      if (!this.bestStatus) {
+      if (!this.user) {
+        this.$router.push("/login");
+      } else if (!this.bestStatus) {
         await Movie.addMyMovieList(id, "bestMovie");
         this.bestStatus = true;
       } else {

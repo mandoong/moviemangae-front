@@ -194,6 +194,7 @@ export default {
     async fetch() {
       const user = await User.Profile();
       if (user.status === 401) {
+        window.localStorage.setItem("redirect", window.location.href);
         this.$router.push("/login");
       }
       this.user = user.data;

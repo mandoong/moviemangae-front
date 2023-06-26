@@ -72,7 +72,6 @@
 
       <ContentWrap class="bg-prime pb-20">
         <LikeButton
-          v-if="user"
           :movie="movie"
           :user="user"
           :comment="myComment[0]"
@@ -133,7 +132,7 @@ export default {
     return {
       id: this.$route.params.id,
       movie: null,
-      user: { type: Object },
+      user: null,
       onCreateComment: true,
       comments: [],
       myComment: [],
@@ -164,7 +163,9 @@ export default {
         this.myComment = this.movie.comments.filter(
           (e) => e.user.id === user.data.id
         );
+      }
 
+      if (user.status === 200) {
         this.user = user.data;
       }
     },

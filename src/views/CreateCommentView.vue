@@ -96,6 +96,11 @@ export default {
 
       const movie = await Movie.GetMovieById(id);
       const user = await User.Profile();
+
+      if (user.status !== 200) {
+        window.localStorage.setItem("redirect", window.location.href);
+        return this.$router.push("/login");
+      }
       this.movie = movie.data;
       if (user.data.comments.some((e) => e.movie_id === Number(id))) {
         this.$router.push(`/movie/${id}`);

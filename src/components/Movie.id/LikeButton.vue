@@ -87,6 +87,9 @@ export default {
 
   methods: {
     async onClickLikeMovie(type = "likeMovie") {
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
       const { id } = this.movie;
 
       if (!this.likeStatus) {
@@ -108,6 +111,10 @@ export default {
     async onClickAddBestMovie() {
       const { id } = this.movie;
 
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
+
       if (!this.bestStatus) {
         await Movie.addMyMovieList(id, "bestMovie");
         this.bestStatus = true;
@@ -121,6 +128,10 @@ export default {
     async onClickAddViewMovie() {
       const { id } = this.movie;
 
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
+
       if (!this.viewStatus) {
         await Movie.addMyMovieList(id, "viewMovie");
         this.viewStatus = true;
@@ -132,6 +143,13 @@ export default {
     },
 
     isStatus() {
+      if (!this.user) {
+        return this.$emit(
+          "onModal",
+          " 로그인을 하고 더 많은 서비스를 이용하세요. "
+        );
+      }
+
       if (
         this.user.liked_movie.some(
           (e) => e.movie.id === Number(this.$route.params.id)
