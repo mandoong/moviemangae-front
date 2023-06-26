@@ -3,7 +3,11 @@
     <div
       v-if="actors"
       class="w-full py-4 transition-all overflow-hidden duration-300"
-      :class="onBoard ? 'h-96' : ' h-36'"
+      :style="
+        onBoard
+          ? `height: ${(parseInt(actors.length / 5) + 1) * 120}px;`
+          : 'height: 144px;'
+      "
     >
       <div class="text-main font-bold">감독 출연</div>
       <div class="grid grid-cols-5 my-4 gap-4">
