@@ -39,7 +39,7 @@
               <div class="flex items-center gap-2 text-subText">
                 <div class="flex">
                   <UserCircleIcon class="h-7 w-7 text-gray-500 mr-2" />
-                  <div class="flex text-main items-center text-sm">
+                  <div class="flex text-subText items-center text-sm">
                     {{ comment.user.name }}
                   </div>
                 </div>
@@ -55,10 +55,10 @@
               />
             </div>
 
-            <div class="text-subText text-sm py-4 px-2 font-bold">
+            <div class="text-main text-sm py-4 px-2 font-bold">
               {{ comment.content }}
             </div>
-            <div class="text-subText flex items-center text-sm gap-2">
+            <div class="text-subText flex px-2 items-center text-sm gap-2">
               <HeartIcon class="w-4 h-4" />
               <div>{{ comment.like }}</div>
               <ChatBubbleLeftIcon class="h-4 w-4 ml-2" />
@@ -75,7 +75,7 @@
             <div class="flex items-center gap-2 text-subText">
               <div class="flex">
                 <UserCircleIcon class="h-7 w-7 text-gray-500 mr-2" />
-                <div class="flex text-main items-center text-sm">
+                <div class="flex text-subText items-center text-sm">
                   {{ children.user.name }}
                 </div>
               </div>
@@ -91,8 +91,12 @@
             />
           </div>
 
-          <div class="text-subText text-sm py-2 px-2 font-bold">
+          <div class="text-main text-sm py-4 px-2 font-bold">
             {{ children.content }}
+          </div>
+          <div class="text-subText flex px-2 items-center text-sm gap-2">
+            <HeartIcon class="w-4 h-4" />
+            <div>{{ children.like }}</div>
           </div>
         </div>
       </div>
@@ -138,21 +142,45 @@
           @click="onToast = false"
         ></div>
         <div
-          class="pb-20 pt-2 px-4 rounded-t-xl max-w-[700px] bg-sub text-subText"
+          class="pb-24 pt-2 px-4 rounded-t-xl max-w-[700px] bg-sub text-subText"
         >
           <div class="w-full flex items-center mb-4 text-center font-extrabold">
             <div class="w-6"></div>
-            <div class="flex-1">리뷰 관리</div>
+            <div class="flex-1">리뷰</div>
             <XMarkIcon class="h-6 w-6 text-subText" @click="onToast = false" />
           </div>
-          <div v-if="user && !isOwner" class="mb-3 flex items-center gap-2">
-            <HeartIcon class="h-5 w-5 text-subText" /> 좋아요
+          <div
+            v-if="user && !isOwner"
+            class="mb-3 flex items-center gap-2"
+            @click="
+              isLiked(isComment.id)
+                ? onClickDislikeComment(isComment.id)
+                : onClicklikeComment(isComment.id)
+            "
+          >
+            <HeartIcon
+              class="h-5 w-5 text-subText"
+              :class="isLiked(isComment.id) ? 'text-red-400' : ''"
+            />
+            {{ isLiked(isComment.id) ? "좋아요 취소" : "좋아요" }}
           </div>
-          <div v-if="user && isOwner" class="mb-3 flex items-center gap-2">
+          <div
+            v-if="user && isOwner"
+            class="mb-3 flex items-center gap-2"
+            @click="
+              $router.push(
+                `/movie/${comment.comment_movie.id}/comment?comment=${isComment.id}`
+              )
+            "
+          >
             <PencilIcon class="h-5 w-5 text-gray-500" /> 댓글 수정
           </div>
 
-          <div v-if="user && isOwner" class="mb-3 flex items-center gap-2">
+          <div
+            v-if="user && isOwner"
+            class="mb-3 flex items-center gap-2"
+            @click="onClickdeleteComment(isComment.id)"
+          >
             <TrashIcon class="h-5 w-5 text-gray-500" />
             댓글 삭제
           </div>
@@ -214,7 +242,9 @@ export default {
 
       const user = await User.Profile();
 
-      if (user.status === 200) [(this.user = user.data)];
+      if (user.status === 200) {
+        this.user = user.data;
+      }
     },
     geaCreateDate(date) {
       const now = new Date();
@@ -265,11 +295,41 @@ export default {
     },
 
     onClickToast(comment) {
+      console.log(this.user);
       this.onToast = true;
       this.isComment = comment;
       if (this.user && comment.user.id === this.user.id) {
         this.isOwner = true;
+      } else {
+        this.isOwner = false;
       }
+    },
+
+    isLiked(id) {
+      if (
+        this.user &&
+        this.user.liked_comments.some((v) => v.comment.id === id)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    async onClicklikeComment(id) {
+      await Comment.LikeComment(id);
+      this.onToast = false;
+      this.fetch();
+    },
+
+    async onClickDislikeComment(id) {
+      await Comment.CancelLikeComment(id);
+      this.onToast = false;
+      this.fetch();
+    },
+
+    async onClickdeleteComment(id) {
+      await Comment.DeleteComment(id);
     },
   },
 

@@ -21,7 +21,6 @@
       </button>
     </div>
     <div class="w-full h-16 flex mt-4 pb-4 border-b border-[#25304a]">
-      <div class="w-10"></div>
       <div class="flex-1 flex justify-between text-xs">
         <button
           class="flex flex-1 flex-col justify-center items-center gap-2"
@@ -48,7 +47,6 @@
           <div>리뷰쓰기</div>
         </button>
       </div>
-      <EllipsisVerticalIcon class="h-6 w-10 text-gray-500" />
     </div>
   </div>
 </template>
