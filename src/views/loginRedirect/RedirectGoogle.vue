@@ -32,8 +32,7 @@ export default {
     return {
       movieList: null,
 
-      loginUrl:
-        "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev",
+      loginUrl: "https://api.fullbloommovies.com",
     };
   },
 
@@ -48,7 +47,7 @@ export default {
 
       const query = this.$route.query;
       const accessToken = await axios.get(
-        `https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
+        `${loginUrl}/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
       );
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);
