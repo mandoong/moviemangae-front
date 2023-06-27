@@ -47,7 +47,7 @@ export default {
 
       const query = this.$route.query;
       const accessToken = await axios.get(
-        `${loginUrl}/auth/login/kakao?code=${query.code}`
+        `${this.loginUrl}/auth/login/kakao?code=${query.code}`
       );
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);

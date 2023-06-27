@@ -47,7 +47,7 @@ export default {
 
       const query = this.$route.query;
       const accessToken = await axios.get(
-        `${loginUrl}/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
+        `${this.loginUrl}/auth/login/google?code=${query.code}&authuser=${query.authuser}&prompt=${query.prompt}&scope=${query.scope}`
       );
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);

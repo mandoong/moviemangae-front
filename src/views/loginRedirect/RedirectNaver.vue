@@ -47,7 +47,7 @@ export default {
 
       const query = this.$route.query;
       const accessToken = await axios.get(
-        `${loginUrl}/auth/login/naver?code=${query.code}&state=${query.state}`
+        `${this.loginUrl}/auth/login/naver?code=${query.code}&state=${query.state}`
       );
       if (accessToken.status === 200) {
         window.localStorage.setItem("accessToken", accessToken.data);

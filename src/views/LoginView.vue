@@ -17,7 +17,6 @@
 
     <div
       class="absolute top-[calc(50%-192px)] w-96 left-[calc(50%-192px)] z-20 flex items-center flex-col"
-      @mouseover="a"
     >
       <div>
         <img class="w-56" src="../assets/Logo.png" />
