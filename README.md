@@ -43,9 +43,9 @@
 ## 상세 기능
 ### 🏠 홈 화면
 <div>
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/b28eb9ad-6fab-42df-b2d2-66ec2c67f34b" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/0af6a44c-95a6-4f3d-a389-4bf7f5780290" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/edb90ea1-0eb5-4ceb-9b07-f9feee2c7a4f" width="300" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/b28eb9ad-6fab-42df-b2d2-66ec2c67f34b" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/0af6a44c-95a6-4f3d-a389-4bf7f5780290" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/edb90ea1-0eb5-4ceb-9b07-f9feee2c7a4f" width="240" />
 </div>
 
 > 현재 OTT 인기 영화를 순위별로 볼수 있고
@@ -58,9 +58,9 @@
 
 ### 🎬 영화 
 <div>
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/2ec1ecfd-bb76-489c-b5ff-57adb5f6d781" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/4c175fe3-3fb7-4dd4-98ff-a22ee8fade0e" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/cc0a27e1-daaa-4cb7-b8ed-12d917ab50eb" width="300" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/2ec1ecfd-bb76-489c-b5ff-57adb5f6d781" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/4c175fe3-3fb7-4dd4-98ff-a22ee8fade0e" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/cc0a27e1-daaa-4cb7-b8ed-12d917ab50eb" width="240" />
 </div>
 
 > 다양한 플랫폼을 지원하며, 사용자들은 플랫폼 별로 영화를 확인할 수 있습니다.
@@ -73,9 +73,9 @@
 
 ### 💬 리뷰 
 <div>
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/874d1564-213c-417d-8d66-759db011040a" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/ad222930-f11a-47b8-adda-e16751e0363b" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/2c57d901-1cc7-42fb-b033-4f9f8391fc7f" width="300" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/874d1564-213c-417d-8d66-759db011040a" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/ad222930-f11a-47b8-adda-e16751e0363b" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/2c57d901-1cc7-42fb-b033-4f9f8391fc7f" width="240" />
 </div>
 
 > 영화에 대한 자신의 의견을 리뷰로 남 길수 있습니다. 남긴 리뷰는 사용자들에게 공유 됩니다!
@@ -86,9 +86,9 @@
 
 ### 🙋 마이페이지 
 <div>
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/be216137-f1bc-466d-9442-cdc0e9ff46b4" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/a1588019-5370-4743-aa86-f852854900c3" width="300" />
-  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/f2832df6-d021-4a47-a506-28b154c93ec9" width="300" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/be216137-f1bc-466d-9442-cdc0e9ff46b4" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/a1588019-5370-4743-aa86-f852854900c3" width="240" />
+  <img src="https://github.com/mandoong/moviemangae-front/assets/111546154/f2832df6-d021-4a47-a506-28b154c93ec9" width="240" />
 </div>
 
 > 소셜 로그인 기능을 지원하여 구글, 네이버, 카카오 계정으로 간편하게 로그인한 뒤 서비스를 이용할 수 있습니다.
