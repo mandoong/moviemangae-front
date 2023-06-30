@@ -61,7 +61,7 @@
         </button>
         <button
           class="flex-1 flex justify-center items-center bg-blue-500 rounded-lg h-12 font-bold"
-          @click="comment ? updateComment(comment.id) : createComment"
+          @click="comment ? updateComment(comment.id) : createComment()"
         >
           리뷰 올리기
         </button>
@@ -129,7 +129,7 @@ export default {
         return;
       }
 
-      const result = await Comment.CreateComment(post);
+      await Comment.CreateComment(post);
       this.$router.push(`/movie/${this.$route.params.id}`);
     },
 
