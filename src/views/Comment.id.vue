@@ -59,7 +59,10 @@
               {{ comment.content }}
             </div>
             <div class="text-subText flex px-2 items-center text-sm gap-2">
-              <HeartIcon class="w-4 h-4" />
+              <HeartIcon
+                class="w-4 h-4"
+                :class="isLiked(comment.id) ? 'text-red-400' : ''"
+              />
               <div>{{ comment.like }}</div>
               <ChatBubbleLeftIcon class="h-4 w-4 ml-2" />
               <div>{{ comment.children.length }}</div>
@@ -95,7 +98,10 @@
             {{ children.content }}
           </div>
           <div class="text-subText flex px-2 items-center text-sm gap-2">
-            <HeartIcon class="w-4 h-4" />
+            <HeartIcon
+              class="w-4 h-4"
+              :class="isLiked(children.id) ? 'text-red-400' : ''"
+            />
             <div>{{ children.like }}</div>
           </div>
         </div>

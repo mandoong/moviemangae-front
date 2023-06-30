@@ -15,7 +15,10 @@
       :modules="modules"
       class="w-full h-24"
     >
-      <swiper-slide v-for="i in imgs" :key="i"
+      <swiper-slide
+        v-for="i in imgs"
+        :key="i"
+        @click="$router.push('/movie/202')"
         ><img class="h-full w-full object-cover object-center z-10" :src="i"
       /></swiper-slide>
     </swiper>
