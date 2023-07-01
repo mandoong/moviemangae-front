@@ -7,7 +7,10 @@
       </button>
     </div>
     <div v-if="movie" class="w-full text-[#efefef]">
-      <div class="w-full mt-4 h-24 relative overflow-hidden">
+      <div
+        class="w-full mt-4 h-24 relative overflow-hidden"
+        @click="$router.push(`/movie/${movie[0].id}`)"
+      >
         <div
           class="absolute p-2 text-sm px-2 text-[#efefef] flex items-end justify-between w-full h-full bg-black"
         >
@@ -20,7 +23,7 @@
         <div class="flex h-24 justify-center">
           <div
             class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
-            :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
+            :style="{ 'background-image': `url(${onErrorImg})` }"
           >
             <div
               class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
@@ -32,6 +35,7 @@
       <div
         class="w-full h-12 my-2 px-2 text-sm rounded-lg font-bold flex items-center bg-[#25304B] text-[#efefef]"
         v-for="(movie, index) in movie"
+        @click="$router.push(`/movie/${movie.id}`)"
         :key="movie"
       >
         <div class="w-10 h-10 flex items-center">
@@ -99,6 +103,7 @@ export default {
   data() {
     return {
       yesterdayRank: [],
+      movieImg: null,
     };
   },
 
@@ -118,6 +123,14 @@ export default {
         return "new";
       }
       return index - rank;
+    },
+
+    onErrorImg() {
+      fetch(this.movie[0].cover_imgUrl)
+        .then()
+        .catch((e) => {
+          return this.movie[1].cover_imgUrl;
+        });
     },
   },
 

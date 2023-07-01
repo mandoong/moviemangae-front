@@ -22,6 +22,9 @@ export default {
       fontSize: {
         xxs: "10px",
       },
+      fontFamily: {
+        noto: ["Noto Sans KR", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

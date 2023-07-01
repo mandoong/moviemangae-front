@@ -18,10 +18,10 @@ MMAPI.interceptors.response.use(
     console.log(error);
     if (error.response) {
       if (error.response.status === 401) {
-        Cookies.remove("accessToken");
-        const url = window.location.href;
-        window.localStorage.setItem("redirect", url);
-        location.href = "/login";
+        // Cookies.remove("accessToken");
+        // const url = window.location.href;
+        // window.localStorage.setItem("redirect", url);
+        // location.href = "/login";
       }
     } else {
     }

@@ -69,9 +69,7 @@ export default {
     return {
       movieList: null,
       lightNumber: [0, 10, 20],
-
-      loginUrl:
-        "https://oqwc40fv0b.execute-api.ap-northeast-2.amazonaws.com/dev",
+      loginUrl: "https://api.fullbloommovies.com",
     };
   },
 

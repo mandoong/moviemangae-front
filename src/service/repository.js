@@ -113,6 +113,12 @@ export const Comment = {
       .catch((err) => err);
   },
 
+  UpdateComment: async (id, data) => {
+    return MMAPI.patch(`/comments/${id}`, data)
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   DeleteComment: async (id) => {
     return MMAPI.delete(`/comments/${id}/`)
       .then((res) => res)

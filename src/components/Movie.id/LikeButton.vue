@@ -21,7 +21,6 @@
       </button>
     </div>
     <div class="w-full h-16 flex mt-4 pb-4 border-b border-[#25304a]">
-      <div class="w-10"></div>
       <div class="flex-1 flex justify-between text-xs">
         <button
           class="flex flex-1 flex-col justify-center items-center gap-2"
@@ -48,7 +47,6 @@
           <div>리뷰쓰기</div>
         </button>
       </div>
-      <EllipsisVerticalIcon class="h-6 w-10 text-gray-500" />
     </div>
   </div>
 </template>
@@ -87,6 +85,9 @@ export default {
 
   methods: {
     async onClickLikeMovie(type = "likeMovie") {
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
       const { id } = this.movie;
 
       if (!this.likeStatus) {
@@ -108,6 +109,10 @@ export default {
     async onClickAddBestMovie() {
       const { id } = this.movie;
 
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
+
       if (!this.bestStatus) {
         await Movie.addMyMovieList(id, "bestMovie");
         this.bestStatus = true;
@@ -121,6 +126,10 @@ export default {
     async onClickAddViewMovie() {
       const { id } = this.movie;
 
+      if (!this.user) {
+        return this.$emit("onModal", " 로그인이 필요합니다. ");
+      }
+
       if (!this.viewStatus) {
         await Movie.addMyMovieList(id, "viewMovie");
         this.viewStatus = true;
@@ -132,6 +141,13 @@ export default {
     },
 
     isStatus() {
+      if (!this.user) {
+        return this.$emit(
+          "onModal",
+          " 로그인을 하고 더 많은 서비스를 이용하세요. "
+        );
+      }
+
       if (
         this.user.liked_movie.some(
           (e) => e.movie.id === Number(this.$route.params.id)

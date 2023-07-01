@@ -193,7 +193,9 @@ export default {
   methods: {
     async fetch() {
       const user = await User.Profile();
-      if (user.status === 401) {
+      const token = window.localStorage.getItem("accessToken");
+      if (!token || user.status === 401) {
+        window.localStorage.setItem("redirect", window.location.href);
         this.$router.push("/login");
       }
       this.user = user.data;

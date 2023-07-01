@@ -61,7 +61,7 @@
         </button>
         <button
           class="flex-1 flex justify-center items-center bg-blue-500 rounded-lg h-12 font-bold"
-          @click="createComment"
+          @click="comment ? updateComment(comment.id) : createComment()"
         >
           리뷰 올리기
         </button>
@@ -83,6 +83,7 @@ export default {
       textContent: "",
       textLength: 0,
       textValidate: false,
+      comment: null,
     };
   },
 
@@ -93,12 +94,25 @@ export default {
   methods: {
     async fetch() {
       const id = this.$route.params.id;
-
+      const commentId = this.$route.query.comment;
       const movie = await Movie.GetMovieById(id);
       const user = await User.Profile();
+
       this.movie = movie.data;
-      if (user.data.comments.some((e) => e.movie_id === Number(id))) {
-        this.$router.push(`/movie/${id}`);
+
+      if (
+        commentId &&
+        this.movie.comments.some((e) => e.id === Number(commentId))
+      ) {
+        const comment = await Comment.GetCommentById(commentId);
+        this.comment = comment.data;
+        this.textContent = this.comment.content;
+        this.textLength = this.textContent.length;
+      }
+
+      if (user.status !== 200) {
+        window.localStorage.setItem("redirect", window.location.href);
+        return this.$router.push("/login");
       }
     },
 
@@ -115,8 +129,15 @@ export default {
         return;
       }
 
-      const result = await Comment.CreateComment(post);
+      await Comment.CreateComment(post);
       this.$router.push(`/movie/${this.$route.params.id}`);
+    },
+
+    async updateComment(id) {
+      const body = { content: this.textContent };
+
+      await Comment.UpdateComment(id, body);
+      this.$router.push(`/comment/${this.comment.id}`);
     },
 
     inputText(e) {

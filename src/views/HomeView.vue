@@ -59,7 +59,7 @@
 
       <HomeTitle href="/comment"> 인기있는 리뷰 🔥</HomeTitle>
 
-      <Slider :rows="recommendComment">
+      <Slider :rows="bestComment">
         <template #item="{ data }">
           <RecommendComment :comments="data" />
         </template>
@@ -148,6 +148,7 @@ export default {
       const deadlineMovies = await Movie.GetDeadlineMovie();
       const favoriteMovies = await Movie.GetFavoriteMovies();
       const comments = await Comment.GetAllComment();
+      const bestComment = await Comment.GetBestComment();
 
       if (top10Movies.data.length === 0) {
         const result = await MMAPI.get("crawler/top10/");
@@ -163,6 +164,7 @@ export default {
         this.deadlineMovies = deadlineMovies.data;
         this.favoriteMovies = favoriteMovies.data;
         this.recommendComment = comments.data;
+        this.bestComment = bestComment.data;
       }
     },
 
