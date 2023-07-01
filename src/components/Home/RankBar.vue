@@ -23,7 +23,7 @@
         <div class="flex h-24 justify-center">
           <div
             class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
-            :style="{ 'background-image': `url(${onErrorImg})` }"
+            :style="{ 'background-image': `url(${movie[0].cover_imgUrl})` }"
           >
             <div
               class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
