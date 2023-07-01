@@ -23,7 +23,7 @@
         <div class="flex h-24 justify-center">
           <div
             class="h-full aspect-[32/10] bg-black bg-cover bg-top shadow-lg z-10"
-            :style="{ 'background-image': `url(${movie[0].cover_imgUrl})` }"
+            :style="{ 'background-image': `url(${movie[0].cover_imageUrl})` }"
           >
             <div
               class="w-full h-full bg-gradient-to-r to-black from-black via-transparent"
@@ -123,14 +123,6 @@ export default {
         return "new";
       }
       return index - rank;
-    },
-
-    onErrorImg() {
-      fetch(this.movie[0].cover_imgUrl)
-        .then()
-        .catch((e) => {
-          return this.movie[1].cover_imgUrl;
-        });
     },
   },
 
